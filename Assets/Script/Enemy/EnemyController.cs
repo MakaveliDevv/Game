@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public enum EnemyState { PATROL, CHASE, ATTACK }
+
 public class EnemyController : MonoBehaviour
 {
     private EnemyState state;
     private NavMeshAgent navAgent;
     private GameObject target;
-    public float walkSpeed, runSpeed, chase_distance, attack_distance, chaseAfterAttack_distance;
+    public float walkSpeed, 
+    runSpeed, 
+    chase_distance, 
+    attack_distance, 
+    chaseAfterAttack_distance;
     private float currentChase_distance;
     public float minPatrol_distance, maxPatrol_distance;
     public float patrol_time;
@@ -33,22 +38,19 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(state == EnemyState.PATROL) 
+        switch (state) 
         {
-            // patrol
-            Patrol();
-        }
-
-        if(state == EnemyState.CHASE) 
-        {
-            // chase
-            Chase();
-        }
-
-        if(state == EnemyState.ATTACK) 
-        {
-            // attack
-            Attack();
+            case EnemyState.PATROL:
+                Patrol();
+                break;
+            case EnemyState.CHASE:
+                Chase();
+                break;
+            case EnemyState.ATTACK:
+                Attack();
+                break;
+            default:
+                break;
         }
     }
 
