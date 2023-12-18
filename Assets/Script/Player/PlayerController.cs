@@ -31,9 +31,58 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-    {
-        movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
+    {        
         // Debug.Log(player.controller.velocity.sqrMagnitude);
+        movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
+
+        // Check for state transitions
+        switch (state)
+        {
+            case PlayerState.IDLE:
+                // Check if the player is going to walk or run
+                if (player.controller.velocity.sqrMagnitude > 0.01f)
+                {
+                    state = PlayerState.WALK;
+                    PlayerWalk();                
+                } else if(player.controller.velocity.sqrMagnitude > 0.01f && Input.GetKeyDown(KeyCode.LeftShift)) 
+                {
+                    state = PlayerState.RUN;
+                    PlayerRun();
+                }
+
+                break;
+
+            case PlayerState.WALK:
+                // Check if the player is going to run or idle
+                if (player.controller.velocity.sqrMagnitude < player.walkSpeed)
+                {
+                    state = PlayerState.IDLE;
+                    PlayerIdle();
+
+                } else if(Input.GetKeyDown(KeyCode.LeftShift)) 
+                {
+                    state = PlayerState.RUN;
+                    PlayerRun();
+                }
+
+                break;
+
+            case PlayerState.RUN:
+                if(player.controller.velocity.sqrMagnitude > player.walkSpeed && Input.GetKeyUp(KeyCode.LeftShift)) 
+                {
+                    state = PlayerState.WALK;
+                    PlayerWalk();
+                } 
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        player.Move(movementInput);
     }
 
     // void FixedUpdate()
@@ -44,93 +93,43 @@ public class PlayerController : MonoBehaviour
     //     switch (state)
     //     {
     //         case PlayerState.IDLE:
-    //             // Check if the player is going to walk or run
     //             if (player.controller.velocity.sqrMagnitude > 0.01f)
     //             {
-    //                 PlayerWalk();                
+    //                 PlayerWalk();
     //                 state = PlayerState.WALK;
-    //             } else if(player.controller.velocity.sqrMagnitude > 0.01f && Input.GetKeyDown(KeyCode.LeftShift)) 
+    //             }
+    //             else if (Input.GetKey(KeyCode.LeftShift))
     //             {
     //                 PlayerRun();
     //                 state = PlayerState.RUN;
     //             }
-
     //             break;
 
     //         case PlayerState.WALK:
-    //             // Check if the player is going to run or idle
     //             if (player.controller.velocity.sqrMagnitude < player.walkSpeed)
     //             {
     //                 PlayerIdle();
     //                 state = PlayerState.IDLE;
-
-    //             } else if(Input.GetKeyDown(KeyCode.LeftShift)) 
+    //             }
+    //             else if (Input.GetKey(KeyCode.LeftShift))
     //             {
     //                 PlayerRun();
     //                 state = PlayerState.RUN;
     //             }
-
     //             break;
 
     //         case PlayerState.RUN:
-    //             if(player.controller.velocity.sqrMagnitude > player.walkSpeed && Input.GetKeyUp(KeyCode.LeftShift)) 
+    //             if (player.controller.velocity.sqrMagnitude < player.runSpeed && !Input.GetKeyUp(KeyCode.LeftShift))
     //             {
     //                 PlayerWalk();
     //                 state = PlayerState.WALK;
-    //             } 
-
-
+    //             }
     //             break;
+
     //         default:
     //             break;
     //     }
     // }
-
-    void FixedUpdate()
-    {
-        player.Move(movementInput);
-
-        // Check for state transitions
-        switch (state)
-        {
-            case PlayerState.IDLE:
-                if (player.controller.velocity.sqrMagnitude > 0.01f)
-                {
-                    PlayerWalk();
-                    state = PlayerState.WALK;
-                }
-                else if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    PlayerRun();
-                    state = PlayerState.RUN;
-                }
-                break;
-
-            case PlayerState.WALK:
-                if (player.controller.velocity.sqrMagnitude < player.walkSpeed)
-                {
-                    PlayerIdle();
-                    state = PlayerState.IDLE;
-                }
-                else if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    PlayerRun();
-                    state = PlayerState.RUN;
-                }
-                break;
-
-            case PlayerState.RUN:
-                if (player.controller.velocity.sqrMagnitude < player.runSpeed && !Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    PlayerWalk();
-                    state = PlayerState.WALK;
-                }
-                break;
-
-            default:
-                break;
-        }
-    }
 
 
     void PlayerIdle()

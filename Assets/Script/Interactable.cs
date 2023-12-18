@@ -3,7 +3,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public GameObject objectPrefab;
-    public Inventory _inventory;
+    // public Inventory _inventory;
     public GameObject player;
 
     public float radius = 3f;
