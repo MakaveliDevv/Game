@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerAnimator anim;
     private Vector3 movementInput;
-
     public bool isIdle, isWalking, isRunning;
 
     void Awake()
@@ -29,9 +28,10 @@ public class PlayerController : MonoBehaviour
         isRunning = false;
         isIdle = false;
     }
+    
 
     void Update()
-    {        
+    {
         // Debug.Log(player.controller.velocity.sqrMagnitude);
         movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
 
@@ -80,57 +80,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void FixedUpdate() 
     {
         player.Move(movementInput);
     }
-
-    // void FixedUpdate()
-    // {
-    //     player.Move(movementInput);
-
-    //     // Check for state transitions
-    //     switch (state)
-    //     {
-    //         case PlayerState.IDLE:
-    //             if (player.controller.velocity.sqrMagnitude > 0.01f)
-    //             {
-    //                 PlayerWalk();
-    //                 state = PlayerState.WALK;
-    //             }
-    //             else if (Input.GetKey(KeyCode.LeftShift))
-    //             {
-    //                 PlayerRun();
-    //                 state = PlayerState.RUN;
-    //             }
-    //             break;
-
-    //         case PlayerState.WALK:
-    //             if (player.controller.velocity.sqrMagnitude < player.walkSpeed)
-    //             {
-    //                 PlayerIdle();
-    //                 state = PlayerState.IDLE;
-    //             }
-    //             else if (Input.GetKey(KeyCode.LeftShift))
-    //             {
-    //                 PlayerRun();
-    //                 state = PlayerState.RUN;
-    //             }
-    //             break;
-
-    //         case PlayerState.RUN:
-    //             if (player.controller.velocity.sqrMagnitude < player.runSpeed && !Input.GetKeyUp(KeyCode.LeftShift))
-    //             {
-    //                 PlayerWalk();
-    //                 state = PlayerState.WALK;
-    //             }
-    //             break;
-
-    //         default:
-    //             break;
-    //     }
-    // }
-
 
     void PlayerIdle()
     {

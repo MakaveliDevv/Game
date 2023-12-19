@@ -3,25 +3,20 @@ using UnityEngine;
 public class ItemPickup : Interactable
 {
     public Item item;
+
     public override void Interact()
     {
         base.Interact();
-
         PickUp();
     }
 
-    void PickUp () 
-    {        
-        bool itemCollected = Inventoryy.instance.Add(item);
-        if(itemCollected) 
+    bool PickUp()
+    {
+        bool pickedUpBuff = Inventoryy.instance.Add(item);
+        
+        if(pickedUpBuff) 
             Destroy(gameObject);
 
-        // bool objectCollected = _inventory.CollectWeapon(objectPrefab);
-
-        // if(objectCollected) 
-        // {
-        //     Destroy(gameObject);
-        //     Debug.Log("Item picked up, collecting " + item.name);
-        // }
+        return pickedUpBuff;
     }
 }

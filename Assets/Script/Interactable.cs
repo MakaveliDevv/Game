@@ -1,34 +1,39 @@
 using UnityEngine;
 
+/* This handles the interaction with the player */
 public class Interactable : MonoBehaviour
 {
+    public float collideRadius = 3f;
+    protected Transform target;
     public GameObject objectPrefab;
-    // public Inventory _inventory;
-    public GameObject player;
 
-    public float radius = 3f;
-    public bool player_inRange = false;
+    private bool player_inRange = false;
 
-    void Update()
+    public virtual void Start() 
     {
-        CheckDistance();
+        target = PlayerManager.instance.player.transform;
     }
-
+    
     public virtual void Interact()
     {
         // this method is ment to be overwritten
         Debug.Log("Interacting with " + transform.name);
     }
 
-    private void CheckDistance()
+    public void Update() 
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance <= radius && !player_inRange)
+        CheckDistance();
+    }
+    
+    public void CheckDistance()
+    {
+        float distance = Vector3.Distance(target.position, transform.position);
+        if (distance <= collideRadius && !player_inRange)
         {
             player_inRange = true;
             Interact();
         }
-        else if (distance >= radius && player_inRange)
+        else if (distance >= collideRadius && player_inRange)
         {
             player_inRange = false;
         }
@@ -40,8 +45,7 @@ public class Interactable : MonoBehaviour
             objectPrefab = gameObject;
     
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, collideRadius);
     }
-
 }

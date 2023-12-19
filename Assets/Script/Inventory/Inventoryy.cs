@@ -16,8 +16,10 @@ public class Inventoryy : MonoBehaviour
     }
     #endregion 
     
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallBack;
+    public delegate void OnItemPickup(Item item);
+    public delegate void OnPickUp();
+    public OnItemPickup itemPickupCallBack;
+    public OnPickUp pickUpCallBack;
     
     public int space = 20;
     public List<Item> items = new();
@@ -27,28 +29,26 @@ public class Inventoryy : MonoBehaviour
         return items.Count < space;
     }
 
-    public bool Add(Item item) 
+    public bool Add(Item _item) 
     {
-        if(!item.isDefaultItem) 
+        if(!_item.isDefaultItem) 
         {
             if(!CanCollectItem()) 
-            {
-                Debug.Log("Not enough room");
                 return false; 
-            }
 
             // continue to add item
-            items.Add(item);           
-            onItemChangedCallBack?.Invoke();
+            items.Add(_item);           
+            itemPickupCallBack?.Invoke(_item);
+            pickUpCallBack?.Invoke();
         }
 
         return true;        
     }
 
-    public void Remove(Item item) 
+    public void Remove(Item _item) 
     {
-        items.Remove(item);
-        onItemChangedCallBack?.Invoke();
-    }
-   
+        items.Remove(_item);
+        itemPickupCallBack?.Invoke(_item);
+        pickUpCallBack?.Invoke();
+    }   
 }

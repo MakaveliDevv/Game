@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         inventory = Inventoryy.instance;
-        inventory.onItemChangedCallBack += UpdateUI;
+        inventory.pickUpCallBack += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
     }
@@ -20,9 +20,7 @@ public class InventoryUI : MonoBehaviour
     void Update()
     {
         if(Input.GetButtonDown("Inventory")) 
-        {
             inventoryUI.SetActive(!inventoryUI.activeSelf);
-        }
     }
 
     void UpdateUI() 

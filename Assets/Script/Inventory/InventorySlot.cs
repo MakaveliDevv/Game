@@ -21,4 +21,11 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = null;
         icon.enabled = false;
     }
+
+    public void UseItem() 
+    {
+        // Execute this method on pickup?
+        if(item != null) 
+            item.Use();
+    }
 }
