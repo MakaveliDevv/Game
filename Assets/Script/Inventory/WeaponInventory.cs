@@ -15,33 +15,77 @@ public class WeaponInventory : MonoBehaviour
         }
         instance = this;
     }
-        public delegate void OnWeaponPickup(Weapon _weapon);
+    public delegate void OnWeaponPickup(Weapon _weapon);
     public delegate void OnWeaponPickupUI();
 
     public OnWeaponPickup weaponPickupCallBack;
-    public OnWeaponPickupUI weaponPickupCallBackUI;
+    public OnWeaponPickupUI weaponPickupUICallBack;
     #endregion
 
     public int space = 1;
     public List<Weapon> weapons = new();
 
-    public bool AddWeapon(Weapon _weapon) 
+    public bool CanCollectWeapon() 
     {
-        if(!_weapon.isDefaultWeapon) 
+        return weapons.Count <= space;
+    }
+    
+      void Start()
+    {
+        // Find the default weapon and add it to the inventory if there is space
+        Weapon defaultWeapon = FindDefaultWeapon();
+        if (defaultWeapon != null && CanCollectWeapon())
         {
-            weapons.Add(_weapon);
-            
-            // Invoke the method call back
-            weaponPickupCallBack?.Invoke(_weapon);
-            weaponPickupCallBackUI.Invoke();
+            weapons.Add(defaultWeapon);
+            weaponPickupCallBack?.Invoke(defaultWeapon);
+            weaponPickupUICallBack?.Invoke();
         }
+    }
+
+    public Weapon FindDefaultWeapon() 
+    {
+        Weapon[] allWeapons = Resources.FindObjectsOfTypeAll<Weapon>();
+
+        foreach (Weapon _weapon in allWeapons)
+        {
+            if(_weapon.isDefaultWeapon) 
+            {   
+                return _weapon;
+            }
+        }
+        return null;
+    }
+
+    public bool AddWeapon(Weapon _newWeapon) 
+    {
+        if(!CanCollectWeapon()) 
+            return false;
+        
+
+        Weapon previousWeapon = weapons.Count > 0 ? weapons[0] : null;
+
+        weapons.Clear();
+        weapons.Add(_newWeapon);
+
+        weaponPickupCallBack?.Invoke(_newWeapon);
+        weaponPickupCallBack?.Invoke(previousWeapon);
+        weaponPickupUICallBack?.Invoke();
+
         return true;
     }
 
-    public void RemoveWeapon(Weapon _weapon) 
-    {
-        weapons.Remove(_weapon);
-        weaponPickupCallBack?.Invoke(_weapon);
-        weaponPickupCallBackUI.Invoke();
-    }
+    // public void RemoveWeapon(Weapon _weapon) 
+    // {
+    //     weapons.Remove(_weapon);
+    //     weaponPickupCallBack?.Invoke(_weapon);
+    //     // weaponPickupCallBackUI.Invoke();
+
+    //     // Add the default weapon after removing to maintain the required space
+    //     Weapon defaultWeapon = FindDefaultWeapon();
+    //     if(defaultWeapon != null && CanCollectWeapon()) 
+    //     {
+    //         weapons.Add(defaultWeapon);
+    //         weaponPickupCallBack?.Invoke(defaultWeapon);
+    //     }
+    // }
 }

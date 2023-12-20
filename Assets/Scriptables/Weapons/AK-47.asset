@@ -19,5 +19,5 @@ MonoBehaviour:
   bulletVelocity: 2
   range: 175
   fireRate: 15
-  icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
+  icon: {fileID: 21300000, guid: c0f56bca96c09104abba22303b9b1303, type: 3}
   isDefaultWeapon: 0
