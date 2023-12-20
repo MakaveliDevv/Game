@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /* This handles the behaviour of the Enemy */
-public enum EnemyState { PATROL, CHASE, ATTACK }
+public enum EnemyState { CHASE, ATTACK }
 
 public class EnemyController : MonoBehaviour
 {

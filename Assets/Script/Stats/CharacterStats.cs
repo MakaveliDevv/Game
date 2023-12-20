@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    // public int maxHealth = 100;
+    // public int currentHealth;
+    public Stat maxHealth;
+    public Stat currentHealth;
     public Stat damage;
     public Stat armor;
+    public Stat walkSpeed;
+    public Stat runSpeed;
 
     void Awake() 
     {
         currentHealth = maxHealth;
-    }
-
-    void Update() 
-    {
-        // if(Input.GetKeyDown(KeyCode.T)) 
-        // {
-        //     TakeDamage(10);
-        // }
     }
 
     public void TakeDamage(float incomingDamage)
@@ -31,12 +27,12 @@ public class CharacterStats : MonoBehaviour
         finalDamage = Mathf.Clamp(finalDamage, 0, int.MaxValue);
 
         // Apply the final damage to the character's health
-        currentHealth -= finalDamage;
+        currentHealth.SetValue(currentHealth.GetValue() - finalDamage);
         Debug.Log(transform.name + " takes " + finalDamage + " damage.");
 
-        if (currentHealth <= 0f)
+        if (currentHealth.GetValue() <= 0f)
         {
-            currentHealth = 0;
+            currentHealth.SetValue(0);
             Die();
         }
     }

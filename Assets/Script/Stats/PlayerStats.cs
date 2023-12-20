@@ -8,7 +8,6 @@ public class PlayerStats : CharacterStats
     void Start()
     {
         PowerupInventory.instance.powerupPickupCallBack += OnPowerupPickUp;
-        // WeaponInventory.instance.weaponPickupCallBack += OnWeaponPickUp;
     }
 
     void OnPowerupPickUp(Item item)

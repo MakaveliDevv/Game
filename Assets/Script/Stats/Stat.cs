@@ -19,6 +19,11 @@ public class Stat
         return finalValue;
     }
 
+    public void SetValue(float vlaue) 
+    {
+        baseValue = vlaue;
+    }
+
     public float GetPercentageReduction(float maxPercentage)
     {
         return Mathf.Clamp(GetValue(), 0, maxPercentage);

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerMovement player;
     [SerializeField] private PlayerAnimator anim;
+    private CharacterStats stats;
     private Vector3 movementInput;
     public bool isIdle, isWalking, isRunning;
 
@@ -17,12 +18,13 @@ public class PlayerController : MonoBehaviour
     {
         player = GetComponent<PlayerMovement>();
         anim = GetComponent<PlayerAnimator>();
+        stats = GetComponent<CharacterStats>();
     }
 
     void Start()
     {
         state = PlayerState.IDLE;
-        player.currentSpeed = player.walkSpeed;
+        player.currentSpeed = stats.walkSpeed;
 
         isWalking = false;
         isRunning = false;
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.WALK:
                 // Check if the player is going to run or idle
-                if (player.controller.velocity.sqrMagnitude < player.walkSpeed)
+                if (player.controller.velocity.sqrMagnitude < stats.walkSpeed.GetValue())
                 {
                     state = PlayerState.IDLE;
                     PlayerIdle();
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.RUN:
-                if(player.controller.velocity.sqrMagnitude > player.walkSpeed && Input.GetKeyUp(KeyCode.LeftShift)) 
+                if(player.controller.velocity.sqrMagnitude > stats.walkSpeed.GetValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
                 {
                     state = PlayerState.WALK;
                     PlayerWalk();
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerIdle()
     {
-        player.currentSpeed = player.walkSpeed;
+        player.currentSpeed = stats.walkSpeed;
         isWalking = false;
         isRunning = false;
 
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerWalk()
     {
-        player.currentSpeed = player.walkSpeed;
+        player.currentSpeed = stats.walkSpeed;
 
         isIdle = false;
         isRunning = false;
@@ -114,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerRun()
     {
-        player.currentSpeed = player.runSpeed;
+        player.currentSpeed = stats.runSpeed;
 
         isIdle = false;
         isWalking = false;
