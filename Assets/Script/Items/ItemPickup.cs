@@ -7,16 +7,16 @@ public class ItemPickup : Interactable
     public override void Interact()
     {
         base.Interact();
-        PickUp();
+        ItemPickUp();
     }
 
-    bool PickUp()
+    bool ItemPickUp()
     {
-        bool pickedUpBuff = Inventoryy.instance.Add(item);
+        bool pickedUpItem = PowerupInventory.instance.AddItem(item);
         
-        if(pickedUpBuff) 
+        if(pickedUpItem) 
             Destroy(gameObject);
 
-        return pickedUpBuff;
+        return pickedUpItem;
     }
 }

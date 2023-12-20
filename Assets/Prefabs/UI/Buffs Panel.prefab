@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 7112933120431424967}
   - component: {fileID: 3710742355896591983}
   - component: {fileID: 8891429766909773269}
-  - component: {fileID: 7776632738390618185}
+  - component: {fileID: 6979282465119442096}
   m_Layer: 5
   m_Name: Buff Slot 4
   m_TagString: Untagged
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7776632738390618185
+--- !u!114 &6979282465119442096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3708253310711901829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2e2a5fd90194441af47e5191bc8fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ba327e05c6dc5a84485639645da26af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 6492841896061727805}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 832019360562119447}
   - component: {fileID: 2702684216572531444}
   - component: {fileID: 7560085999176610072}
-  - component: {fileID: 8042878627597758346}
+  - component: {fileID: 4395310664040702358}
   m_Layer: 5
   m_Name: Buff Slot 2
   m_TagString: Untagged
@@ -617,7 +617,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8042878627597758346
+--- !u!114 &4395310664040702358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4061039882103408227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2e2a5fd90194441af47e5191bc8fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ba327e05c6dc5a84485639645da26af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1155373486052119429}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 7776391415549205235}
   - component: {fileID: 654088232834387242}
   - component: {fileID: 8131216974254152874}
-  - component: {fileID: 6431510984806425909}
+  - component: {fileID: 1631254407550999319}
   m_Layer: 5
   m_Name: Buff Slot
   m_TagString: Untagged
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6431510984806425909
+--- !u!114 &1631254407550999319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -716,7 +716,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5888966710239313237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2e2a5fd90194441af47e5191bc8fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ba327e05c6dc5a84485639645da26af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 9217293185487375079}
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 3962350172462396316}
   - component: {fileID: 1323557630235912454}
   - component: {fileID: 3105505947011311384}
-  - component: {fileID: 6953668711387812310}
+  - component: {fileID: 8792958136968078882}
   m_Layer: 5
   m_Name: Buff Slot 3
   m_TagString: Untagged
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6953668711387812310
+--- !u!114 &8792958136968078882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8470641479739542057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c2e2a5fd90194441af47e5191bc8fbd, type: 3}
+  m_Script: {fileID: 11500000, guid: ba327e05c6dc5a84485639645da26af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 6085354273022799049}
@@ -979,8 +979,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -237, y: 135}
-  m_SizeDelta: {x: -413.5031, y: -139.0874}
+  m_AnchoredPosition: {x: -237, y: 158.4737}
+  m_SizeDelta: {x: -413.5031, y: -92.1401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1136801722514198183
 CanvasRenderer:

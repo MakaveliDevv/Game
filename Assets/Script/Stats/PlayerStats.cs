@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStats
 {
-    Inventoryy inv;
-
     void Start()
     {
-        Inventoryy.instance.itemPickupCallBack += OnItemPickUp;
+        PowerupInventory.instance.powerupPickupCallBack += OnPowerupPickUp;
+        // WeaponInventory.instance.weaponPickupCallBack += OnWeaponPickUp;
     }
 
-    void OnItemPickUp(Item item)
+    void OnPowerupPickUp(Item item)
     {
+        // On powerup pickup, add the powerup modifiers
         if(item != null) 
         {
             damage.AddModifier(item.damageModifier);

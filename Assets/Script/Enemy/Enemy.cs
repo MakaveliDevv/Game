@@ -15,14 +15,14 @@ public class Enemy : Interactable
         stats = GetComponent<CharacterStats>();
     }
 
-    public override void Interact()
-    {
-        base.Interact();
+    // public override void Interact()
+    // {
+    //     base.Interact();
 
-        CharacterCombat playerCombat = target.GetComponent<CharacterCombat>();
-        if(playerCombat != null) 
-        {
-            playerCombat.Attack(stats);
-        }
-    }
+    //     CharacterCombat playerCombat = target.GetComponent<CharacterCombat>();
+    //     if(playerCombat != null) 
+    //     {
+    //         playerCombat.Attack(stats);
+    //     }
+    // }
 }

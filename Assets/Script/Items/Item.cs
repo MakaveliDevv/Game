@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+[CreateAssetMenu(fileName = "New Powerup", menuName = "Scriptables/Powerup")]
 public class Item : ScriptableObject
 {
-    new public string name = "New Item"; // Name of the item
-    public string powerupType = "type";
+    new public string name = "Name"; // Name of the item
+    public string powerupType = "Type";
     public int damageModifier;
     public int armorModifier;
     public int speedModifier;
     public Sprite icon = null; // Item icon
-    public bool isDefaultItem = false; // Is the item default wear?
+    public bool isDefaultItem = false;
  
     public virtual void Use() 
     {
