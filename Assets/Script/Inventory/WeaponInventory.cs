@@ -9,18 +9,24 @@ public class WeaponInventory : MonoBehaviour
 
     void Awake() 
     {
-        if(instance != null) 
-        {
-            Debug.Log("More than one instance of the weapon Inventory found!");
-        }
-        instance = this;
+        // if(instance != null) 
+        // {
+            // Debug.Log("More than one instance of the WeaponInventory found!");
+            // Destroy(this.gameObject); // Destroy the duplicate instance
+            // return;
+            instance = this;
+        // }
+        // DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
     }
+    #endregion
+
+    private Weapon weaponInstance;
+    private Weapon currentWeapon; // Keep track of the currently equipped weapon
     public delegate void OnWeaponPickup(Weapon _weapon);
     public delegate void OnWeaponPickupUI();
 
     public OnWeaponPickup weaponPickupCallBack;
     public OnWeaponPickupUI weaponPickupUICallBack;
-    #endregion
 
     public int space = 1;
     public List<Weapon> weapons = new();
@@ -30,26 +36,40 @@ public class WeaponInventory : MonoBehaviour
         return weapons.Count <= space;
     }
     
-      void Start()
+    void Start()
     {
+        weaponInstance = Weapon.instance;
+
+        // Set all weapons in the list except the first one as not default
+        for (int i = 1; i < weapons.Count; i++)
+        {
+            weapons[i].isDefaultWeapon = false;
+        }    
+
         // Find the default weapon and add it to the inventory if there is space
         Weapon defaultWeapon = FindDefaultWeapon();
         if (defaultWeapon != null && CanCollectWeapon())
         {
-            weapons.Add(defaultWeapon);
+            currentWeapon = defaultWeapon; // Set the default weapon as the current weapon
+            weapons.Add(currentWeapon);
+
+            weaponInstance = defaultWeapon; // Assign the default weapon to weaponInstance
+            weaponInstance.weaponEquipped = true;
+
+            // Call back methods
             weaponPickupCallBack?.Invoke(defaultWeapon);
             weaponPickupUICallBack?.Invoke();
         }
     }
 
-    public Weapon FindDefaultWeapon() 
+    private Weapon FindDefaultWeapon() 
     {
         Weapon[] allWeapons = Resources.FindObjectsOfTypeAll<Weapon>();
 
         foreach (Weapon _weapon in allWeapons)
         {
             if(_weapon.isDefaultWeapon) 
-            {   
+            {
                 return _weapon;
             }
         }
@@ -61,11 +81,21 @@ public class WeaponInventory : MonoBehaviour
         if(!CanCollectWeapon()) 
             return false;
         
-
-        Weapon previousWeapon = weapons.Count > 0 ? weapons[0] : null;
+        Weapon previousWeapon = currentWeapon;
+        // Weapon previousWeapon = weapons.Count > 0 ? weapons[0] : null; // Get the previous weapon, if any
 
         weapons.Clear();
         weapons.Add(_newWeapon);
+
+        // Update the currently equipped weapon
+        currentWeapon = _newWeapon;
+
+        if(previousWeapon != null) 
+        {
+            previousWeapon.weaponEquipped = false;
+        }
+
+        _newWeapon.weaponEquipped = true;
 
         weaponPickupCallBack?.Invoke(_newWeapon);
         weaponPickupCallBack?.Invoke(previousWeapon);
@@ -73,19 +103,4 @@ public class WeaponInventory : MonoBehaviour
 
         return true;
     }
-
-    // public void RemoveWeapon(Weapon _weapon) 
-    // {
-    //     weapons.Remove(_weapon);
-    //     weaponPickupCallBack?.Invoke(_weapon);
-    //     // weaponPickupCallBackUI.Invoke();
-
-    //     // Add the default weapon after removing to maintain the required space
-    //     Weapon defaultWeapon = FindDefaultWeapon();
-    //     if(defaultWeapon != null && CanCollectWeapon()) 
-    //     {
-    //         weapons.Add(defaultWeapon);
-    //         weaponPickupCallBack?.Invoke(defaultWeapon);
-    //     }
-    // }
 }

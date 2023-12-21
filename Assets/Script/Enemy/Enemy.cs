@@ -7,14 +7,13 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 public class Enemy : Interactable
 {
-    #region Singleton
     public static Enemy instance;
 
     void Awake() 
     {
         instance = this;
     }
-    #endregion
+    
     private CharacterStats enemyStats;
 
     public override void Start() 

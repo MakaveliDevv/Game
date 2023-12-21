@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpawnState { SPAWNING, WAITING, COUNTING }
+
 public class SpawnManagerr : MonoBehaviour
 {
     #region Singleton
     public static SpawnManagerr instance;
     void Awake() 
     {
+        if(instance != null) 
+        {
+            Debug.Log("More than one instance of the WeaponInventory found!");
+            Destroy(this.gameObject); // Destroy the duplicate instance
+            return;
+        }
         instance = this;
-        enemyInstance = Enemy.instance;
+        DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
     }
-    #endregion
+    #endregion 
 
     public SpawnState state;
     private Enemy enemyInstance;
 
-    public List<GameObject> enemies = new();
-    public List<Transform> spawnLocations = new();
+    public List<GameObject> enemies = new List<GameObject>();
+    public List<Transform> spawnLocations = new List<Transform>();
 
-    public int enemyAmount;
+    public int initialEnemyAmount; // Initial amount for the first wave
+    private int enemyAmount;
     public int enemyCounter; // To keep track of the enemy
     
     public float spawnRate;
@@ -33,6 +41,8 @@ public class SpawnManagerr : MonoBehaviour
 
     void Start() 
     {
+        enemyInstance = Enemy.instance;
+
         state = SpawnState.COUNTING;
         if(spawnLocations.Count == 0) 
         {
@@ -40,6 +50,7 @@ public class SpawnManagerr : MonoBehaviour
         }
         waveCount = 1;
         waveCountDown = timeBetweenWaves;
+        enemyAmount = initialEnemyAmount;
         enemyCounter = enemyAmount;
     } 
 
@@ -69,7 +80,6 @@ public class SpawnManagerr : MonoBehaviour
         }
     }
 
-
     void WaveCompleted() 
     {
         state = SpawnState.COUNTING;
@@ -77,11 +87,23 @@ public class SpawnManagerr : MonoBehaviour
 
         waveCount++;
         ResetEnemyCounter();
+        IncreaseEnemyAmountPerWave(); // Increase the number of enemies for the next wave
     }
 
     void ResetEnemyCounter() 
     {
         enemyCounter = enemyAmount;        
+    }
+
+    void IncreaseEnemyAmountPerWave()
+    {
+        float increasePercentage = 0.35f; // 35%
+
+        // Calculate the increase based on the percentage
+        int increaseAmount = Mathf.RoundToInt(enemyAmount * increasePercentage);
+
+        // Increment the enemyAmount for the next wave
+        enemyAmount += increaseAmount;
     }
 
     bool EnemyIsAlive() 
@@ -107,11 +129,8 @@ public class SpawnManagerr : MonoBehaviour
 
         for (int i = 0; i < enemyCounter; i++)
         {
-            // Use modulo to cycle through the enemies list
-            int enemyIndex = i % enemies.Count;
-
             // Spawn enemies
-            InstantiateEnemy(enemies[enemyIndex]);
+            InstantiateEnemy();
             yield return new WaitForSeconds(1f / spawnRate);
         }
 
@@ -119,11 +138,11 @@ public class SpawnManagerr : MonoBehaviour
         yield break;
     }
 
-
-    void InstantiateEnemy(GameObject _enemy) 
+    void InstantiateEnemy() 
     {
-        // GameObject enemy = waveInstance.enemies[Random.Range(0, waveInstance.enemies.Count)];
+        GameObject enemy = enemies[Random.Range(0, enemies.Count)];
         Transform spawnPos = spawnLocations[Random.Range(0, spawnLocations.Count)];
-        Instantiate(_enemy, spawnPos.position, Quaternion.identity);
+        
+        Instantiate(enemy, spawnPos.position, Quaternion.identity);
     }
 }

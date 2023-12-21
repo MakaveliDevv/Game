@@ -25,23 +25,6 @@ public class Interactable : MonoBehaviour
         CheckDistance();
     }
     
-    // private void OnTriggerEnter(Collider other) 
-    // {
-    //     if(other.CompareTag("Player")) 
-    //     {
-    //         Debug.Log("Made collision with the player");
-    //         Interact();
-    //     }
-    // }
-
-    // private void OnTriggerExit(Collider other) 
-    // {
-    //     if(other.CompareTag("Player")) 
-    //     {
-    //         Debug.Log("Player is out of range");
-    //     }
-    // }
-
     public void CheckDistance()
     {
         float distance = Vector3.Distance(target.position, transform.position);

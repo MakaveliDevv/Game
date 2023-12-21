@@ -10,16 +10,19 @@ public class PowerupInventory : MonoBehaviour
     {
         if(instance != null) 
         {
-            Debug.LogWarning("More than one isntance of Inventory found!");
+            Debug.Log("More than one instance of the WeaponInventory found!");
+            Destroy(this.gameObject); // Destroy the duplicate instance
+            return;
         }
         instance = this;
+        DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
     }
-
+    #endregion 
+    
     public delegate void OnPowerupPickup(Item item);
     public delegate void OnPowerupPickUpUI();
     public OnPowerupPickup powerupPickupCallBack;
     public OnPowerupPickUpUI powerupPickUpCallBackUI;
-    #endregion 
 
     public int space = 3;
 
