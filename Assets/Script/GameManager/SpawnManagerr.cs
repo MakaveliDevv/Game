@@ -23,7 +23,7 @@ public class SpawnManagerr : MonoBehaviour
     public int enemyAmount;
     public int enemyCounter; // To keep track of the enemy
     
-    public float rate;
+    public float spawnRate;
     private int waveCount;
 
     public float timeBetweenWaves;
@@ -112,7 +112,7 @@ public class SpawnManagerr : MonoBehaviour
 
             // Spawn enemies
             InstantiateEnemy(enemies[enemyIndex]);
-            yield return new WaitForSeconds(1f / rate);
+            yield return new WaitForSeconds(1f / spawnRate);
         }
 
         state = SpawnState.WAITING;

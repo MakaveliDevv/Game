@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
     public virtual void Interact()
     {
         // this method is ment to be overwritten
-        // Debug.Log("Interacting with " + transform.name);
+        Debug.Log("Interacting with " + transform.name);
     }
 
     public void Update() 
@@ -25,6 +25,23 @@ public class Interactable : MonoBehaviour
         CheckDistance();
     }
     
+    // private void OnTriggerEnter(Collider other) 
+    // {
+    //     if(other.CompareTag("Player")) 
+    //     {
+    //         Debug.Log("Made collision with the player");
+    //         Interact();
+    //     }
+    // }
+
+    // private void OnTriggerExit(Collider other) 
+    // {
+    //     if(other.CompareTag("Player")) 
+    //     {
+    //         Debug.Log("Player is out of range");
+    //     }
+    // }
+
     public void CheckDistance()
     {
         float distance = Vector3.Distance(target.position, transform.position);
@@ -39,7 +56,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+    public virtual void OnDrawGizmosSelected()
     {
         if(objectPrefab == null) 
             objectPrefab = gameObject;

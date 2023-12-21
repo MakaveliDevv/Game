@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 5367014072721165555}
   - component: {fileID: 7897911403392338819}
   - component: {fileID: 245809662851086556}
+  - component: {fileID: 7250380940546166612}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -232,9 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  currentSpeed: 0
-  walkSpeed: 3
-  runSpeed: 6
+  currentSpeed:
+    baseValue: 0
   verticalVelocity: 0
   gravity: 10
 --- !u!114 &3177898134580532985
@@ -306,12 +306,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dccd011f3ff16f64999d3b0e75c0491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
+  maxHealth:
+    baseValue: 0
+  currentHealth:
+    baseValue: 0
   damage:
     baseValue: 25
   armor:
     baseValue: 15
+  walkSpeed:
+    baseValue: 0
+  runSpeed:
+    baseValue: 0
 --- !u!114 &245809662851086556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +331,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 1
+--- !u!65 &7250380940546166612
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8609454900119390210}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &6268999969840002788
 PrefabInstance:
   m_ObjectHideFlags: 0

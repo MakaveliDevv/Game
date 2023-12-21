@@ -26,7 +26,7 @@ public class CharacterStats : MonoBehaviour
 
         // Apply the final damage to the character's health
         currentHealth.SetValue(currentHealth.GetValue() - finalDamage);
-        Debug.Log(transform.name + " takes " + finalDamage + " damage.");
+        // Debug.Log(transform.name + " takes " + finalDamage + " damage.");
 
         if (currentHealth.GetValue() <= 0f)
         {

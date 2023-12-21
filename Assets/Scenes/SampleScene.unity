@@ -1646,7 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideRadius: 3
+  collideRadius: 4
   objectPrefab: {fileID: 1070187411}
   weapon: {fileID: 11400000, guid: 0211b615bb717424d91e131a82e4caa3, type: 2}
 --- !u!1 &1109299138
@@ -1681,7 +1681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideRadius: 3
+  collideRadius: 4
   objectPrefab: {fileID: 1109299138}
   weapon: {fileID: 11400000, guid: a14a95e265f6c834b9e5dcadcb564b29, type: 2}
 --- !u!136 &1109299140
@@ -2459,7 +2459,6 @@ MonoBehaviour:
   enemies:
   - {fileID: 5034793595742867596, guid: 26119941768dccc4286da6fd444067bb, type: 3}
   - {fileID: 683953524762823358, guid: 126df280fa77931489d21a0ea1b29925, type: 3}
-  - {fileID: 1070980337100862366, guid: 0b88366b3b472de47b7b7f62292ab901, type: 3}
   spawnLocations:
   - {fileID: 1162025761}
   - {fileID: 1854118518}
@@ -2470,7 +2469,7 @@ MonoBehaviour:
   - {fileID: 871533368}
   enemyAmount: 5
   enemyCounter: 0
-  rate: 0.5
+  spawnRate: 1.25
   timeBetweenWaves: 3
   waveCountDown: 0
 --- !u!1 &1854118517
@@ -2540,6 +2539,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
   m_PrefabInstance: {fileID: 3017402069060660328}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1916179923
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916179913}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1969581888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 245809662851086556, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: attackSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2778,7 +2804,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916179923}
   m_SourcePrefab: {fileID: 100100000, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
 --- !u!224 &4780703078170464132 stripped
 RectTransform:

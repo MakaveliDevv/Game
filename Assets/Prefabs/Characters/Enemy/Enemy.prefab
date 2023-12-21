@@ -92,13 +92,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4968342707880683817}
-  - component: {fileID: 3292750227836053992}
   - component: {fileID: 3180921598590204891}
   - component: {fileID: 778905931814030345}
   - component: {fileID: 8695610194285197131}
   - component: {fileID: 885190269658570328}
   - component: {fileID: 3280622437711167085}
   - component: {fileID: 860121267054694343}
+  - component: {fileID: 7749206652106681512}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -122,29 +122,6 @@ Transform:
   - {fileID: 190825005414802992}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &3292750227836053992
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5034793595742867596}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &3180921598590204891
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -215,7 +192,7 @@ MonoBehaviour:
   armor:
     baseValue: 2
   walkSpeed:
-    baseValue: 0
+    baseValue: 7
   runSpeed:
     baseValue: 0
 --- !u!114 &885190269658570328
@@ -230,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65868d84b7a81914e9bdb5ff4a4dacc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
+  attackSpeed: 3
 --- !u!114 &3280622437711167085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49773b3cc4f06dc42b8d48d68d9dffc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collideRadius: 3
+  collideRadius: 1.5
   objectPrefab: {fileID: 5034793595742867596}
 --- !u!114 &860121267054694343
 MonoBehaviour:
@@ -259,3 +236,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   inRangeRadius: 10
+--- !u!65 &7749206652106681512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034793595742867596}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
