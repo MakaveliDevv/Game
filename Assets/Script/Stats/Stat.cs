@@ -15,13 +15,17 @@ public class Stat
         {
             finalValue += modifier;
         }
-        // modifiers.ForEach(x => finalValue += x);
         return finalValue;
     }
 
-    public void SetValue(float vlaue) 
+    public void SetValue(float value) 
     {
-        baseValue = vlaue;
+        baseValue = value;
+    }
+
+    public float ReturnBaseValue() 
+    {
+        return baseValue;
     }
 
     public float GetPercentageReduction(float maxPercentage)

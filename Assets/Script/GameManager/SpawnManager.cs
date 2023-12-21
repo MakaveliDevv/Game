@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -13,7 +12,6 @@ public class SpawnManager : MonoBehaviour
         public GameObject[] enemy;
         public int count;
         public float rate;
-
    }
 
     public Wave[] waves;

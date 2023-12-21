@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.WALK:
                 // Check if the player is going to run or idle
-                if (player.controller.velocity.sqrMagnitude < stats.walkSpeed.GetValue())
+                if (player.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue())
                 {
                     state = PlayerState.IDLE;
                     PlayerIdle();
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.RUN:
-                if(player.controller.velocity.sqrMagnitude > stats.walkSpeed.GetValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
+                if(player.controller.velocity.sqrMagnitude > stats.walkSpeed.ReturnBaseValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
                 {
                     state = PlayerState.WALK;
                     PlayerWalk();

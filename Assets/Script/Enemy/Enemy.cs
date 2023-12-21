@@ -7,22 +7,30 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 public class Enemy : Interactable
 {
-    private CharacterStats stats;
+    #region Singleton
+    public static Enemy instance;
+
+    void Awake() 
+    {
+        instance = this;
+    }
+    #endregion
+    private CharacterStats enemyStats;
 
     public override void Start() 
     {
         base.Start();
-        stats = GetComponent<CharacterStats>();
+        enemyStats = GetComponent<CharacterStats>();
     }
 
-    // public override void Interact()
-    // {
-    //     base.Interact();
+    public override void Interact()
+    {
+        // base.Interact();
 
-    //     CharacterCombat playerCombat = target.GetComponent<CharacterCombat>();
-    //     if(playerCombat != null) 
-    //     {
-    //         playerCombat.Attack(stats);
-    //     }
-    // }
+        CharacterCombat playerCombat = target.GetComponent<CharacterCombat>();
+        if(playerCombat != null) 
+        {
+            playerCombat.Attack(enemyStats);
+        }
+    }
 }
