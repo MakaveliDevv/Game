@@ -6,7 +6,6 @@ public enum WeaponFireType { SINGLE, MULTIPLE, MELEE }
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Scriptables/Weapon")]
 public class Weapon : ScriptableObject
 {
-    // public Weapon instance;
     [HideInInspector] public GameObject weaponGameObject;
     new public string name = "Name";
     public WeaponType weaponType;
@@ -22,4 +21,5 @@ public class Weapon : ScriptableObject
     public bool weaponEquipped = false;
     public Sprite icon = null; // Item icon
     public GameObject muzzleFlash = null;
+    public GameObject wpn = null;
 }

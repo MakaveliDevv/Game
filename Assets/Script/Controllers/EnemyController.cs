@@ -10,21 +10,6 @@ public enum EnemyState { CHASE, ATTACK }
 
 public class EnemyController : MonoBehaviour
 {
-    // private EnemyState state;
-    // private NavMeshAgent navAgent;
-    // private GameObject target;
-    // public float walkSpeed, 
-    // runSpeed, 
-    // chase_distance, 
-    // attack_distance, 
-    // chaseAfterAttack_distance;
-    // private float currentChase_distance;
-    // public float minPatrol_distance, maxPatrol_distance;
-    // public float patrol_time;
-    // private float patrol_counter;
-    // public float attack_time;
-    // private float attack_counter;
-
     [SerializeField] private EnemyState state;
     public float inRangeRadius = 10f;
     private Transform target; // Player
@@ -93,6 +78,7 @@ public class EnemyController : MonoBehaviour
         {
             // If so, set the enemy in an Attack State
             state = EnemyState.ATTACK;
+            Debug.Log("Attacking");
 
             // Then get the CharacterStats component, this is needed for the Attack method
             CharacterStats targetStats = target.GetComponent<CharacterStats>();

@@ -5,12 +5,13 @@ using UnityEngine;
 public class WeaponPickup : Interactable
 {
     public Weapon weapon;
-    private float equippedTimer;
+    private GameObject instantiatedWeaponObject; // New field to store the instantiated weapon object
+
 
     public override void Start()
     {
         base.Start();
-        equippedTimer = weapon.equipTimer;
+        // weaponHolder = WeaponManagement.instance.weaponHolder.gameObject;
     }
 
     public override void Interact()
@@ -18,7 +19,7 @@ public class WeaponPickup : Interactable
         base.Interact();
         if(!weapon.isDefaultWeapon) 
         {
-            Debug.Log("Interacting with a weapon");
+            // Debug.Log("Interacting with a weapon");
             WeaponPickUp();
         }
     }
@@ -28,18 +29,41 @@ public class WeaponPickup : Interactable
         bool pickedUpWeapon = WeaponInventory.instance.AddWeapon(weapon);
         if(pickedUpWeapon)
         {
-            Debug.Log(transform.name + "picked up");
-            StartCoroutine(EquipTimerTest());
+            instantiatedWeaponObject = Equip();
+            // Equip();
+            // Debug.Log(transform.name + "picked up");
         }
     }
 
-    public IEnumerator EquipTimerTest() 
+    public IEnumerator AddWeaponWithDelay()
+    {
+        yield return new WaitForSeconds(weapon.waitBeforeEquip);
+
+        // Clear the list before adding a new one in the list
+        WeaponInventory.instance.weapons.Clear();
+        WeaponInventory.instance.weapons.Add(weapon);
+
+        EquipTimer();
+        
+        WeaponInventory.instance.weaponPickupCallBack?.Invoke(weapon);
+        WeaponInventory.instance.weaponPickupUICallBack?.Invoke();
+
+        yield break;
+    }
+    
+    public IEnumerator EquipTimer() 
     {
         yield return new WaitForSeconds(weapon.equipTimer);
-        Debug.Log("Timer ran out, destroying the weapon");
+        // Debug.Log("Timer ran out, destroying the weapon");
         weapon.weaponEquipped = false;
         Destroy(gameObject);
 
         yield break;    
+    }
+
+    public GameObject Equip()
+    {
+        StartCoroutine(AddWeaponWithDelay());
+        return instantiatedWeaponObject;
     }
 }

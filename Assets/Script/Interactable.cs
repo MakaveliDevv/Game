@@ -3,49 +3,69 @@ using UnityEngine;
 /* This handles the interaction with the player */
 public class Interactable : MonoBehaviour
 {
-    public float collideRadius = 3f;
+    private float boxRadius;
     protected Transform target;
     private GameObject objectPrefab;
+    private BoxCollider boxCollider;
 
-    private bool player_inRange = false;
+    private bool inRange = false;
 
     public virtual void Start() 
     {
         target = PlayerManager.instance.player.transform;
+        objectPrefab = gameObject;
+
+        boxCollider = GetComponent<BoxCollider>();    
+        Vector3 colliderSize = boxCollider.size; // Get the size of the box collider
+        boxRadius = colliderSize.magnitude; // Calculate the radius as the magnitude of the size
+
+        Debug.Log("Box collider radius: " + boxRadius);
     }
     
     public virtual void Interact()
     {
         // this method is ment to be overwritten
-        Debug.Log("Interacting with " + transform.name);
     }
 
-    public void Update() 
-    {
-        CheckDistance();
-    }
-    
-    public void CheckDistance()
-    {
-        float distance = Vector3.Distance(target.position, transform.position);
-        if (distance <= collideRadius && !player_inRange)
+    void OnTriggerEnter(Collider collider) 
+    {   
+        if(collider.CompareTag("Player") && !inRange) 
         {
-            player_inRange = true;
+            inRange = true;
             Interact();
         }
-        else if (distance >= collideRadius && player_inRange)
+
+    }
+
+    void OnTriggerExit(Collider collider) 
+    {   
+        if(collider.CompareTag("Player") && inRange) 
         {
-            player_inRange = false;
+            inRange = false;
         }
     }
 
-    public virtual void OnDrawGizmosSelected()
-    {
-        if(objectPrefab == null) 
-            objectPrefab = gameObject;
+    // public void CheckDistance()
+    // {
+    //     distance = Vector3.Distance(target.position, transform.position);
+    //     if (distance <= collideRadius && !inRange)
+    //     {
+    //         inRange = true;
+    //         Interact();
+    //     }
+    //     else if (distance >= collideRadius && inRange)
+    //     {
+    //         inRange = false;
+    //     }
+    // }
+
+    // public virtual void OnDrawGizmosSelected()
+    // {
+    //     if(objectPrefab == null) 
+    //         objectPrefab = gameObject;
     
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, collideRadius);
-    }
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawWireSphere(transform.position, collideRadius);
+    // }
 }

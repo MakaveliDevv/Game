@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    private SpawnManagerr spawnManagerInstance;    
+    private GameManager instance;    
     public bool deathIsComingForYou;
     void Awake() 
     {
-        spawnManagerInstance = SpawnManagerr.instance;
+        instance = GameManager.instance;
     }
 
     public override void Die()
@@ -16,7 +16,7 @@ public class EnemyStats : CharacterStats
         base.Die();
 
         deathIsComingForYou = true;
-        spawnManagerInstance.InstantiateWeapon(this.transform);
+        instance.InstantiateWeapon(this.transform);
 
         if(deathIsComingForYou == true) 
         {
@@ -24,8 +24,21 @@ public class EnemyStats : CharacterStats
             Destroy(gameObject);
 
             // Decrement the enemy counter
-            spawnManagerInstance.enemyCounter--;
-            spawnManagerInstance.deathCounter++;
+            instance.enemyCounter--;
+            instance.deadCounter++;
+            if (ShouldSpawnWeapon())
+            {
+                GameManager.instance.InstantiateWeapon(this.transform); // Pass the transform as a parameter
+            }
         }
+    }
+
+    bool ShouldSpawnWeapon()
+    {
+        float weaponSpawnPercentage = 0.1f; // Example: 10% of dead enemies spawn a weapon
+        float deadPercentage = GameManager.instance.deadCounter / (float)GameManager.instance.initialEnemyAmount;
+
+        // Check if the percentage of dead enemies is greater than or equal to the desired percentage
+        return deadPercentage >= weaponSpawnPercentage;
     }
 }

@@ -7,20 +7,17 @@ public class WeaponInventory : MonoBehaviour
 {
     #region Singleton
     public static WeaponInventory instance;
-
-    void Awake()
+    void Awake() 
     {
         if(instance != null) 
         {
-            Debug.Log("Message");
-            Destroy(this);
+            Destroy(this.gameObject); // Destroy the duplicate instance
             return;
         }
-
-        // DontDestroyOnLoad(instance);
         instance = this;
+        DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
     }
-    #endregion
+    #endregion 
 
     private Weapon weaponInstance; // This is for the default weapon
     private Weapon currentWeapon; // Keep track of the currently equipped weapon
@@ -36,8 +33,6 @@ public class WeaponInventory : MonoBehaviour
 
     void Start()
     {
-        // weaponInstance = Weapon.instance;
-
         // Set all weapons in the list except the first one as not default
         for (int i = 1; i < weapons.Count; i++)
         {
@@ -101,31 +96,6 @@ public class WeaponInventory : MonoBehaviour
         weaponPickupCallBack?.Invoke(previousWeapon);
         weaponPickupUICallBack?.Invoke();
 
-        StartCoroutine(AddWeaponWithDelay(_newWeapon));
-
         return true;
-    }
-
-    public IEnumerator AddWeaponWithDelay(Weapon newWeapon)
-    {
-        yield return new WaitForSeconds(newWeapon.waitBeforeEquip);
-
-        // Clear the list before adding a new one in the list
-        weapons.Clear();
-        weapons.Add(newWeapon);
-
-        weaponPickupCallBack?.Invoke(newWeapon);
-        weaponPickupUICallBack?.Invoke();
-        yield break;
-    }
-
-    public IEnumerator EquipTimer(Weapon currentWeapon)
-    {
-        yield return new WaitForSeconds(currentWeapon.equipTimer);
-
-        Debug.Log("Timer ran out, destroying the weapon");
-        currentWeapon.weaponEquipped = false;
-
-        yield break;
     }
 }

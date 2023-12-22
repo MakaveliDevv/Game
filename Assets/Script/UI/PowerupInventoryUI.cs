@@ -5,15 +5,12 @@ using UnityEngine;
 public class PowerupInventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
-    private PowerupInventory inventory;
     private PowerupSlotUI[] slots;
     // public GameObject inventoryUI;
 
     void Start()
     {
-        inventory = PowerupInventory.instance;
-        inventory.powerupPickUpCallBackUI += UpdatePowerupUI;
-
+        PowerupInventory.instance.powerupPickUpCallBackUI += UpdatePowerupUI;
         slots = itemsParent.GetComponentsInChildren<PowerupSlotUI>();
     }
 
@@ -27,9 +24,9 @@ public class PowerupInventoryUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {   
-            if(i < inventory.powerups.Count) 
+            if(i < PowerupInventory.instance.powerups.Count) 
             {
-                slots[i].AddPowerupUI(inventory.powerups[i]);
+                slots[i].AddPowerupUI(PowerupInventory.instance.powerups[i]);
             } else 
             {
                 slots[i].ClearPowerupSlot();

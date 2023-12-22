@@ -10,7 +10,6 @@ public class PowerupInventory : MonoBehaviour
     {
         if(instance != null) 
         {
-            Debug.Log("More than one instance of the WeaponInventory found!");
             Destroy(this.gameObject); // Destroy the duplicate instance
             return;
         }
