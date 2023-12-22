@@ -24,13 +24,16 @@ public class SpawnManagerr : MonoBehaviour
     public SpawnState state;
     private Enemy enemyInstance;
 
-    public List<GameObject> enemies = new List<GameObject>();
-    public List<Transform> spawnLocations = new List<Transform>();
+    public List<GameObject> enemies = new();
+    public List<Transform> spawnLocations = new();
+    public List<GameObject> weapons = new();
 
     public int initialEnemyAmount; // Initial amount for the first wave
     private int enemyAmount;
+
     public int enemyCounter; // To keep track of the enemy
-    
+    public int deathCounter;
+
     public float spawnRate;
     private int waveCount;
 
@@ -86,8 +89,8 @@ public class SpawnManagerr : MonoBehaviour
         waveCountDown = timeBetweenWaves;
 
         waveCount++;
-        ResetEnemyCounter();
         IncreaseEnemyAmountPerWave(); // Increase the number of enemies for the next wave
+        ResetEnemyCounter();
     }
 
     void ResetEnemyCounter() 
@@ -138,11 +141,17 @@ public class SpawnManagerr : MonoBehaviour
         yield break;
     }
 
+    public void InstantiateWeapon(Transform _transform) 
+    {
+        GameObject wpn = weapons[Random.Range(0, weapons.Count)];
+        Instantiate(wpn, _transform.position, _transform.rotation);
+    }
+
     void InstantiateEnemy() 
     {
         GameObject enemy = enemies[Random.Range(0, enemies.Count)];
         Transform spawnPos = spawnLocations[Random.Range(0, spawnLocations.Count)];
         
-        Instantiate(enemy, spawnPos.position, Quaternion.identity);
+        Instantiate(enemy, spawnPos.position, spawnPos.transform.rotation);
     }
 }

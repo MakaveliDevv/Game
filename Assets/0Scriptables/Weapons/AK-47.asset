@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f1fb20f414ee04ea0b113daf83acb2, type: 3}
   m_Name: AK-47
   m_EditorClassIdentifier: 
+  weaponGameObject: {fileID: 0}
   name: AK-47
   weaponType: 1
   fireType: 1
@@ -19,7 +20,7 @@ MonoBehaviour:
   bulletVelocity: 2
   range: 175
   fireRate: 15
-  equipTimer: 6
+  equipTimer: 2
   waitBeforeEquip: 0.1
   isDefaultWeapon: 0
   weaponEquipped: 0

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType { RPG, ASSAULTRIFLE, SUBMACHINEGUN, RIFLE, SWORD }
@@ -9,13 +6,8 @@ public enum WeaponFireType { SINGLE, MULTIPLE, MELEE }
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Scriptables/Weapon")]
 public class Weapon : ScriptableObject
 {
-    public static Weapon instance;
-
-    void Awake()
-    {
-        instance = this;
-    }
-
+    // public Weapon instance;
+    [HideInInspector] public GameObject weaponGameObject;
     new public string name = "Name";
     public WeaponType weaponType;
     public WeaponFireType fireType;
@@ -30,10 +22,4 @@ public class Weapon : ScriptableObject
     public bool weaponEquipped = false;
     public Sprite icon = null; // Item icon
     public GameObject muzzleFlash = null;
-
-    float NextTimeToFire() 
-    {
-        nextTimeToFire = Time.time + 1f/fireRate;
-        return nextTimeToFire;
-    }
 }

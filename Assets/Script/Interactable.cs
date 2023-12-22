@@ -5,7 +5,7 @@ public class Interactable : MonoBehaviour
 {
     public float collideRadius = 3f;
     protected Transform target;
-    public GameObject objectPrefab;
+    private GameObject objectPrefab;
 
     private bool player_inRange = false;
 

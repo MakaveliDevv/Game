@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    private SpawnManagerr spawnManagerInstance;
-    
+    private SpawnManagerr spawnManagerInstance;    
+    public bool deathIsComingForYou;
     void Awake() 
     {
         spawnManagerInstance = SpawnManagerr.instance;
@@ -15,10 +15,17 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
 
-        // Add death animation
-        Destroy(gameObject);
+        deathIsComingForYou = true;
+        spawnManagerInstance.InstantiateWeapon(this.transform);
 
-        // Decrement the enemy counter
-        spawnManagerInstance.enemyCounter--;
+        if(deathIsComingForYou == true) 
+        {
+            // Add death animation
+            Destroy(gameObject);
+
+            // Decrement the enemy counter
+            spawnManagerInstance.enemyCounter--;
+            spawnManagerInstance.deathCounter++;
+        }
     }
 }
