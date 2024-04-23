@@ -27,15 +27,15 @@ public class EnemyController : MonoBehaviour
         stats = GetComponent<CharacterStats>();
 
         agent.speed = stats.walkSpeed.ReturnBaseValue();
-        // agent.stoppingDistance = 
     }
 
     void Update()
     {
-        EnemyMovement();
+        // EnemyMovement();
     }    
 
-    void FaceTarget() // Method to rotate the enemy towards the player 
+    // Method to rotate the enemy towards the player 
+    void FaceTarget() 
     {
         // Get the direction to the target
         Vector3 direction = (target.position - transform.position).normalized;

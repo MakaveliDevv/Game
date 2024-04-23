@@ -92,19 +92,9 @@ public class GameManager : MonoBehaviour
         waveCountDown = timeBetweenWaves;
 
         waveCount++;
-        // CalculatePercentageOfAliveEnemies(); // Calculate the percentage of alive enemies for the next wave
         IncreaseEnemyAmountPerWave(); // Increase the number of enemies for the next wave
         ResetEnemyCounter();
     }
-
-    // void CalculatePercentageOfAliveEnemies()
-    // {
-    //     float percentage = 0.35f; // Example: 35% of alive enemies for the next wave
-
-    //     // Calculate the percentage of alive enemies for the next wave
-    //     int aliveEnemies = Mathf.RoundToInt(initialEnemyAmount * percentage);
-    //     enemyCounter = Mathf.Min(aliveEnemies, enemyCounter);
-    // }
 
     void IncreaseEnemyAmountPerWave()
     {
@@ -161,7 +151,6 @@ public class GameManager : MonoBehaviour
         state = SpawnState.WAITING;
         yield break;
     }
-
 
     public void InstantiateWeapon(Transform _transform)
     {

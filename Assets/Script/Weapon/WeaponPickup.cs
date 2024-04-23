@@ -1,11 +1,10 @@
 using System.Collections;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class WeaponPickup : Interactable
 {
     public Weapon weapon;
-    private GameObject instantiatedWeaponObject; // New field to store the instantiated weapon object
+    public GameObject instantiatedWeaponObject; // New field to store the instantiated weapon object
 
 
     public override void Start()

@@ -119,3 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 0211b615bb717424d91e131a82e4caa3, type: 2}
+  instantiatedWeaponObject: {fileID: 6185001439759085702}
