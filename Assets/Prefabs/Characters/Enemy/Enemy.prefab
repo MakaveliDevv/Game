@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 190825005414802992}
   - component: {fileID: 3095054508252613785}
   - component: {fileID: 7008762122196117882}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3280622437711167085}
   - component: {fileID: 860121267054694343}
   - component: {fileID: 3808452360243545432}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49773b3cc4f06dc42b8d48d68d9dffc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxRadius: 0
 --- !u!114 &860121267054694343
 MonoBehaviour:
   m_ObjectHideFlags: 0

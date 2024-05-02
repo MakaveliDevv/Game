@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7002537076569554869}
   - component: {fileID: 4824072626880749775}
   - component: {fileID: 4249360580170177939}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stronger Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49773b3cc4f06dc42b8d48d68d9dffc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxRadius: 0
 --- !u!114 &4824072626880749775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +156,7 @@ GameObject:
   - component: {fileID: 3953748659635726521}
   - component: {fileID: 5280084868094995122}
   - component: {fileID: 2332885156144083045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -14,23 +14,21 @@ public class Enemy : Interactable
         instance = this;
     }
     
-    // private CharacterStats enemyStats;
-    private CharacterStats playerStats;
+    private CharacterStats enemyStats;
 
     public override void Start() 
     {
         base.Start();
-        // enemyStats = GetComponent<CharacterStats>();
-        playerStats = GetComponent<CharacterStats>();
+        enemyStats = GetComponent<CharacterStats>();
     }
 
     public override void Interact()
     {
-        // base.Interact();
+        base.Interact();
         // Do damage to the player
-        // if(target.TryGetComponent<CharacterCombat>(out var playerCombat)) 
-        // {
-        //     playerCombat.Attack(enemyStats);
-        // }
+        if(target.TryGetComponent<CharacterCombat>(out var playerCombat)) 
+        {
+            playerCombat.Attack(enemyStats); // Takes damage
+        }
     }
 }

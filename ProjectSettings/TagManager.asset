@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Weapon
+  - DefaultWeapon
+  - DefaultWpnSlot
   layers:
   - Default
   - TransparentFX

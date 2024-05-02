@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class WeaponInventory : MonoBehaviour
     }
     #endregion 
 
+    // public WeaponPickup defWeapon;
     private Weapon weaponInstance; // This is for the default weapon
     private Weapon currentWeapon; // Keep track of the currently equipped weapon
     public delegate void OnWeaponPickup(Weapon _weapon);
@@ -33,24 +35,26 @@ public class WeaponInventory : MonoBehaviour
 
     void Start()
     {
-        // Set all weapons in the list except the first one as not default
-        for (int i = 1; i < weapons.Count; i++)
-        {
-            weapons[i].isDefaultWeapon = false;
-        }
+        // GameObject defaultWpnSlot = defWeapon.gameObject;
+        GameObject defaultWpnSlot = GameObject.FindGameObjectWithTag("DefaultWpnSlot"); // Slot
+        WeaponPickup defWeaponPickup = defaultWpnSlot.GetComponent<WeaponPickup>(); // Script
+        
+        GameObject defaultWeapon_obj = Instantiate(defWeaponPickup.weapon.wpnObject, defaultWpnSlot.transform.position, Quaternion.identity) as GameObject;
+        defaultWeapon_obj.transform.SetParent(defaultWpnSlot.transform);
+        defaultWeapon_obj.name = defWeaponPickup.weapon.name;
 
         // Find the default weapon and add it to the inventory if there is space
         Weapon defaultWeapon = FindDefaultWeapon();
-        if (defaultWeapon != null && CanCollectWeapon())
+        if (defaultWeapon_obj != null && CanCollectWeapon())
         {
             currentWeapon = defaultWeapon; // Set the default weapon as the current weapon
             weapons.Add(currentWeapon); // Add current wpn to the list
 
-            weaponInstance = defaultWeapon; // Assign the default weapon to weaponInstance
+            weaponInstance = currentWeapon; // Assign the default weapon to weaponInstance
             weaponInstance.weaponEquipped = true;
             
             // Call back methods
-            weaponPickupCallBack?.Invoke(defaultWeapon);
+            weaponPickupCallBack?.Invoke(weaponInstance);
             weaponPickupUICallBack?.Invoke();
 
         }
@@ -61,19 +65,34 @@ public class WeaponInventory : MonoBehaviour
         return weapons.Count <= space;
     }
 
-    public Weapon FindDefaultWeapon()
+    
+    public Weapon FindDefaultWeapons()
     {
-        Weapon[] allWeapons = Resources.FindObjectsOfTypeAll<Weapon>();
-
-        foreach (Weapon _weapon in allWeapons)
+        foreach (Weapon _weapon in weapons)
         {
-            if (_weapon.isDefaultWeapon)
+            if (_weapon.defaultWeapon)
             {
                 return _weapon;
             }
         }
         return null;
     }
+
+    public Weapon FindDefaultWeapon()
+    {
+        GameObject defaultWeaponObject = GameObject.FindGameObjectWithTag("DefaultWeapon"); // Assuming you tagged the default weapon GameObject appropriately
+        if (defaultWeaponObject != null)
+        {
+            defaultWeaponObject.TryGetComponent<WeaponPickup>(out var wpnScript);
+            Weapon defaultWeapon = wpnScript.weapon;
+
+            if(defaultWeapon != null && defaultWeapon.defaultWeapon)
+                return defaultWeapon;
+        }
+
+        return null;
+    }
+
 
     public bool AddWeapon(Weapon _newWeapon)
     {

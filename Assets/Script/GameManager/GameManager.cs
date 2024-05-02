@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
             {
                 // Spawn Wave
                 StartCoroutine(SpawnEnemy());
+                waveCountDown = 0;
             }
         }
         else

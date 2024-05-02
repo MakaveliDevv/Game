@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 785724718}
   - component: {fileID: 785724717}
   - component: {fileID: 785724716}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Blue Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,7 +1071,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80.7
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 1537853554}
   - component: {fileID: 1537853553}
   - component: {fileID: 1537853552}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Pink Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1824,7 +1824,7 @@ GameObject:
   - component: {fileID: 1969581892}
   - component: {fileID: 1969581891}
   - component: {fileID: 1969581890}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Brown Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,13 +1925,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1747482743992821822, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325958557401031636, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 2364147603174310044, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: m_Name
+      value: WeaponSlot
       objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1973,6 +1969,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4353465162002526779, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_Name
       value: Player

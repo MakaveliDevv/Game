@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     private PlayerState state;
 
-    [SerializeField] private PlayerMovement player;
+    [SerializeField] private TopDownMovement movement;
     [SerializeField] private PlayerAnimator anim;
     private CharacterStats stats;
     private Vector3 movementInput;
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        player = GetComponent<PlayerMovement>();
+        movement = GetComponent<TopDownMovement>();
         anim = GetComponent<PlayerAnimator>();
         stats = GetComponent<CharacterStats>();
     }
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         state = PlayerState.IDLE;
-        player.currentSpeed = stats.walkSpeed;
+        movement.stat = stats.walkSpeed;
 
         isWalking = false;
         isRunning = false;
@@ -35,18 +35,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Debug.Log(player.controller.velocity.sqrMagnitude);
-        movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
+        // movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
 
         // Check for state transitions
         switch (state)
         {
             case PlayerState.IDLE:
                 // Check if the player is going to walk or run
-                if (player.controller.velocity.sqrMagnitude > 0.01f)
+                if (movement.controller.velocity.sqrMagnitude > 0.01f)
                 {
                     state = PlayerState.WALK;
                     PlayerWalk();                
-                } else if(player.controller.velocity.sqrMagnitude > 0.01f && Input.GetKeyDown(KeyCode.LeftShift)) 
+                } else if(movement.controller.velocity.sqrMagnitude > 0.01f && Input.GetKeyDown(KeyCode.LeftShift)) 
                 {
                     state = PlayerState.RUN;
                     PlayerRun();
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.WALK:
                 // Check if the player is going to run or idle
-                if (player.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue())
+                if (movement.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue())
                 {
                     state = PlayerState.IDLE;
                     PlayerIdle();
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.RUN:
-                if(player.controller.velocity.sqrMagnitude > stats.walkSpeed.ReturnBaseValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
+                if(movement.controller.velocity.sqrMagnitude > stats.walkSpeed.ReturnBaseValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
                 {
                     state = PlayerState.WALK;
                     PlayerWalk();
@@ -82,14 +82,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate() 
-    {
-        player.Move(movementInput);
-    }
+    // void FixedUpdate() 
+    // {
+    //     movement.MoveTowardInput(movementInput);
+    // }
 
     void PlayerIdle()
     {
-        player.currentSpeed = stats.walkSpeed;
+        movement.stat = stats.walkSpeed;
         isWalking = false;
         isRunning = false;
 
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerWalk()
     {
-        player.currentSpeed = stats.walkSpeed;
+        movement.stat = stats.walkSpeed;
 
         isIdle = false;
         isRunning = false;
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerRun()
     {
-        player.currentSpeed = stats.runSpeed;
+        movement.stat = stats.runSpeed;
 
         isIdle = false;
         isWalking = false;

@@ -5,21 +5,28 @@ public enum WeaponFireType { SINGLE, MULTIPLE, MELEE }
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Scriptables/Weapon")]
 public class Weapon : ScriptableObject
-{
-    [HideInInspector] public GameObject weaponGameObject;
-    new public string name = "Name";
+{ 
+    // GameObjects & Components
+    [Header("GameObjects & Components")]
+    public GameObject wpnObject;
+    public GameObject muzzleFlash = null;
+    public GameObject bullet;
+    public Sprite icon = null; // Item icon
+
+    [Header("Types")]
     public WeaponType weaponType;
     public WeaponFireType fireType;
-    public float bulletDamage;
+
+    [Header("Specs")]
+    new public string name = "Name";
+    public float bulletDamage = 10f;
     public float bulletVelocity;
-    public float range;
-    public float fireRate;
-    private float nextTimeToFire;
+    public float fireRate = 15f;
+    public float range = 100f;
+    public float nextTimeToFire;
+    public float waitBeforeEquipTime;
     public float equipTimer;
-    public float waitBeforeEquip;
-    public bool isDefaultWeapon = false;
+    public bool defaultWeapon = false;
+
     public bool weaponEquipped = false;
-    public Sprite icon = null; // Item icon
-    public GameObject muzzleFlash = null;
-    public GameObject wpn = null;
 }

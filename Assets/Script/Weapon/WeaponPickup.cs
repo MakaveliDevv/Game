@@ -4,7 +4,7 @@ using UnityEngine;
 public class WeaponPickup : Interactable
 {
     public Weapon weapon;
-    public GameObject instantiatedWeaponObject; // New field to store the instantiated weapon object
+    private GameObject instantiatedWeaponObject; // New field to store the instantiated weapon object
 
 
     public override void Start()
@@ -16,7 +16,7 @@ public class WeaponPickup : Interactable
     public override void Interact()
     {
         base.Interact();
-        if(!weapon.isDefaultWeapon) 
+        if(!weapon.defaultWeapon) 
         {
             // Debug.Log("Interacting with a weapon");
             WeaponPickUp();
@@ -36,13 +36,13 @@ public class WeaponPickup : Interactable
 
     public IEnumerator AddWeaponWithDelay()
     {
-        yield return new WaitForSeconds(weapon.waitBeforeEquip);
+        yield return new WaitForSeconds(weapon.waitBeforeEquipTime);
 
         // Clear the list before adding a new one in the list
         WeaponInventory.instance.weapons.Clear();
         WeaponInventory.instance.weapons.Add(weapon);
-
-        EquipTimer();
+        
+        // StartCoroutine(EquipTimer());
         
         WeaponInventory.instance.weaponPickupCallBack?.Invoke(weapon);
         WeaponInventory.instance.weaponPickupUICallBack?.Invoke();
@@ -63,6 +63,7 @@ public class WeaponPickup : Interactable
     public GameObject Equip()
     {
         StartCoroutine(AddWeaponWithDelay());
+        // instantiatedWeaponObject = weapon.weaponGameObject;
         return instantiatedWeaponObject;
     }
 }

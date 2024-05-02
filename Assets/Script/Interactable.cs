@@ -18,8 +18,6 @@ public class Interactable : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();    
         Vector3 colliderSize = boxCollider.size; // Get the size of the box collider
         boxRadius = colliderSize.magnitude; // Calculate the radius as the magnitude of the size
-
-        Debug.Log("Box collider radius: " + boxRadius);
     }
     
     public virtual void Interact()
