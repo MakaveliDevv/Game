@@ -7,8 +7,7 @@ using UnityEngine;
 public class TopDownMovement : MonoBehaviour
 {
     public CharacterController controller;
-    private InputHandler input;
-    [SerializeField] private Camera cam;
+    private Camera cam;
     
     [HideInInspector] public Stat stat;
 
@@ -18,12 +17,12 @@ public class TopDownMovement : MonoBehaviour
     void Awake() 
     {
         controller = GetComponent<CharacterController>();
-        input = GetComponent<InputHandler>();
+        cam = Camera.main;
     }
 
     void Update() 
     {
-        var targetVector = new Vector3(input.InputVector.x, 0, input.InputVector.y);
+        var targetVector = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0, Input.GetAxisRaw(Tags.VERTICAL));
         MoveTowardTarget(targetVector);
         RotateTowardMouseVector();
     }
@@ -43,14 +42,19 @@ public class TopDownMovement : MonoBehaviour
 
     private void RotateTowardMouseVector()
     {
-        Ray ray = cam.ScreenPointToRay(input.MousePosition);
-        if(Physics.Raycast(ray, out RaycastHit hitInfo)) 
-        {
-            var target = hitInfo.point;
-            target.y = transform.position.y;
+        Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
+        mousePosition.y = transform.position.y;
+        transform.LookAt(mousePosition);
+        
+        
+        // Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        // if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 1000f)) 
+        // {
+        //     var target = hitInfo.point;
+        //     target.y = transform.position.y;
 
-            transform.LookAt(target);
-        }
+        //     transform.LookAt(target);
+        // }
     }
 
     private void Gravity(ref Vector3 vector3) 

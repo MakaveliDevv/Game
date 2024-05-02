@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TopDownMovement movement;
     [SerializeField] private PlayerAnimator anim;
     private CharacterStats stats;
-    private Vector3 movementInput;
     public bool isIdle, isWalking, isRunning;
 
     void Awake()
