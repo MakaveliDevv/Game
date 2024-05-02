@@ -9,15 +9,6 @@ public class InputHandler : MonoBehaviour
 
     public Vector3 MousePosition {get; private set;}
 
-    // void Update() 
-    // {
-    //     var h = Input.GetAxisRaw("Horizontal");
-    //     var v = Input.GetAxisRaw("Vertical");
-    //     InputVector = new(h, v);
-
-    //     MousePosition = Input.mousePosition; 
-    // }
-
     void Update() 
     {
         InputVector = new(Input.GetAxisRaw(Tags.HORIZONTAL), Input.GetAxisRaw(Tags.VERTICAL));

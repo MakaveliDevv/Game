@@ -44,7 +44,7 @@ public class TopDownMovement : MonoBehaviour
     private void RotateTowardMouseVector()
     {
         Ray ray = cam.ScreenPointToRay(input.MousePosition);
-        if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f)) 
+        if(Physics.Raycast(ray, out RaycastHit hitInfo)) 
         {
             var target = hitInfo.point;
             target.y = transform.position.y;

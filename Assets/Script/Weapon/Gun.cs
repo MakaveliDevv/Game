@@ -10,9 +10,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private InputHandler input;
-
-    private float rotationSpeed = 5f;
-    private float aimTreshHold = 15f;
+    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float aimTreshHold = 15f;
 
     void Awake()
     {
@@ -33,7 +32,8 @@ public class Gun : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= wpn.nextTimeToFire)
         {
             wpn.nextTimeToFire = Time.time + 1f/wpn.fireRate;
-            AimAndShoot();
+            // AimAndShoot();
+            Shoot();
         }
     }
 
@@ -49,19 +49,18 @@ public class Gun : MonoBehaviour
     void AimAndShoot()
     {
         Ray ray = cam.ScreenPointToRay(input.MousePosition);
-        // bool hit = Physics.Raycast(ray, out RaycastHit hitInfo, wpn.range, layerMask);
-        if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: wpn.range, layerMask)) 
+        if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 1000f)) 
         {
             if(hitInfo.collider.gameObject.layer == layerMask) 
             {
-                Vector3 targetDirection = hitInfo.point - firePoint.transform.position;
-                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                firePoint.transform.rotation = Quaternion.RotateTowards(firePoint.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                // Vector3 targetDirection = hitInfo.point - firePoint.transform.position;
+                // Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                // firePoint.transform.rotation = Quaternion.RotateTowards(firePoint.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-                if(Quaternion.Angle(firePoint.transform.rotation, targetRotation) < aimTreshHold) 
-                {
-                    Shoot();
-                }
+                // if(Quaternion.Angle(firePoint.transform.rotation, targetRotation) < aimTreshHold) 
+                // {
+                    // Shoot();
+                // }
             }
         }
 
@@ -69,16 +68,9 @@ public class Gun : MonoBehaviour
 
     private void Shoot() 
     {
-        // Instantiate bullet
         GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.transform.position, Quaternion.identity);
-
-        // Calculate direction towards mouse position
-        Vector3 direction = cam.ScreenToWorldPoint(input.MousePosition) - firePoint.transform.position;
-
-        // Set bullet direction
+        Vector3 direction = cam.ScreenToWorldPoint(input.MousePosition - firePoint.transform.position);
         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-        // rb.AddForce(direction * wpn.bulletVelocity);s
-        rb.velocity = direction * wpn.bulletVelocity;
-        
+        rb.velocity = direction * wpn.bulletVelocity * Time.deltaTime;
     }
 }
