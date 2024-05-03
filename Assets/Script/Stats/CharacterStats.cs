@@ -18,6 +18,7 @@ public class CharacterStats : MonoBehaviour
 
     public void TakeDamage(float incomingDamage)
     {
+        // For armor
         float damageReductionPercentage = armor.GetPercentageReduction(50f);
         float damageReduction = incomingDamage * (damageReductionPercentage / 100f);
         

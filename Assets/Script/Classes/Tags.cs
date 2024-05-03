@@ -4,4 +4,7 @@ public class Tags {
     public const string MOUSE_H = "Mouse X";
     public const string MOUSE_V = "Mouse Y";
     public const string PLAYER = "Player";
+    public const string ENEMY = "Enemy";
+
+    // public static string ENEMY { get; internal set; }
 }

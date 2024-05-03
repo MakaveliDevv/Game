@@ -16,7 +16,7 @@ public class EnemyStats : CharacterStats
         base.Die();
 
         deathIsComingForYou = true;
-        instance.InstantiateWeapon(this.transform);
+        instance.InstantiateWeapon(transform);
 
         if(deathIsComingForYou == true) 
         {
@@ -28,11 +28,12 @@ public class EnemyStats : CharacterStats
             instance.deadCounter++;
             if (ShouldSpawnWeapon())
             {
-                GameManager.instance.InstantiateWeapon(this.transform); // Pass the transform as a parameter
+                GameManager.instance.InstantiateWeapon(transform); // Pass the transform as a parameter
             }
         }
     }
 
+    // This doesn't really work yet
     bool ShouldSpawnWeapon()
     {
         float weaponSpawnPercentage = 0.1f; // Example: 10% of dead enemies spawn a weapon

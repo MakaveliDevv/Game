@@ -31,6 +31,7 @@ public class TopDownMovement : MonoBehaviour
     {
         var speed = stat.ReturnBaseValue() * Time.deltaTime;
         targetVector = Quaternion.Euler(0, cam.gameObject.transform.eulerAngles.y, 0) * targetVector;
+        
         targetVector *= (Mathf.Abs(targetVector.x) == 1 && Mathf.Abs(targetVector.z) == 1) ? .7f : 1; // Prevent quicker movement when moving diagonally
         var targetPosition = targetVector * speed;
 
@@ -45,16 +46,6 @@ public class TopDownMovement : MonoBehaviour
         Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
         mousePosition.y = transform.position.y;
         transform.LookAt(mousePosition);
-        
-        
-        // Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        // if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 1000f)) 
-        // {
-        //     var target = hitInfo.point;
-        //     target.y = transform.position.y;
-
-        //     transform.LookAt(target);
-        // }
     }
 
     private void Gravity(ref Vector3 vector3) 

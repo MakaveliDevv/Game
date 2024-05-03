@@ -8,10 +8,12 @@ using UnityEngine;
 public class Enemy : Interactable
 {
     public static Enemy instance;
+    private Transform target; // player
 
     void Awake() 
     {
         instance = this;
+        target = PlayerManager.instance.player.transform;
     }
     
     private CharacterStats enemyStats;
@@ -25,7 +27,7 @@ public class Enemy : Interactable
     public override void Interact()
     {
         base.Interact();
-        // Do damage to the player
+        // Damage to the enemy
         if(target.TryGetComponent<CharacterCombat>(out var playerCombat)) 
         {
             playerCombat.Attack(enemyStats); // Takes damage

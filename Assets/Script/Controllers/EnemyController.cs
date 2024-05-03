@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        // EnemyMovement();
+        EnemyMovement();
     }    
 
     // Method to rotate the enemy towards the player 
@@ -79,12 +79,7 @@ public class EnemyController : MonoBehaviour
             // If so, set the enemy in an Attack State
             state = EnemyState.ATTACK;
             Debug.Log("Attacking");
-
-            // Then get the CharacterStats component, this is needed for the Attack method
-            CharacterStats targetStats = target.GetComponent<CharacterStats>();
-
-            // Check if the component exsist
-            if(targetStats != null) 
+            if(target.TryGetComponent<CharacterStats>(out var targetStats)) 
             {
                 // Attack the target
                 combat.Attack(targetStats);

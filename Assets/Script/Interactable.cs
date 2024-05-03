@@ -3,21 +3,21 @@ using UnityEngine;
 /* This handles the interaction with the player */
 public class Interactable : MonoBehaviour
 {
-    private float boxRadius;
-    protected Transform target;
-    private GameObject objectPrefab;
-    private BoxCollider boxCollider;
+    // private float boxRadius;
+    // protected Transform target;
+    // private GameObject objectPrefab;
+    // private BoxCollider boxCollider;
 
     private bool inRange = false;
 
     public virtual void Start() 
     {
-        target = PlayerManager.instance.player.transform;
-        objectPrefab = gameObject;
+        // target = PlayerManager.instance.player.transform;
+        // objectPrefab = gameObject;
 
-        boxCollider = GetComponent<BoxCollider>();    
-        Vector3 colliderSize = boxCollider.size; // Get the size of the box collider
-        boxRadius = colliderSize.magnitude; // Calculate the radius as the magnitude of the size
+        // boxCollider = GetComponent<BoxCollider>();    
+        // Vector3 colliderSize = boxCollider.size; // Get the size of the box collider
+        // boxRadius = colliderSize.magnitude; // Calculate the radius as the magnitude of the size
     }
     
     public virtual void Interact()
@@ -43,6 +43,9 @@ public class Interactable : MonoBehaviour
         }
     }
 
+
+
+    #region PROLLY NOT NEEDED
     // public void CheckDistance()
     // {
     //     distance = Vector3.Distance(target.position, transform.position);
@@ -66,4 +69,5 @@ public class Interactable : MonoBehaviour
     //     Gizmos.color = Color.green;
     //     Gizmos.DrawWireSphere(transform.position, collideRadius);
     // }
+    #endregion
 }

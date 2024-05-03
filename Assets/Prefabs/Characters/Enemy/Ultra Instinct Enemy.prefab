@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -6593530783202647806}
   m_Layer: 3
   m_Name: Ultra Instinct Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 50
+    baseValue: 100
   currentHealth:
     baseValue: 0
   damage:
@@ -143,8 +143,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.63576365, y: 1.9702382, z: 0.632658}
+  m_Center: {x: 0.006473303, y: 1.0085046, z: -0.0007982254}
 --- !u!1 &1701846213778116274
 GameObject:
   m_ObjectHideFlags: 0

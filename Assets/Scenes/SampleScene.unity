@@ -1947,10 +1947,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2364147603174310044, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: m_Name
-      value: WeaponSlot
-      objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1991,10 +1987,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4353465162002526779, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 963194227}
+    - target: {fileID: 7897911403392338819, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: damage.baseValue
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_Name
       value: Player

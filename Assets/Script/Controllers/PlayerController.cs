@@ -33,9 +33,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log(player.controller.velocity.sqrMagnitude);
-        // movementInput = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0f, Input.GetAxisRaw(Tags.VERTICAL));
-
         // Check for state transitions
         switch (state)
         {
@@ -80,11 +77,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-
-    // void FixedUpdate() 
-    // {
-    //     movement.MoveTowardInput(movementInput);
-    // }
 
     void PlayerIdle()
     {
