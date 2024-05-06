@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f1fb20f414ee04ea0b113daf83acb2, type: 3}
   m_Name: AK-47
   m_EditorClassIdentifier: 
-  weaponGameObject: {fileID: 0}
-  name: AK-47
+  wpnObject: {fileID: 7963749277540785056, guid: b7f1c8c26b7c444419d55953c0a77a3c, type: 3}
+  muzzleFlash: {fileID: 0}
+  bullet: {fileID: 9201513334725972210, guid: 2f0be29cc86862f488835de7e9ca69bd, type: 3}
+  icon: {fileID: 21300000, guid: c0f56bca96c09104abba22303b9b1303, type: 3}
   weaponType: 1
   fireType: 1
+  Name: Name
   bulletDamage: 25
   bulletVelocity: 2
+  fireRate: 10
   range: 175
-  fireRate: 0
+  nextTimeToFire: 0
+  waitBeforeEquipTime: 0.5
   equipTimer: 3
-  waitBeforeEquip: 0.25
-  isDefaultWeapon: 0
+  dropRate: 0.25
+  defaultWeapon: 0
   weaponEquipped: 0
-  icon: {fileID: 21300000, guid: c0f56bca96c09104abba22303b9b1303, type: 3}
-  muzzleFlash: {fileID: 0}

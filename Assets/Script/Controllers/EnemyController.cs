@@ -31,11 +31,10 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        EnemyMovement();
+        // EnemyMovement();
     }    
 
-    // Method to rotate the enemy towards the player 
-    void FaceTarget() 
+    void FaceTarget() // Method to rotate the enemy towards the player 
     {
         // Get the direction to the target
         Vector3 direction = (target.position - transform.position).normalized;
@@ -81,7 +80,7 @@ public class EnemyController : MonoBehaviour
             Debug.Log("Attacking");
             if(target.TryGetComponent<CharacterStats>(out var targetStats)) 
             {
-                // Attack the target
+                // Attack the target (player)
                 combat.Attack(targetStats);
 
                 // Play attack animation

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5330248660652741544}
   - component: {fileID: 3703498690749026326}
   - component: {fileID: 9189869314842611001}
+  - component: {fileID: 3179460785887674038}
   m_Layer: 0
   m_Name: MP-5
   m_TagString: Weapon
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd3f8101924d8cd43b5f63ed632a0465, type: 2}
+  - {fileID: 2100000, guid: da4642b40e50a374e9fc8d1e6b28f058, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,11 +101,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9189869314842611001
 MonoBehaviour:
@@ -118,5 +119,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: 5a6658ca4dde5604c97bdaba2bb64667, type: 2}
-  instantiatedWeaponObject: {fileID: 3431748029687377505}
+  defaultWeapon: {fileID: 0}
+--- !u!114 &3179460785887674038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431748029687377505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  firePoint: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  rotationSpeed: 5
+  aimTreshHold: 15

@@ -9,6 +9,8 @@ TagManager:
   - DefaultWeapon
   - DefaultWpnSlot
   - ENEMY
+  - WpnSlot
+  - WeaponSlot
   layers:
   - Default
   - TransparentFX

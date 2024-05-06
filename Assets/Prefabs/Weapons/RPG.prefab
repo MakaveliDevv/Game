@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1883136514469026137}
   - component: {fileID: 5724018077043074494}
   - component: {fileID: 2399777708848154877}
+  - component: {fileID: -5910886372706054267}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Weapon
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ebc320d2e93a6e04c8b4a8b9bda9ec97, type: 2}
+  - {fileID: 2100000, guid: 6f83da283273e0845a01685b9f4030b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,5 +119,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: a14a95e265f6c834b9e5dcadcb564b29, type: 2}
-  instantiatedWeaponObject: {fileID: 6084396723297700260}
+  defaultWeapon: {fileID: 0}
+--- !u!114 &-5910886372706054267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084396723297700260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  firePoint: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  rotationSpeed: 5
+  aimTreshHold: 15

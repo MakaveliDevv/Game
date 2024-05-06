@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19db6014f7503504ab1e8c0eaddc1fc3, type: 3}
   m_Name: Helmet of Fire
   m_EditorClassIdentifier: 
-  name: Helmet of Fire
-  powerupType: Attack
-  damageModifier: 10
+  icon: {fileID: 21300000, guid: c0f56bca96c09104abba22303b9b1303, type: 3}
+  powerupType: Damage
+  Name: HelmetOfFire
+  damageModifier: 20
   armorModifier: 0
   speedModifier: 0
-  icon: {fileID: 21300000, guid: c0f56bca96c09104abba22303b9b1303, type: 3}
+  dropRate: 0.05
   isDefaultItem: 0

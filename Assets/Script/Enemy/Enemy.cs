@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /* Handles the interaction with the Enemy */
@@ -9,6 +7,7 @@ public class Enemy : Interactable
 {
     public static Enemy instance;
     private Transform target; // player
+    private CharacterStats enemyStats;
 
     void Awake() 
     {
@@ -16,21 +15,19 @@ public class Enemy : Interactable
         target = PlayerManager.instance.player.transform;
     }
     
-    private CharacterStats enemyStats;
 
-    public override void Start() 
+    void Start() 
     {
-        base.Start();
         enemyStats = GetComponent<CharacterStats>();
     }
 
-    public override void Interact()
-    {
-        base.Interact();
-        // Damage to the enemy
-        if(target.TryGetComponent<CharacterCombat>(out var playerCombat)) 
-        {
-            playerCombat.Attack(enemyStats); // Takes damage
-        }
-    }
+    // public override void Interact()
+    // {
+    //     base.Interact();
+
+    //     if(target.TryGetComponent<CharacterCombat>(out var playerCombat)) 
+    //     {
+    //         playerCombat.Attack(enemyStats); // Getting attacked
+    //     }
+    // }
 }

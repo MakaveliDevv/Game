@@ -18,7 +18,7 @@ public class Weapon : ScriptableObject
     public WeaponFireType fireType;
 
     [Header("Specs")]
-    new public string name = "Name";
+    public string Name = "Name";
     public float bulletDamage = 10f;
     public float bulletVelocity;
     public float fireRate = 15f;
@@ -26,7 +26,7 @@ public class Weapon : ScriptableObject
     public float nextTimeToFire;
     public float waitBeforeEquipTime;
     public float equipTimer;
+    public float dropRate;
     public bool defaultWeapon = false;
-
     public bool weaponEquipped = false;
 }

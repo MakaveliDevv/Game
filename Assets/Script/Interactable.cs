@@ -8,17 +8,25 @@ public class Interactable : MonoBehaviour
     // private GameObject objectPrefab;
     // private BoxCollider boxCollider;
 
+    [SerializeField] protected Transform weaponSlot;
+
     private bool inRange = false;
 
-    public virtual void Start() 
+    void Start() 
     {
+        weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
+
+    }
+
+    // public virtual void Start() 
+    // {
         // target = PlayerManager.instance.player.transform;
         // objectPrefab = gameObject;
 
         // boxCollider = GetComponent<BoxCollider>();    
         // Vector3 colliderSize = boxCollider.size; // Get the size of the box collider
         // boxRadius = colliderSize.magnitude; // Calculate the radius as the magnitude of the size
-    }
+    // }
     
     public virtual void Interact()
     {
@@ -42,32 +50,4 @@ public class Interactable : MonoBehaviour
             inRange = false;
         }
     }
-
-
-
-    #region PROLLY NOT NEEDED
-    // public void CheckDistance()
-    // {
-    //     distance = Vector3.Distance(target.position, transform.position);
-    //     if (distance <= collideRadius && !inRange)
-    //     {
-    //         inRange = true;
-    //         Interact();
-    //     }
-    //     else if (distance >= collideRadius && inRange)
-    //     {
-    //         inRange = false;
-    //     }
-    // }
-
-    // public virtual void OnDrawGizmosSelected()
-    // {
-    //     if(objectPrefab == null) 
-    //         objectPrefab = gameObject;
-    
-
-    //     Gizmos.color = Color.green;
-    //     Gizmos.DrawWireSphere(transform.position, collideRadius);
-    // }
-    #endregion
 }

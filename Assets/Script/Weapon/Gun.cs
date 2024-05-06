@@ -35,22 +35,6 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private void RayShoot() 
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Vector3 targetPosition = hit.point;
-            Vector3 direction = (targetPosition - firePoint.position).normalized;
-            direction.y = 0;
-
-            GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.position, Quaternion.identity);
-            Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-            rb.velocity = direction * wpn.bulletVelocity;
-        }
-    }
-
     private void Shoot() 
     {
         Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
@@ -63,6 +47,24 @@ public class Gun : MonoBehaviour
         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
         rb.velocity = wpn.bulletVelocity * direction;
     }
+
+    // private void RayShoot() 
+    // {
+    //     Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+    //     if (Physics.Raycast(ray, out RaycastHit hit))
+    //     {
+    //         Vector3 targetPosition = hit.point;
+    //         Vector3 direction = (targetPosition - firePoint.position).normalized;
+    //         direction.y = 0;
+
+    //         GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.position, Quaternion.identity);
+    //         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
+    //         rb.velocity = direction * wpn.bulletVelocity;
+    //     }
+    // }
+
+
     
     // private InputHandler FindComponentInMainParent<InputHandler>() 
     // {

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19db6014f7503504ab1e8c0eaddc1fc3, type: 3}
   m_Name: Helmet of Protection
   m_EditorClassIdentifier: 
-  name: Helmet of Protection
+  icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
   powerupType: Defense
+  Name: HelmetOfProtection
   damageModifier: 0
   armorModifier: 25
   speedModifier: 0
-  icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
+  dropRate: 0.2
   isDefaultItem: 0

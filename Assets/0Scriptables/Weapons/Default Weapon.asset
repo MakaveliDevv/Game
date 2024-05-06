@@ -18,13 +18,14 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
   weaponType: 2
   fireType: 1
-  name: Default Weapon
+  Name: Default Weapon
   bulletDamage: 10
-  bulletVelocity: 15
-  fireRate: 5
+  bulletVelocity: 20
+  fireRate: 20
   range: 100
-  nextTimeToFire: 8.999997
+  nextTimeToFire: 0
   waitBeforeEquipTime: 0
   equipTimer: 3
+  dropRate: 0
   defaultWeapon: 1
-  weaponEquipped: 1
+  weaponEquipped: 0

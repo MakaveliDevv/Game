@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -10,9 +8,12 @@ public class CharacterStats : MonoBehaviour
     public Stat armor;
     public Stat walkSpeed;
     public Stat runSpeed;
+    
+    protected GameManager gameManager_instance;
 
     void Awake() 
     {
+        gameManager_instance = GameManager.instance;
         currentHealth = maxHealth;
     }
 
@@ -40,6 +41,6 @@ public class CharacterStats : MonoBehaviour
     {
         // This method is ment to be overwritten
         // Die in some way
-        Debug.Log(transform.name + "died.");
+        // Debug.Log(transform.name + "died.");
     }
 }
