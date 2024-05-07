@@ -15,12 +15,32 @@ public class EnemyStats : CharacterStats
             Destroy(gameObject);
             gameManager_instance.enemyCounter--;
             gameManager_instance.deadCounter++;
+               
 
-            if(GameManager.instance.ShouldDropWeapon()) 
-                GameManager.instance.InstantiateWeapon(transform);
+            if(GameManager.instance.ShoudlSpawnGameObject(GameManager.instance.weapons))
+            {
+                // foreach (var weapon in GameManager.instance.weapons)
+                // {
+                    GameManager.instance.InstantiateGameObject(GameManager.instance.weapons, transform);   
+                // }
+
+            } else if(GameManager.instance.ShoudlSpawnGameObject(GameManager.instance.powerups))
+            {
+                // foreach (var powerup in GameManager.instance.powerups)
+                // {
+                    GameManager.instance.InstantiateGameObject(GameManager.instance.powerups, transform);   
+                // }
+            }  
                 
-            else if(GameManager.instance.ShouldDropPowerup()) 
-                GameManager.instance.InstantiatePowerup(transform);
+                
+            // else if(GameManager.instance.ShouldDropPowerup()) 
+            //     GameManager.instance.InstantiatePowerup(transform);
+
+            // if(GameManager.instance.ShouldDropWeapon()) 
+            //     GameManager.instance.InstantiateWeapon(transform);
+                
+            // else if(GameManager.instance.ShouldDropPowerup()) 
+            //     GameManager.instance.InstantiatePowerup(transform);
         }
     }
         // Calculate a x amount of percentage that the weapon can drop

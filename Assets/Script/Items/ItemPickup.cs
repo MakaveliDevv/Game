@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public class ItemPickup : Interactable
+public class ItemPickup : Interactable, IDGameObject
 {
     public Item item;
+
+    public float GetDropRate() 
+    {
+        return item.dropRate;
+    }
 
     public override void Interact()
     {

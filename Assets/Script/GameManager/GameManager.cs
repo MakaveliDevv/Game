@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
         if (instance != null)
         {
             Debug.Log("More than one instance of the WeaponInventory found!");
-            Destroy(this.gameObject); // Destroy the duplicate instance
+            Destroy(gameObject); // Destroy the duplicate instance
             return;
         }
         instance = this;
-        DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
+        DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
     }
     #endregion 
     public SpawnState state;
@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     [Header("List")]
     [SerializeField] private List<GameObject> enemyTypes = new();
     [SerializeField] private List<Transform> spawnLocations = new();
-    [SerializeField] private List<GameObject> weapons = new();
-    [SerializeField] private List<GameObject> powerups = new();
+    public List<GameObject> weapons = new();
+    public List<GameObject> powerups = new();
 
     [Header("Enemy Stuff")]
     [SerializeField] private int initialEnemyAmount; // Initial amount for the first wave
@@ -151,65 +151,28 @@ public class GameManager : MonoBehaviour
         yield break;
     }
 
-    public void InstantiateWeapon(Transform _transform)
+    public void InstantiateGameObject(List<GameObject> _gameObjects, Transform _transform) 
     {
-        GameObject wpn = weapons[Random.Range(0, weapons.Count)];
-        Instantiate(wpn, _transform.position, Quaternion.identity);
-        Debug.Log(wpn.name);
-    }
+        Instantiate(_gameObjects[Random.Range(0, _gameObjects.Count)], _transform.position, Quaternion.identity);
+    }   
 
-    public void InstantiatePowerup(Transform _transform) 
-    {
-        GameObject buff = powerups[Random.Range(0, powerups.Count)];
-        Instantiate(buff, _transform.position, Quaternion.identity);
-        Debug.Log(buff.name);
-    }
-
-    public bool ShouldDropWeapon()
+    public bool ShoudlSpawnGameObject(List<GameObject> _gameObjects) 
     {
         float randomValue = Random.Range(0f, 1f);
-
-        foreach (var weapon in weapons)
+        
+        foreach (var gameObject in _gameObjects)
         {
-            WeaponPickup weaponPickup = weapon.GetComponent<WeaponPickup>();
-            float dropRate = weaponPickup.weapon.dropRate;
-
-            if(randomValue <= dropRate) 
+            if(gameObject.TryGetComponent<IDGameObject>(out var pickupComponent)) 
             {
-                return true;
+                float dropRate = pickupComponent.GetDropRate();
+                if(randomValue <= dropRate) 
+                {
+                    return true;
+                }
             }
         }
 
         return false;
-    }
-
-    public bool ShouldDropPowerup() 
-    {
-        float randomValue = Random.Range(0f, 1f);
-
-        foreach (var powerup in powerups)
-        {
-            ItemPickup itemPickup = powerup.GetComponent<ItemPickup>();
-            float dropRate = itemPickup.item.dropRate;
-
-            if(randomValue <= dropRate) 
-            {
-                return true;
-            }
-        }
-
-        return false;    
-    }
-    
-    public bool ShouldDropPowerupp() 
-    {
-        float dropRate = .5f;
-        float rand = Random.Range(0f, 1f);
-
-        if(rand <= dropRate) 
-            return true;
-        else
-            return false;
     }
 
     // bool ShouldSpawnWeapon()
