@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 117144447439830547}
   - component: {fileID: 1170331801157354933}
   - component: {fileID: 973094698268502077}
-  - component: {fileID: 1264269075117676527}
   m_Layer: 0
-  m_Name: AK-47
+  m_Name: Ak-47
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 60569293986426212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.954, z: 2.131}
-  m_LocalScale: {x: 0.12636544, y: 0.0974697, z: 0.30692202}
+  m_LocalPosition: {x: 0, y: 0.95441, z: 2.0402}
+  m_LocalScale: {x: 0.37194565, y: 0.25898242, z: 1.0061128}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4991647260055587348}
@@ -121,28 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: 0211b615bb717424d91e131a82e4caa3, type: 2}
-  defaultWeapon: {fileID: 0}
---- !u!114 &1264269075117676527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60569293986426212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  firePoint: {fileID: 2320934310170407680}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 5
-  aimTreshHold: 15
+  weaponSlot: {fileID: 0}
 --- !u!1 &495647932003088394
 GameObject:
   m_ObjectHideFlags: 0

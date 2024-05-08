@@ -32,7 +32,7 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField] private Weapon defaultWeapon;
     [HideInInspector] public GameObject defWeaponObj; 
     public List<Weapon> weapons = new();
-    public int space = 1;
+    public int space = 2;
     
     void Start()
     {     
@@ -46,14 +46,7 @@ public class WeaponInventory : MonoBehaviour
         {
             currentWeapon = defaultWeapon;
             weapons.Add(currentWeapon);
-
-            // weaponInstance = currentWeapon; 
-            // weaponInstance.weaponEquipped = true;
-            
-            // Call back methods
-            // weaponPickupCallBack?.Invoke(weaponInstance);
-            // weaponPickupUICallBack?.Invoke();
-
+            currentWeapon.weaponEquipped = true;
         }
     }
 

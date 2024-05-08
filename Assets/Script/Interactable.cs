@@ -7,16 +7,7 @@ public class Interactable : MonoBehaviour
     // protected Transform target;
     // private GameObject objectPrefab;
     // private BoxCollider boxCollider;
-
-    [SerializeField] protected Transform weaponSlot;
-
     private bool inRange = false;
-
-    void Start() 
-    {
-        weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
-
-    }
 
     // public virtual void Start() 
     // {

@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    #region Singleton
+    public static Gun instance;
+    void Awake() 
+    {
+        if(instance != null) 
+        {
+            Destroy(gameObject); // Destroy the duplicate instance
+            return;
+        }
+        instance = this;
+        // DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
+    }
+    #endregion 
+
     private Weapon wpn;
     private WeaponPickup wpnPickup;
     public Camera cam;
@@ -13,15 +27,11 @@ public class Gun : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float aimTreshHold = 15f;
 
-    void Awake()
+    void Start() 
     {
         wpnPickup = GetComponent<WeaponPickup>();
         cam = Camera.main;
         firePoint = transform.GetChild(1);
-    }
-
-    void Start() 
-    {
         wpn = wpnPickup.weapon;
         wpn.nextTimeToFire = 0;
     }
