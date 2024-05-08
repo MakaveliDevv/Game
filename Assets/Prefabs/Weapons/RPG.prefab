@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 4906762165216231833}
   - component: {fileID: 4484331293215716827}
   - component: {fileID: 6720827881884137953}
-  - component: {fileID: 4772453897624582329}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Weapon
@@ -257,25 +256,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: a14a95e265f6c834b9e5dcadcb564b29, type: 2}
-  defaultWeapon: {fileID: 0}
---- !u!114 &4772453897624582329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5053041207236573759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  firePoint: {fileID: 832380129019132352}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 5
-  aimTreshHold: 15
+  weaponSlot: {fileID: 0}

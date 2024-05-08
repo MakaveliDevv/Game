@@ -3,14 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponPickup : Interactable, IDGameObject
-{
+{    
     public Weapon weapon;
-    [SerializeField] protected Transform weaponSlot;
-
-    void Start() 
-    {
-        weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
-    }
 
     public float GetDropRate() 
     {
@@ -49,12 +43,15 @@ public class WeaponPickup : Interactable, IDGameObject
     {
         WeaponInventory.instance.weapons.Clear();
         WeaponInventory.instance.weapons.Add(weapon);
-        WeaponInventory.instance.defWeaponObj.SetActive(false);
+        WeaponInventory.instance.defaultWeaponSlot.gameObject.SetActive(false);
 
-        GameObject weaponObj = Instantiate(weapon.wpnObject, weaponSlot.position, weaponSlot.rotation); 
-        weaponObj.transform.SetParent(weaponSlot);
-        
-        Gun gunScript = weaponObj.AddComponent<Gun>();
+        GameObject weaponObj = Instantiate(weapon.wpnObject, WeaponInventory.instance.weaponSlot.position, WeaponInventory.instance.weaponSlot.rotation);
+        weaponObj.name = weapon.name; 
+        weaponObj.transform.SetParent(WeaponInventory.instance.weaponSlot);
+        weaponObj.AddComponent<Gun>();
+
+        WeaponPickup pickup = weaponObj.GetComponent<WeaponPickup>();
+        Destroy(pickup);
         
         return weaponObj;
     }

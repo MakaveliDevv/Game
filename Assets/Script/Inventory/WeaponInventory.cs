@@ -12,34 +12,34 @@ public class WeaponInventory : MonoBehaviour
     {
         if(instance != null) 
         {
-            Destroy(gameObject); // Destroy the duplicate instance
+            Destroy(gameObject);
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
+        DontDestroyOnLoad(gameObject);
     }
     #endregion 
 
-    // private Weapon weaponInstance; // This is for the default weapon
-    private Weapon currentWeapon; // Keep track of the currently equipped weapon
-    public delegate void OnWeaponPickup(Weapon _weapon);
-    public delegate void OnWeaponPickupUI();
-
-    public OnWeaponPickup weaponPickupCallBack;
-    public OnWeaponPickupUI weaponPickupUICallBack;
-
+    private Weapon currentWeapon; 
 
     [SerializeField] private Weapon defaultWeapon;
     [HideInInspector] public GameObject defWeaponObj; 
+    [HideInInspector] public Transform weaponSlot, defaultWeaponSlot;
     public List<Weapon> weapons = new();
-    public int space = 2;
+    public int space = 1;
+
+    public delegate void OnWeaponPickup(Weapon _weapon);
+    public delegate void OnWeaponPickupUI();
+    public OnWeaponPickup weaponPickupCallBack;
+    public OnWeaponPickupUI weaponPickupUICallBack;
     
     void Start()
     {     
-        GameObject weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot"); // Slot
+        defaultWeaponSlot = GameObject.FindGameObjectWithTag("DefaultWeaponSlot").transform; // Slot
+        weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
     
-        defWeaponObj = Instantiate(defaultWeapon.wpnObject, weaponSlot.transform.position, Quaternion.identity) as GameObject;
-        defWeaponObj.transform.SetParent(weaponSlot.transform);
+        defWeaponObj = Instantiate(defaultWeapon.wpnObject, defaultWeaponSlot.position, Quaternion.identity) as GameObject;
+        defWeaponObj.transform.SetParent(defaultWeaponSlot);
         defWeaponObj.name = defaultWeapon.Name;
 
         if (defWeaponObj != null && CanCollectWeapon())
@@ -50,20 +50,28 @@ public class WeaponInventory : MonoBehaviour
         }
     }
 
+    public Weapon ReturnWeapon()
+    {
+        if(weapons.Count > 0) 
+        {
+            return weapons[0];
+
+        } else
+            return null;
+    }
+
     public bool CanCollectWeapon()
     {
         return weapons.Count <= space;
     }
 
 
-    public bool AddWeapon(Weapon _newWeapon)
+    public bool AddWeapon(Weapon _newWeapon) // Add to the scriptable object weapon list 
     {
         if (!CanCollectWeapon())
             return false;
 
         Weapon previousWeapon = currentWeapon;
-
-        // Update the currently equipped weapon
         currentWeapon = _newWeapon;
 
         if (previousWeapon != null)

@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2499406300688962056}
   - component: {fileID: 3567230989996748851}
   - component: {fileID: 2995830323889845478}
-  - component: {fileID: 3259281980799492813}
   m_Layer: 0
   m_Name: MP-5
   m_TagString: Weapon
@@ -152,28 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: 5a6658ca4dde5604c97bdaba2bb64667, type: 2}
-  defaultWeapon: {fileID: 0}
---- !u!114 &3259281980799492813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4638024640590354670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  firePoint: {fileID: 4728130741607983510}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 5
-  aimTreshHold: 15
+  weaponSlot: {fileID: 0}
 --- !u!1 &4853897626921264549
 GameObject:
   m_ObjectHideFlags: 0

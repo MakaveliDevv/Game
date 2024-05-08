@@ -1,26 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO.Compression;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    #region Singleton
-    public static Gun instance;
-    void Awake() 
-    {
-        if(instance != null) 
-        {
-            Destroy(gameObject); // Destroy the duplicate instance
-            return;
-        }
-        instance = this;
-        // DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
-    }
-    #endregion 
-
-    private Weapon wpn;
-    private WeaponPickup wpnPickup;
+    [SerializeField] private Weapon wpn;
     public Camera cam;
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask layerMask;
@@ -29,11 +11,18 @@ public class Gun : MonoBehaviour
 
     void Start() 
     {
-        wpnPickup = GetComponent<WeaponPickup>();
         cam = Camera.main;
         firePoint = transform.GetChild(1);
-        wpn = wpnPickup.weapon;
-        wpn.nextTimeToFire = 0;
+        
+        if(WeaponInventory.instance != null) 
+        {
+            wpn = WeaponInventory.instance.ReturnWeapon();
+
+            if(wpn != null) 
+            {
+                wpn.nextTimeToFire = 0;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -48,40 +37,20 @@ public class Gun : MonoBehaviour
     private void Shoot() 
     {
         Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
-        Vector3 direction = (mousePosition - firePoint.transform.position).normalized;
+        Vector3 direction = (mousePosition - transform.position).normalized;
+
+        float minDirectionLength = .1f;
+        if(direction.magnitude < minDirectionLength) 
+            direction = Vector3.forward * wpn.bulletVelocity;
+
+        else
+            direction.Normalize();
 
         direction.y = 0;
-        direction.Normalize();
-        
+
+
         GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.transform.position, Quaternion.identity);
         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
         rb.velocity = wpn.bulletVelocity * direction;
     }
-
-    // private void RayShoot() 
-    // {
-    //     Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-    //     if (Physics.Raycast(ray, out RaycastHit hit))
-    //     {
-    //         Vector3 targetPosition = hit.point;
-    //         Vector3 direction = (targetPosition - firePoint.position).normalized;
-    //         direction.y = 0;
-
-    //         GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.position, Quaternion.identity);
-    //         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-    //         rb.velocity = direction * wpn.bulletVelocity;
-    //     }
-    // }
-
-
-    
-    // private InputHandler FindComponentInMainParent<InputHandler>() 
-    // {
-    //     Transform parent = transform.parent;
-    //     while(parent.parent != null)
-    //         parent = parent.parent;
-
-    //     return parent.GetComponent<InputHandler>();
-    // }
 }

@@ -20,10 +20,10 @@ MonoBehaviour:
   fireType: 1
   Name: Default Weapon
   bulletDamage: 10
-  bulletVelocity: 20
-  fireRate: 20
+  bulletVelocity: 10
+  fireRate: 5
   range: 100
-  nextTimeToFire: 26.40999
+  nextTimeToFire: 1.7999995
   waitBeforeEquipTime: 0
   equipTimer: 3
   dropRate: 0
