@@ -5,69 +5,70 @@ using UnityEngine.EventSystems;
 
 public class AbilityInput : MonoBehaviour
 {
-    private CharacterController characterController;
-    private PlayerController playerContr;
-    public float maxDistance = 5f; 
-    public float sidestepSpeed = 10f;
-    public float cooldownTime = 1f;
-    public bool sideStep, cooldown;
 
-    void Awake()
-    {
-        characterController = GetComponent<CharacterController>();
-        playerContr = GetComponent<PlayerController>();
-    }
+    [SerializeField] private float maxDashDistance = 5f; 
+    [SerializeField] private float dashCooldown = .5f; 
+    [SerializeField] private float dashLerpDuration = 0.2f; 
+    [SerializeField] private float dashSpeed = 10f;
+
+    private bool cooldown;
 
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !cooldown)
+
+        if(Input.GetKeyDown(KeyCode.Space)) 
         {
-            PlayerManager.instance.previousState = PlayerManager.instance.state;
-            PlayerManager.instance.state = PlayerManager.PlayerState.DASH;
+            Dash();
         }
-
-        // if(Input.GetKeyUp(KeyCode.Space)) 
-        // {
-        //     PlayerManager.instance.state = PlayerManager.instance.previousState;
-        //     // sideStep = false;
-        // } 
     }
 
-    public void SideStep() 
+    public void Dash() 
     {   
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Camera.main.transform.position.y; // Distance from the camera to the game world
+        if (!cooldown) 
+        {
+            PlayerManager.instance.previousState = PlayerManager.instance.state; // Store the previous state
+            PlayerManager.instance.state = PlayerManager.PlayerState.DASH; // Switch to Dash state
 
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Vector3 direction = (worldPosition - transform.position).normalized;
-        Vector3 targetPosition = transform.position + direction * maxDistance;
 
-        targetPosition.y = transform.position.y;
-        StartCoroutine(MoveToTarget(targetPosition));
-        sideStep = true;
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Camera.main.transform.position.y; // Distance from the camera to the game world
 
-        StartCoroutine(AbilityCooldown());
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Vector3 direction = (worldPosition - transform.position).normalized;
+
+            Vector3 targetPosition = transform.position + direction * Mathf.Min(maxDashDistance); 
+            targetPosition.y = transform.position.y;
+
+            StartCoroutine(DashToPosition(targetPosition));
+            StartCoroutine(AbilityCooldown());
+
+        }
     }
 
-    IEnumerator MoveToTarget(Vector3 targetPosition)
+    IEnumerator DashToPosition(Vector3 targetPosition)
     {
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        Vector3 startPosition = transform.position;
+        float distance = Vector3.Distance(startPosition, targetPosition);
+        float duration = Mathf.Min(distance / dashSpeed, dashLerpDuration); // Choose the shortest duration
+        float startTime = Time.time;
+
+        while (Time.time < startTime + duration)
         {
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
-            moveDirection.y = 0f; 
-            // characterController.Move(moveDirection * sidestepSpeed * Time.deltaTime);
-            characterController.Move(sidestepSpeed * Time.deltaTime * moveDirection);
+            float t = (Time.time - startTime) / duration;
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t); // Smoothly lerp between start and target positions
             yield return null;
         }
+
+        transform.position = targetPosition;
+
+        PlayerManager.instance.state = PlayerManager.instance.previousState;
     }
 
     IEnumerator AbilityCooldown()
     {
         cooldown = true;
-        sideStep = false;
-        PlayerManager.instance.state = PlayerManager.instance.previousState;
-
-        yield return new WaitForSeconds(cooldownTime);
+        yield return new WaitForSeconds(dashCooldown);
         cooldown = false;
     }
+
 }

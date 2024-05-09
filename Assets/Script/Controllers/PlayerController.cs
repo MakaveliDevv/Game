@@ -29,27 +29,35 @@ public class PlayerController : MonoBehaviour
         switch (PlayerManager.instance.state)
         {
             case PlayerManager.PlayerState.IDLE:
-                if (movement.controller.velocity.sqrMagnitude > 0.01f && !abilityInput.sideStep)
-                {
-                    PlayerManager.instance.state = PlayerManager.PlayerState.WALK;
-                    PlayerWalk();                
-                } 
+                if (movement.controller.velocity.sqrMagnitude > 0.01f)
+                    PlayerManager.instance.state = PlayerManager.PlayerState.WALK; 
 
                 break;
 
             case PlayerManager.PlayerState.WALK:
-                if (movement.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue() && !abilityInput.sideStep)
+                PlayerWalk();          
+                      
+                if (movement.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue())
                 {
                     PlayerManager.instance.state = PlayerManager.PlayerState.IDLE;
                     PlayerIdle();
                 } 
 
-
                 break;
 
+                // Need to find a way to be able to proceed walking after the character dashed
+
                 case PlayerManager.PlayerState.DASH:
-                    Debug.Log("Dash State");
-                    abilityInput.SideStep();
+                    // Stop the walk anim
+
+                    // anim.Walk(false);
+
+                    // if(!abilityInput.sideStep) 
+                    // {
+                    //     PlayerManager.instance.state = PlayerManager.PlayerState.WALK;
+                    // }
+                    
+                    // movement.stat = stats.dash;
 
                 break;
             
@@ -68,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
         anim.Idle(true);
         anim.Walk(false);
-        anim.Run(false);
+        // anim.Run(false);
 
         isIdle = true;
     }
@@ -82,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
         anim.Idle(false);
         anim.Walk(true);
-        anim.Run(false);
+        // anim.Run(false);
 
         isWalking = true;
     }

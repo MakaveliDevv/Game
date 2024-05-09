@@ -2421,11 +2421,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b00d0720d6d884b98cbe2fdae4e2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 5
-  sidestepSpeed: 10
-  cooldownTime: 1
-  sideStep: 0
-  cooldown: 0
+  maxDashDistance: 5
+  dashCooldown: 0.5
+  dashLerpDuration: 0.2
+  dashSpeed: 15
 --- !u!1 &1969581888
 GameObject:
   m_ObjectHideFlags: 0

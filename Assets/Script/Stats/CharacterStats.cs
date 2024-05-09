@@ -8,6 +8,7 @@ public class CharacterStats : MonoBehaviour
     public Stat armor;
     public Stat walkSpeed;
     public Stat runSpeed;
+    public Stat dash;
     
     protected GameManager gameManager_instance;
 

@@ -38,9 +38,6 @@ public class TopDownMovement : MonoBehaviour
 
         Gravity(ref targetPosition);
         controller.Move(targetPosition);
-
-        // if(targetPosition.z > .1f) 
-        //     isMoving = true;
         
         return targetVector;
     }
