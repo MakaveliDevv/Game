@@ -28,5 +28,5 @@ public class Weapon : ScriptableObject
     public float equipTimer;
     public float dropRate;
     public bool defaultWeapon = false;
-    public bool weaponEquipped = false;
+    public bool equipped = false;
 }

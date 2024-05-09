@@ -1,8 +1,10 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private Weapon wpn;
+    [SerializeField] private Weapon weapon;
     public Camera cam;
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask layerMask;
@@ -16,20 +18,25 @@ public class Gun : MonoBehaviour
         
         if(WeaponInventory.instance != null) 
         {
-            wpn = WeaponInventory.instance.ReturnWeapon();
+            weapon = WeaponInventory.instance.ReturnWeapon();
 
-            if(wpn != null) 
+            if(weapon != null) 
             {
-                wpn.nextTimeToFire = 0;
+                weapon.nextTimeToFire = 0;
             }
         }
     }
 
+    void Update() 
+    {
+        StartCoroutine(EquipTimer());
+    }
+
     void FixedUpdate()
     {
-        if (Input.GetButton("Fire1") && Time.time >= wpn.nextTimeToFire)
+        if (Input.GetButton("Fire1") && Time.time >= weapon.nextTimeToFire)
         {
-            wpn.nextTimeToFire = Time.time + 1f/wpn.fireRate;
+            weapon.nextTimeToFire = Time.time + 1f/weapon.fireRate;
             Shoot();
         }
     }
@@ -41,7 +48,7 @@ public class Gun : MonoBehaviour
 
         float minDirectionLength = .1f;
         if(direction.magnitude < minDirectionLength) 
-            direction = Vector3.forward * wpn.bulletVelocity;
+            direction = Vector3.forward * weapon.bulletVelocity;
 
         else
             direction.Normalize();
@@ -49,8 +56,32 @@ public class Gun : MonoBehaviour
         direction.y = 0;
 
 
-        GameObject bulletInstance = Instantiate(wpn.bullet, firePoint.transform.position, Quaternion.identity);
+        GameObject bulletInstance = Instantiate(weapon.bullet, firePoint.transform.position, Quaternion.identity);
         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-        rb.velocity = wpn.bulletVelocity * direction;
+        rb.velocity = weapon.bulletVelocity * direction;
+    }
+
+    private IEnumerator EquipTimer() 
+    {
+        if(weapon.equipped && !weapon.defaultWeapon) 
+        {
+            Debug.Log("Timer started");
+            yield return new WaitForSeconds(weapon.equipTimer);
+
+            weapon.equipped = false;
+            
+            WeaponInventory.instance.weapons.Clear();
+            WeaponInventory.instance.weapons.Add(WeaponInventory.instance.defaultWeapon);
+            
+            WeaponInventory.instance.defaultWeaponSlot.gameObject.SetActive(true);           
+            WeaponInventory.instance.defaultWeapon.equipped = true; 
+
+            WeaponInventory.instance.previousWeapon = WeaponInventory.instance.currentWeapon;
+            WeaponInventory.instance.currentWeapon = WeaponInventory.instance.defaultWeapon;
+
+            Destroy(gameObject);
+        }
+
+        // yield break;
     }
 }

@@ -14,8 +14,8 @@ What to do?
 - Pickup buff and add into the inventory (done)
 
 What to do pt2?
-- Create an equip timer
-- Destroy equipped weapon if timer ran out or if another weapon gets picked up
+- Create an equip timer (done)
+- Destroy equipped weapon if timer ran out or if another weapon gets picked up (done)
 - Create 3 abilities for the player
 - Create a cooldown for each ability
 

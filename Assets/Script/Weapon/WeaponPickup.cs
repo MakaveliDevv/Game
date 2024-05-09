@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponPickup : Interactable, IDGameObject
 {    
     public Weapon weapon;
+    private GameObject weaponObj;
 
     public float GetDropRate() 
     {
@@ -26,21 +27,8 @@ public class WeaponPickup : Interactable, IDGameObject
         if(pickedUpWeapon)
         {
             Destroy(gameObject);
-            StartCoroutine(EquipTimer());
+            Equip();
         }
-    }
-    
-    public IEnumerator EquipTimer() 
-    {
-        Debug.Log("Equip Timer Started for: " + weapon.name);
-        Equip();
-        yield return new WaitForSeconds(weapon.equipTimer);
-        weapon.weaponEquipped = false;
-        Debug.Log("Equip Timer Ended for: " + weapon.name);
-
-        Destroy(gameObject);
-
-        yield break;    
     }
 
     public GameObject Equip()
@@ -48,12 +36,15 @@ public class WeaponPickup : Interactable, IDGameObject
         WeaponInventory.instance.weapons.Clear();
         WeaponInventory.instance.weapons.Add(weapon);
         WeaponInventory.instance.defaultWeaponSlot.gameObject.SetActive(false);
-
-        GameObject weaponObj = Instantiate(weapon.wpnObject, WeaponInventory.instance.weaponSlot.position, WeaponInventory.instance.weaponSlot.rotation);
+        
+        weaponObj = Instantiate(weapon.wpnObject, WeaponInventory.instance.weaponSlot.position, WeaponInventory.instance.weaponSlot.rotation);
         weaponObj.name = weapon.name; 
         weaponObj.transform.SetParent(WeaponInventory.instance.weaponSlot);
         weaponObj.AddComponent<Gun>();
 
+        WeaponInventory.instance.weaponGameObject = weaponObj;
+
+        // Destroy the weapon pickup component
         WeaponPickup pickup = weaponObj.GetComponent<WeaponPickup>();
         Destroy(pickup);
         

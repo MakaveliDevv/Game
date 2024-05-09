@@ -20,12 +20,10 @@ public class WeaponInventory : MonoBehaviour
     }
     #endregion 
 
-    private Weapon currentWeapon; 
-
-    public Weapon defaultWeapon;
-    [HideInInspector] public GameObject defWeaponObj; 
-    [HideInInspector] public Transform weaponSlot, defaultWeaponSlot;
+    public Weapon defaultWeapon, currentWeapon, previousWeapon;
+    public GameObject weaponGameObject;
     public List<Weapon> weapons = new();
+    [HideInInspector] public Transform weaponSlot, defaultWeaponSlot;
     public int space = 1;
 
     public delegate void OnWeaponPickup(Weapon _weapon);
@@ -38,7 +36,7 @@ public class WeaponInventory : MonoBehaviour
         defaultWeaponSlot = GameObject.FindGameObjectWithTag("DefaultWeaponSlot").transform; // Slot
         weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
     
-        defWeaponObj = Instantiate(defaultWeapon.wpnObject, defaultWeaponSlot.position, Quaternion.identity) as GameObject;
+        GameObject defWeaponObj = Instantiate(defaultWeapon.wpnObject, defaultWeaponSlot.position, Quaternion.identity);
         defWeaponObj.transform.SetParent(defaultWeaponSlot);
         defWeaponObj.name = defaultWeapon.Name;
 
@@ -47,16 +45,19 @@ public class WeaponInventory : MonoBehaviour
             currentWeapon = defaultWeapon;
             weapons.Add(currentWeapon);
 
-            // Loop through all the weapons
-            foreach (var weapon in GameManager.instance.weapons)
+            Weapon weapon = weapons[0];
+            if(weapon.defaultWeapon) 
             {
-                WeaponPickup pickup = weapon.GetComponent<WeaponPickup>();
-                
-                if(!pickup.weapon.defaultWeapon)
-                    pickup.weapon.weaponEquipped = false;
-                else
-                    pickup.weapon.weaponEquipped = false;
-            }   
+                weapon.equipped = true;
+            }  
+        }
+
+        foreach (GameObject weapon in GameManager.instance.weapons)
+        {
+            if(weapon.TryGetComponent<WeaponPickup>(out var pickup)) 
+            {
+                pickup.weapon.equipped = false;
+            }
         }
     }
 
@@ -76,24 +77,25 @@ public class WeaponInventory : MonoBehaviour
     }
 
 
-    public bool AddWeapon(Weapon _newWeapon) // Add to the scriptable object weapon list 
+    public bool AddWeapon(Weapon _newWeapon) 
     {
         if (!CanCollectWeapon())
             return false;
 
-        Weapon previousWeapon = currentWeapon;
+        previousWeapon = currentWeapon;
         currentWeapon = _newWeapon;
+        
+        previousWeapon.equipped = false;
+        
+        if(weaponGameObject != null) 
+            Destroy(weaponGameObject);
 
-        if (previousWeapon != null)
-        {
-            previousWeapon.weaponEquipped = false;
-        }
+        _newWeapon.equipped = true;
 
-        _newWeapon.weaponEquipped = true;
 
-        weaponPickupCallBack?.Invoke(_newWeapon);
-        weaponPickupCallBack?.Invoke(previousWeapon);
-        weaponPickupUICallBack?.Invoke();
+        // weaponPickupCallBack?.Invoke(_newWeapon);
+        // weaponPickupCallBack?.Invoke(previousWeapon);
+        // weaponPickupUICallBack?.Invoke();
 
         return true;
     }
