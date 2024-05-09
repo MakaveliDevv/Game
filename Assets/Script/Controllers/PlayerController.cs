@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public enum PlayerState { IDLE, WALK, RUN, DASH, ATTACK }
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerState state;
-
     [SerializeField] private TopDownMovement movement;
     [SerializeField] private PlayerAnimator anim;
+    [SerializeField] private AbilityInput abilityInput;
     private CharacterStats stats;
     public bool isIdle, isWalking, isRunning;
 
@@ -16,61 +14,45 @@ public class PlayerController : MonoBehaviour
         movement = GetComponent<TopDownMovement>();
         anim = GetComponent<PlayerAnimator>();
         stats = GetComponent<CharacterStats>();
+        abilityInput = GetComponent<AbilityInput>();
     }
 
     void Start()
     {
-        state = PlayerState.IDLE;
-        movement.stat = stats.walkSpeed;
-
-        isWalking = false;
-        isRunning = false;
-        isIdle = false;
+        PlayerManager.instance.state = PlayerManager.PlayerState.IDLE;
+        PlayerIdle();
     }
     
 
     void Update()
     {
-        // Check for state transitions
-        switch (state)
+        switch (PlayerManager.instance.state)
         {
-            case PlayerState.IDLE:
-                // Check if the player is going to walk or run
-                if (movement.controller.velocity.sqrMagnitude > 0.01f)
+            case PlayerManager.PlayerState.IDLE:
+                if (movement.controller.velocity.sqrMagnitude > 0.01f && !abilityInput.sideStep)
                 {
-                    state = PlayerState.WALK;
+                    PlayerManager.instance.state = PlayerManager.PlayerState.WALK;
                     PlayerWalk();                
-                } else if(movement.controller.velocity.sqrMagnitude > 0.01f && Input.GetKeyDown(KeyCode.LeftShift)) 
-                {
-                    state = PlayerState.RUN;
-                    PlayerRun();
-                }
-
-                break;
-
-            case PlayerState.WALK:
-                // Check if the player is going to run or idle
-                if (movement.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue())
-                {
-                    state = PlayerState.IDLE;
-                    PlayerIdle();
-
-                } else if(Input.GetKeyDown(KeyCode.LeftShift)) 
-                {
-                    state = PlayerState.RUN;
-                    PlayerRun();
-                }
-
-                break;
-
-            case PlayerState.RUN:
-                if(movement.controller.velocity.sqrMagnitude > stats.walkSpeed.ReturnBaseValue() && Input.GetKeyUp(KeyCode.LeftShift)) 
-                {
-                    state = PlayerState.WALK;
-                    PlayerWalk();
                 } 
 
                 break;
+
+            case PlayerManager.PlayerState.WALK:
+                if (movement.controller.velocity.sqrMagnitude < stats.walkSpeed.ReturnBaseValue() && !abilityInput.sideStep)
+                {
+                    PlayerManager.instance.state = PlayerManager.PlayerState.IDLE;
+                    PlayerIdle();
+                } 
+
+
+                break;
+
+                case PlayerManager.PlayerState.DASH:
+                    Debug.Log("Dash State");
+                    abilityInput.SideStep();
+
+                break;
+            
             default:
                 break;
         }
@@ -79,6 +61,8 @@ public class PlayerController : MonoBehaviour
     void PlayerIdle()
     {
         movement.stat = stats.walkSpeed;
+        // movement.isMoving = false;
+
         isWalking = false;
         isRunning = false;
 

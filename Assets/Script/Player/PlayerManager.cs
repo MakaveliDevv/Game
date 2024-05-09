@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-   #region Singleton
+    public enum PlayerState { IDLE, WALK, RUN, DASH, ATTACK}
+    public PlayerState state;
+    public PlayerState previousState; 
+
+    public GameObject player;
+
+    #region Singleton
 
     public static PlayerManager instance;
 
@@ -16,7 +22,6 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
-    public GameObject player;
 
     public void KillPlayer() 
     {

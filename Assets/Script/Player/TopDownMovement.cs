@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class TopDownMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [HideInInspector] public Stat stat;
+    [HideInInspector] public CharacterController controller;
     private Camera cam;
     
-    [HideInInspector] public Stat stat;
+    public bool isMoving;
 
     public float verticalVelocity;
     public float gravity;
@@ -38,6 +39,9 @@ public class TopDownMovement : MonoBehaviour
         Gravity(ref targetPosition);
         controller.Move(targetPosition);
 
+        // if(targetPosition.z > .1f) 
+        //     isMoving = true;
+        
         return targetVector;
     }
 

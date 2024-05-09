@@ -2295,10 +2295,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: b4a916b07fc644a4fb9a9f4f1dacaaff, type: 2}
-  defWeaponObj: {fileID: 0}
+  currentWeapon: {fileID: 0}
+  previousWeapon: {fileID: 0}
+  weaponGameObject: {fileID: 0}
+  weapons: []
   weaponSlot: {fileID: 0}
   defaultWeaponSlot: {fileID: 0}
-  weapons: []
   space: 1
 --- !u!114 &1822915955
 MonoBehaviour:
@@ -2407,6 +2409,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
   m_PrefabInstance: {fileID: 3017402069060660328}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1916179935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916179913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b00d0720d6d884b98cbe2fdae4e2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 5
+  sidestepSpeed: 10
+  cooldownTime: 1
+  sideStep: 0
+  cooldown: 0
 --- !u!1 &1969581888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2750,6 +2769,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.496
       objectReference: {fileID: 0}
+    - target: {fileID: 7683613569270445146, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7855054851905658017, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_Name
       value: DefaultWeaponSlot
@@ -2768,7 +2791,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2076795411}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916179935}
   m_SourcePrefab: {fileID: 100100000, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
 --- !u!224 &4780703078170464132 stripped
 RectTransform:
