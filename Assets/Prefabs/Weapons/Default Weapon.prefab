@@ -257,9 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 0}
   weapon: {fileID: 11400000, guid: b4a916b07fc644a4fb9a9f4f1dacaaff, type: 2}
-  defaultWeapon: {fileID: 0}
 --- !u!114 &9199096263171068091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wpn: {fileID: 0}
   cam: {fileID: 0}
   firePoint: {fileID: 8329663219751443566}
   layerMask:

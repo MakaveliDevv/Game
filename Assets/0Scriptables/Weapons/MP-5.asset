@@ -23,9 +23,9 @@ MonoBehaviour:
   bulletVelocity: 10
   fireRate: 25
   range: 100
-  nextTimeToFire: 0
+  nextTimeToFire: 83.739975
   waitBeforeEquipTime: 0
-  equipTimer: 3
+  equipTimer: 10
   dropRate: 0.35
   defaultWeapon: 0
-  weaponEquipped: 1
+  weaponEquipped: 0

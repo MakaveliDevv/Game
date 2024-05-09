@@ -26,14 +26,18 @@ public class WeaponPickup : Interactable, IDGameObject
         if(pickedUpWeapon)
         {
             Destroy(gameObject);
-            Equip();
+            StartCoroutine(EquipTimer());
         }
     }
     
     public IEnumerator EquipTimer() 
     {
+        Debug.Log("Equip Timer Started for: " + weapon.name);
+        Equip();
         yield return new WaitForSeconds(weapon.equipTimer);
         weapon.weaponEquipped = false;
+        Debug.Log("Equip Timer Ended for: " + weapon.name);
+
         Destroy(gameObject);
 
         yield break;    

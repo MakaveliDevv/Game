@@ -22,7 +22,7 @@ public class WeaponInventory : MonoBehaviour
 
     private Weapon currentWeapon; 
 
-    [SerializeField] private Weapon defaultWeapon;
+    public Weapon defaultWeapon;
     [HideInInspector] public GameObject defWeaponObj; 
     [HideInInspector] public Transform weaponSlot, defaultWeaponSlot;
     public List<Weapon> weapons = new();
@@ -46,7 +46,17 @@ public class WeaponInventory : MonoBehaviour
         {
             currentWeapon = defaultWeapon;
             weapons.Add(currentWeapon);
-            currentWeapon.weaponEquipped = true;
+
+            // Loop through all the weapons
+            foreach (var weapon in GameManager.instance.weapons)
+            {
+                WeaponPickup pickup = weapon.GetComponent<WeaponPickup>();
+                
+                if(!pickup.weapon.defaultWeapon)
+                    pickup.weapon.weaponEquipped = false;
+                else
+                    pickup.weapon.weaponEquipped = false;
+            }   
         }
     }
 
