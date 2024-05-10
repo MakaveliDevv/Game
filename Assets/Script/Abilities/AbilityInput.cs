@@ -17,7 +17,7 @@ public abstract class AbilityInput : MonoBehaviour
 
     void Awake() 
     {
-        characterContr = GetComponentInParent<CharacterController>();
+        characterContr = GetComponent<CharacterController>();
         player = characterContr.gameObject;
     }
 
