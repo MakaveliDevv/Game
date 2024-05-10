@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public enum PlayerState { IDLE, WALK, RUN, DASH, ATTACK}
+    public enum PlayerState { IDLE, WALK, RUN, DASH, ATTACK, TELEPORT }
     public PlayerState state;
     public PlayerState previousState; 
 

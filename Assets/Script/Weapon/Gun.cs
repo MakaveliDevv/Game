@@ -27,6 +27,17 @@ public class Gun : MonoBehaviour
         }
     }
 
+    private Vector3 ReturnMousePosition(Transform _transform) 
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = Camera.main.transform.position.y; // Distance from the camera to the game world
+
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        worldPosition.y = _transform.position.y;
+
+        return worldPosition;
+    }
+
     void Update() 
     {
         StartCoroutine(EquipTimer());

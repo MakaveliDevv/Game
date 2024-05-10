@@ -24,9 +24,33 @@ public class TopDownMovement : MonoBehaviour
     void Update() 
     {
         var targetVector = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0, Input.GetAxisRaw(Tags.VERTICAL));
+        // MovingTowardsOppositeDirection(targetVector);
+
         MoveTowardTarget(targetVector);
         RotateTowardMouseVector();
     }
+
+    // private bool MovingTowardsOppositeDirection(Vector3 movementDirection)
+    // {
+    //     // Calculate the direction from player to mouse pointer
+    //     Vector3 directionToMouse = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+
+    //     // Calculate the angle between movement direction and direction to mouse
+    //     float angle = Vector3.Angle(movementDirection, directionToMouse);
+
+    //     // Check if the angle is close to 180 degrees (opposite direction)
+    //     if (Mathf.Approximately(angle, 180f))
+    //     {
+    //         Debug.Log("Walking towards the opposite direction of the mouse position!");
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Walking towards the same direction as the mouse position");
+    //         return false;
+    //     }
+    // }
+
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {

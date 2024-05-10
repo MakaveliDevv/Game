@@ -44,23 +44,6 @@ public class PlayerController : MonoBehaviour
                 } 
 
                 break;
-
-                // Need to find a way to be able to proceed walking after the character dashed
-
-                case PlayerManager.PlayerState.DASH:
-                    // Stop the walk anim
-
-                    // anim.Walk(false);
-
-                    // if(!abilityInput.sideStep) 
-                    // {
-                    //     PlayerManager.instance.state = PlayerManager.PlayerState.WALK;
-                    // }
-                    
-                    // movement.stat = stats.dash;
-
-                break;
-            
             default:
                 break;
         }
