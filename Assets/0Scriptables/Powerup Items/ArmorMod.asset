@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19db6014f7503504ab1e8c0eaddc1fc3, type: 3}
-  m_Name: Helmet of Protection
+  m_Name: ArmorMod
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
-  powerupType: Defense
-  Name: HelmetOfProtection
+  powerupType: Damage
+  Name: ArmorMod
   damageModifier: 0
-  armorModifier: 25
+  armorModifier: 5
   speedModifier: 0
-  dropRate: 0.2
+  maxHealthModifier: 0
+  cooldownTimer: 5
+  dropRate: 0.5
   isDefaultItem: 0

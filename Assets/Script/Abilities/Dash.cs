@@ -27,9 +27,7 @@ public class Dash : AbilityInput
     private void OnCooldownFinished(string abilityName)
     {
         if (abilityName == AbilityName)
-        {
             dashCoolDown = false; 
-        }
     }
     
     private void DashInput() 

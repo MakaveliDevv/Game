@@ -6,7 +6,8 @@ using UnityEngine;
 public class Stat 
 {
     [SerializeField] private float baseValue;
-    private List<float> modifiers = new();
+    [SerializeField] private List<float> modifiers = new();
+    private float initialValue;
 
     public float GetValue() 
     {
@@ -28,9 +29,9 @@ public class Stat
         return baseValue;
     }
 
-    public float GetPercentageReduction(float maxPercentage)
+    public float GetPercentageReduction(float percentage)
     {
-        return Mathf.Clamp(GetValue(), 0, maxPercentage);
+        return Mathf.Clamp(GetValue(), 0, percentage);
     }
     
     public void AddModifier(float modifier) 

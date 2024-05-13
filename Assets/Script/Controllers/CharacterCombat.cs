@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterStats))]
@@ -23,7 +24,13 @@ public class CharacterCombat : MonoBehaviour
         {
             _targetStats.TakeDamage(myStats.damage.GetValue());
             attackCooldown = 1f / attackSpeed;
+            Debug.Log(_targetStats.currentHealth.GetValue());
         }
+    }
+
+    private IEnumerator ModifierCooldown(float _modifierCooldown) 
+    {
+        yield return new WaitForSeconds(_modifierCooldown);
     }
 }
 

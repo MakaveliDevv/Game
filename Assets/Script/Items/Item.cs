@@ -11,9 +11,11 @@ public class Item : ScriptableObject
 
     [Header("Specs")]
     public string Name = "Name"; // Name of the item
+    public int maxHealthModifier;
     public int damageModifier;
     public int armorModifier;
-    public int speedModifier;
+    public int movementModifier;
+    public int cooldownTimer;
     public float dropRate;
     public bool isDefaultItem = false;
  

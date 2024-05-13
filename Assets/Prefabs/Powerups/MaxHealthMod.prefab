@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1269969438993829616}
   - component: {fileID: 7935448897536049657}
   m_Layer: 0
-  m_Name: HammerOfNoob
+  m_Name: MaxHealthMod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 66429c18913f791418d358e47022b9f3, type: 2}
+  - {fileID: 2100000, guid: e1b17d1eaad40ef49b3bc87395d0f122, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee89348ee020bd4ab1857d77f62671f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0144f432ca1524d4684ff73993d7fc81, type: 2}
+  item: {fileID: 11400000, guid: 54c84e4f79a29fe43a54861a7e6c3bab, type: 2}
 --- !u!65 &7935448897536049657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

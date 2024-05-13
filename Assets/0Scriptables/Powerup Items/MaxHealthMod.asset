@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19db6014f7503504ab1e8c0eaddc1fc3, type: 3}
-  m_Name: HammerOfNoob
+  m_Name: MaxHealthMod
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
-  powerupType: Damage
-  Name: HammerOfNoob
-  damageModifier: 5
-  armorModifier: 2
+  powerupType: Health
+  Name: MaxHealthMod
+  damageModifier: 0
+  armorModifier: 0
   speedModifier: 0
-  dropRate: 0.5
+  maxHealthModifier: 10
+  cooldownTimer: 10
+  dropRate: 0.2
   isDefaultItem: 0

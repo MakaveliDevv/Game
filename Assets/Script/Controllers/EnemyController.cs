@@ -6,43 +6,73 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /* This handles the behaviour of the Enemy */
-public enum EnemyState { CHASE, ATTACK }
 
+[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))] 
 public class EnemyController : MonoBehaviour
 {
+    public enum EnemyState { CHASE, ATTACK, KNOCKEDBACK, IDLE}
     [SerializeField] private EnemyState state;
+    // [SerializeField] private EnemyState previousState;
+
     public float inRangeRadius = 10f;
     private Transform target; // Player
     private NavMeshAgent agent;
     private CharacterCombat combat;
     private CharacterStats stats;
+    private Rigidbody rb;
+    private CapsuleCollider capsColl;
+    [Range(0.00f, .1f)] [SerializeField] private float stillTreshold = .05f;
 
-    private float distance;
-
-    void Start() 
+    void Awake() 
     {
         target = PlayerManager.instance.player.transform;
+
         agent = GetComponent<NavMeshAgent>();
         combat = GetComponent<CharacterCombat>();
         stats = GetComponent<CharacterStats>();
+        
+        rb = GetComponent<Rigidbody>();
+        capsColl = GetComponent<CapsuleCollider>();
 
+    }
+
+    void Start() 
+    {
+        state = EnemyState.IDLE;
         agent.speed = stats.walkSpeed.ReturnBaseValue();
+    }
+
+    void FixedUpdate() 
+    {
+        Movement();
     }
 
     void Update()
     {
-        // EnemyMovement();
+        switch (state)
+        {
+            case EnemyState.CHASE:
+                ChaseState();
+                               
+            break;
+
+            case EnemyState.ATTACK:
+                AttackState();
+
+            break;
+
+            case EnemyState.KNOCKEDBACK:
+                Debug.Log("Knockback state");
+
+            break;
+            // default: 
+        }
     }    
 
-    void FaceTarget() // Method to rotate the enemy towards the player 
+    void FaceTarget()
     {
-        // Get the direction to the target
         Vector3 direction = (target.position - transform.position).normalized;
-
-        // Get the rotation
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-        
-        // Then update the rotation to point in that direction
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
@@ -52,48 +82,80 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, inRangeRadius);
     }
 
-    void EnemyMovement() 
+    private void Movement() 
     {
-        // Calculate the distance between the enemy and the target (player)
-        distance = Vector3.Distance(target.position, transform.position);
-        AttackState();
+        transform.position = new(transform.position.x, 0f, transform.position.z);
+        agent.transform.position = new(transform.position.x, transform.position.y, transform.position.z);
+        
+        float distance = Vector3.Distance(target.position, transform.position);
+        if(distance > agent.stoppingDistance) 
+            state = EnemyState.CHASE;
+
+        else if(distance <= agent.stoppingDistance) 
+        {
+            state = EnemyState.ATTACK;
+        }
+        
     }
 
     void ChaseState() 
     {
-        // Set the enemy in a Chase State
-        state = EnemyState.CHASE;
+        rb.isKinematic = false;
+        capsColl.isTrigger = false;
 
-        // Then move the enemy towards the target destination
-        agent.SetDestination(target.position); 
-
-        // Play animation
+        if(agent.enabled == true)
+            agent.SetDestination(target.position); 
     }
 
     void AttackState() 
     {
-    	// Check when the enemy is to close to the target
-        if(distance <= agent.stoppingDistance) 
+        FaceTarget(); 
+
+        rb.isKinematic = true;
+        capsColl.isTrigger = true;
+        
+        Debug.Log("Attacking");
+        if(target.TryGetComponent<PlayerStats>(out var targetStats)) 
         {
-            // If so, set the enemy in an Attack State
-            state = EnemyState.ATTACK;
-            Debug.Log("Attacking");
-            if(target.TryGetComponent<CharacterStats>(out var targetStats)) 
-            {
-                // Attack the target (player)
-                combat.Attack(targetStats);
+            combat.Attack(targetStats);
 
-                // Play attack animation
-
-            }
-            
-            FaceTarget(); // Face the target
-
-        } 
-        else if(distance > agent.stoppingDistance) // Check if the target is not close anymore
-        {
-            // Then chase again
-            ChaseState();
+            // Play attack animation
         }
     }
+
+    // public void GetKnockedBack(Vector3 force)
+    // {
+    //     StartCoroutine(ApplyKnockback(force));
+    // }
+
+    // private IEnumerator ApplyKnockback(Vector3 force)
+    // {
+    //     // previousState = state;
+    //     state = EnemyState.KNOCKEDBACK;
+
+    //     yield return new WaitForSeconds(.25f);
+
+    //     // yield return null;
+    //     // Debug.Log("Have waited 1 frame...");
+        
+    //     agent.enabled = false;
+    //     rb.useGravity = true;
+    //     rb.AddForce(force);
+    //     Debug.Log("agent enabled, gravity one, add force");
+
+    //     yield return new WaitForFixedUpdate();
+    //     yield return new WaitUntil(() => rb.velocity.magnitude < stillTreshold);
+    //     yield return new WaitForSeconds(.25f);
+    //     Debug.Log("WaitForFixedUpdate, WaitUntil, WaitForSeconds");
+
+
+    //     rb.useGravity = false;
+    //     agent.Warp(transform.position);
+    //     agent.enabled = true;
+    //     Debug.Log("gravity off, warp, agent enable");
+
+    //     yield return new WaitForSeconds(.25f);
+
+    //     // yield  return null;
+    // }
 }

@@ -6,16 +6,16 @@ public class CharacterStats : MonoBehaviour
     public Stat currentHealth;
     public Stat damage;
     public Stat armor;
+    // Shield power? Like larger radius
     public Stat walkSpeed;
     public Stat runSpeed;
-    public Stat dash;
     
     protected GameManager gameManager_instance;
 
     void Awake() 
     {
         gameManager_instance = GameManager.instance;
-        currentHealth = maxHealth;
+        currentHealth.SetValue(maxHealth.ReturnBaseValue());
     }
 
     public void TakeDamage(float incomingDamage)
@@ -36,6 +36,11 @@ public class CharacterStats : MonoBehaviour
             currentHealth.SetValue(0);
             Die();
         }
+    }
+
+    public void HealOverTime(float incomingHeal) 
+    {
+
     }
 
     public virtual void Die() 

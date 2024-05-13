@@ -10,11 +10,11 @@ public class PowerupInventory : MonoBehaviour
     {
         if(instance != null) 
         {
-            Destroy(this.gameObject); // Destroy the duplicate instance
+            Destroy(gameObject); // Destroy the duplicate instance
             return;
         }
         instance = this;
-        DontDestroyOnLoad(this.gameObject); // Ensure that this object persists between scenes
+        DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
     }
     #endregion 
     
@@ -34,11 +34,8 @@ public class PowerupInventory : MonoBehaviour
 
     public bool AddItem(Item _item) 
     {
-        if(!_item.isDefaultItem) 
-        {
-            if(!CanCollectItem()) 
-                return false; 
-
+        if(!_item.isDefaultItem && CanCollectItem() && !powerups.Contains(_item)) 
+        {               
             // continue to add item
             powerups.Add(_item);
 

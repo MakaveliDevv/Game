@@ -17,17 +17,24 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collider) 
     {
-        hit = true;
-        Destroy(gameObject);
-
         if(collider.CompareTag(Tags.ENEMY)) 
         {
             if(collider.TryGetComponent<CharacterCombat>(out var combat) 
-            && collider.TryGetComponent<CharacterStats>(out var stats)) 
+            && collider.TryGetComponent<EnemyStats>(out var stats)) 
             {
                 combat.Attack(stats);
             }
         }
+    }
+
+    void OnTriggerStay(Collider other) 
+    {
+        if(other.gameObject.layer == gameObject.layer)
+        {
+            hit = true;
+            Debug.Log(hit + " " + other.gameObject.name + " - The same layer");
+            Destroy(gameObject);
+        } 
     }
 
     private IEnumerator DestroyOverTime() 

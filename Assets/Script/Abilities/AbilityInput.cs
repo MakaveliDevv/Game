@@ -7,17 +7,19 @@ public abstract class AbilityInput : MonoBehaviour
 {
     protected CharacterController characterContr;
     protected GameObject player;
+    protected PlayerStats stats;
 
     private static Dictionary<string, float> abilityCooldowns = new();
 
     [SerializeField] protected string abilityName = "Ability"; 
     protected abstract string AbilityName { get; } // Abstract property to get the ability name
 
-    public event Action<string> CooldownFinished;
+    protected event Action<string> CooldownFinished;
 
     void Awake() 
     {
-        characterContr = GetComponent<CharacterController>();
+        characterContr = GetComponentInParent<CharacterController>();
+        stats = GetComponentInParent<PlayerStats>();
         player = characterContr.gameObject;
     }
 

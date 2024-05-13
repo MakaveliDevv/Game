@@ -31,7 +31,6 @@ public class Interactable : MonoBehaviour
             inRange = true;
             Interact();
         }
-
     }
 
     void OnTriggerExit(Collider collider) 
