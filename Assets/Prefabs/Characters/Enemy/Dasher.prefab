@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: -6419497881296143181}
   - component: {fileID: -8745567501757403272}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: Dasher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,16 +158,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     baseValue: 100
+    modifiers: []
   currentHealth:
     baseValue: 0
+    modifiers: []
   damage:
     baseValue: 10
+    modifiers: []
   armor:
     baseValue: 2
+    modifiers: []
   walkSpeed:
     baseValue: 5
+    modifiers: []
   runSpeed:
     baseValue: 0
+    modifiers: []
   deathIsComingForYou: 0
 --- !u!114 &885190269658570328
 MonoBehaviour:
@@ -181,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65868d84b7a81914e9bdb5ff4a4dacc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
+  attackSpeed: 100
 --- !u!114 &3280622437711167085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +213,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  inRangeRadius: 10
+  typeState: 2
   stillTreshold: 0.05
+  distanceBehindPlayer: -10
 --- !u!136 &-6419497881296143181
 CapsuleCollider:
   m_ObjectHideFlags: 0

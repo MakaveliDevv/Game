@@ -31,6 +31,130 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3561447523729520398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2308652786391187476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8382933801554861651}
+  - component: {fileID: 6266530369577491009}
+  - component: {fileID: 2990714593444551734}
+  - component: {fileID: 3012867121647768261}
+  - component: {fileID: 999185321312291616}
+  - component: {fileID: 3050973924579738091}
+  m_Layer: 6
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8382933801554861651
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3561447523729520398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6266530369577491009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd515de09c6fd754f9e87912bb293f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Ability
+  maxDashDistance: 5
+  dashCooldownTimer: 1
+  dashLerpDuration: 0.2
+  dashSpeed: 10
+  dashCoolDown: 0
+--- !u!114 &2990714593444551734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7c36a966718694fae6ec4829b5b11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Ability
+  teleportCooldownTimer: 5
+  teleportDistance: 10
+  teleportCooldown: 0
+--- !u!114 &3012867121647768261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a316429aa048154d87220d5c5171818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Shield
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  shieldRadius: 5
+  shieldCoolDownTimer: 15
+  shieldTimer: 5
+  shieldCooldown: 0
+--- !u!114 &999185321312291616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb2e5a57c61b364fbeb78a00bc6ebc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Heal
+  healAmountPerTick: 5
+  healTickInterval: 1
+  healDuration: 5
+--- !u!114 &3050973924579738091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2308652786391187476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78467fa12a5353548bf8deb3e80a72bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Ability
+  explosionRadius: 5
+  explosionDamage: 20
+  detonationDelay: 0.5
+  bombCooldown: 0
+  bombCooldownTimer: 5
 --- !u!1 &7855054851905658017
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +204,6 @@ GameObject:
   - component: {fileID: 7897911403392338819}
   - component: {fileID: 245809662851086556}
   - component: {fileID: 2979312267030739970}
-  - component: {fileID: 1436868928288671179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -104,6 +227,7 @@ Transform:
   - {fileID: 5869684823320301839}
   - {fileID: 7091307364161607538}
   - {fileID: 5659956231567042272}
+  - {fileID: 8382933801554861651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6637120413796532638
@@ -173,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stat:
     baseValue: 0
+    modifiers: []
   controller: {fileID: 0}
   isMoving: 0
   verticalVelocity: 0
@@ -236,19 +361,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 9999
+    baseValue: 500
+    modifiers: []
   currentHealth:
     baseValue: 0
+    modifiers: []
   damage:
     baseValue: 15
+    modifiers: []
   armor:
-    baseValue: 15
-  walkSpeed:
-    baseValue: 10
-  runSpeed:
-    baseValue: 15
-  dash:
     baseValue: 0
+    modifiers: []
+  walkSpeed:
+    baseValue: 5
+    modifiers: []
+  runSpeed:
+    baseValue: 0
+    modifiers: []
 --- !u!114 &245809662851086556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,29 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1339820e9a422541a474cf355289b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &1436868928288671179
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8609454900119390210}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Height: 1.75
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1001 &6268999969840002788
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -88,11 +88,11 @@ public class Shield : AbilityInput
     //     }
     // }
 
-    void OnDrawGizmosSelected() 
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, shieldRadius);
-    }
+    // void OnDrawGizmosSelected() 
+    // {
+    //     Gizmos.color = Color.blue;
+    //     Gizmos.DrawWireSphere(transform.position, shieldRadius);
+    // }
 
     // JUST CREATE A SPHERE COLLIDER ON THIS SCRIPT WHICH REPRESENTS THE SHIELD
     // private void OnTriggerEnter(Collider other)

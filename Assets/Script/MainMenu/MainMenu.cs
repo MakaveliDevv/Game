@@ -1,26 +1,55 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class MainMenu : MonoBehaviour
 {
-    private Button btn;
+    [SerializeField] private GameObject difficultyButton;
+    [SerializeField] private GameObject difficultyPanel;
+    [SerializeField] private string selectedDifficulty;
 
-    void Start() 
+    [SerializeField] private TextMeshProUGUI text;
+
+    void Awake()
     {
-        btn = FindAnyObjectByType<Button>();
+        text = difficultyButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void SwitchScene() 
+    public void SwitchScene(string sceneName) 
     {
-        StartCoroutine(WaitBeforeSwitchScene());
-        
-        SceneManager.LoadScene(btn.SceneName);
+        PlayerPrefs.SetString("Difficulty", selectedDifficulty);
+        SceneManager.LoadScene(sceneName);
     }
 
-    public IEnumerator WaitBeforeSwitchScene() 
+    public void SwitchToDifficultyPanel() 
     {
-        yield return new WaitForSeconds(3f);
+        if(difficultyButton != null) 
+        {
+            difficultyButton.GetComponent<Button>().enabled = false;
+            difficultyButton.GetComponent<Image>().enabled = false;
+            text.gameObject.SetActive(false);
+            // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+
+
+            difficultyPanel.SetActive(true);
+        }
+    }
+
+    public void SelectDifficulty(string difficulty) 
+    {
+        // Store the selected difficulty
+        selectedDifficulty = difficulty;
+
+        difficultyPanel.SetActive(false);
+
+        difficultyButton.SetActive(true);
+        difficultyButton.GetComponent<Button>().enabled = true;
+        difficultyButton.GetComponent<Image>().enabled = true;
+        text.gameObject.SetActive(true);
+        // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
     }
 }

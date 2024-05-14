@@ -698,7 +698,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 92858238818bbdc4cb0bab92479f7316, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9cfb4263b546b6948b45706daf04f3e9, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &299026774
 Transform:
@@ -1721,130 +1721,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7f1c8c26b7c444419d55953c0a77a3c, type: 3}
---- !u!1 &1168002332
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1168002333}
-  - component: {fileID: 1168002336}
-  - component: {fileID: 1168002335}
-  - component: {fileID: 1168002334}
-  - component: {fileID: 1168002337}
-  - component: {fileID: 1168002338}
-  m_Layer: 6
-  m_Name: Abilities
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1168002333
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1916179924}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1168002334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a316429aa048154d87220d5c5171818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Shield
-  enemyLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  shieldRadius: 5
-  shieldCoolDownTimer: 15
-  shieldTimer: 5
-  shieldCooldown: 0
---- !u!114 &1168002335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db7c36a966718694fae6ec4829b5b11e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Ability
-  teleportCooldownTimer: 5
-  teleportDistance: 10
-  teleportCooldown: 0
---- !u!114 &1168002336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd515de09c6fd754f9e87912bb293f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Ability
-  maxDashDistance: 5
-  dashCooldownTimer: 1
-  dashLerpDuration: 0.2
-  dashSpeed: 10
-  dashCoolDown: 0
---- !u!114 &1168002337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb2e5a57c61b364fbeb78a00bc6ebc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Heal
-  healAmountPerTick: 5
-  healTickInterval: 1
-  healDuration: 5
---- !u!114 &1168002338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168002332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78467fa12a5353548bf8deb3e80a72bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Ability
-  explosionRadius: 5
-  explosionDamage: 20
-  detonationDelay: 0.5
-  bombCooldown: 0
-  bombCooldownTimer: 5
 --- !u!1 &1187930413
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,8 +1924,8 @@ Transform:
   m_GameObject: {fileID: 1386978509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 3.4569}
+  m_LocalScale: {x: 1, y: 1, z: 1.6914}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 216726912}
@@ -2607,9 +2483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   enemyTypes:
-  - {fileID: 1070980337100862366, guid: 0b88366b3b472de47b7b7f62292ab901, type: 3}
-  - {fileID: 2033796543572811516, guid: a4fdb3fb5fa4d834493f23b53d79cf43, type: 3}
-  - {fileID: 683953524762823358, guid: 126df280fa77931489d21a0ea1b29925, type: 3}
   - {fileID: 5034793595742867596, guid: 26119941768dccc4286da6fd444067bb, type: 3}
   spawnLocations:
   - {fileID: 255474561}
@@ -2653,7 +2526,8 @@ MonoBehaviour:
   - {fileID: 8503485254106943502, guid: 9ff6521b7b2aae741b764e6f85d44def, type: 3}
   - {fileID: 4386638881719144223, guid: 785d9b6a0b0e0a548a8954be4b801e0f, type: 3}
   - {fileID: 8503485254106943502, guid: 7be8aadca08d20e47a1359eeef81089a, type: 3}
-  initialEnemyAmount: 10
+  enmiesInGame: []
+  initialEnemyAmount: 1
   enemyCounter: 0
   deadCounter: 0
   spawnRate: 0
@@ -2693,11 +2567,6 @@ Transform:
 --- !u!1 &1916179913 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-  m_PrefabInstance: {fileID: 3017402069060660328}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1916179924 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
   m_PrefabInstance: {fileID: 3017402069060660328}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1969581888
@@ -2968,17 +2837,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3012867121647768261, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: shieldTimer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3012867121647768261, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: shieldRadius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3008,33 +2885,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7897911403392338819, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: armor.baseValue
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: radius
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: isRunning
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7897911403392338819, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: runSpeed.baseValue
-      value: 0
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_maxOffset
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 7897911403392338819, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: maxHealth.baseValue
-      value: 500
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_minOffset
+      value: -20
       objectReference: {fileID: 0}
-    - target: {fileID: 7897911403392338819, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      propertyPath: walkSpeed.baseValue
-      value: 5
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_dashRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_attackRangeRadius
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1436868928288671179, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1168002333}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
 --- !u!224 &4780703078170464132 stripped

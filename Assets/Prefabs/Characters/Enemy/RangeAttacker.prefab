@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3299095982082241172}
   - component: {fileID: -2109993857303648087}
   m_Layer: 3
-  m_Name: Ultra Instinct Enemy
+  m_Name: RangeAttacker
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,16 +75,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     baseValue: 100
+    modifiers: []
   currentHealth:
     baseValue: 0
+    modifiers: []
   damage:
     baseValue: 10
+    modifiers: []
   armor:
     baseValue: 2
+    modifiers: []
   walkSpeed:
     baseValue: 5
+    modifiers: []
   runSpeed:
     baseValue: 0
+    modifiers: []
   deathIsComingForYou: 0
 --- !u!114 &8855074461834162662
 MonoBehaviour:
@@ -124,8 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  inRangeRadius: 10
+  inRangeRadius: 0
   stillTreshold: 0.05
+  attackRangeRadius: 10
 --- !u!136 &3299095982082241172
 CapsuleCollider:
   m_ObjectHideFlags: 0

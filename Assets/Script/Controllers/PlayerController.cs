@@ -5,16 +5,17 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private TopDownMovement movement;
     [SerializeField] private PlayerAnimator anim;
-    [SerializeField] private AbilityInput abilityInput;
+    // [SerializeField] private AbilityInput abilityInput;
     private CharacterStats stats;
     public bool isIdle, isWalking, isRunning;
+    public float enemy_attackRangeRadius, enemy_dashRadius;
 
     void Awake()
     {
         movement = GetComponent<TopDownMovement>();
         anim = GetComponent<PlayerAnimator>();
         stats = GetComponent<CharacterStats>();
-        abilityInput = GetComponent<AbilityInput>();
+        // abilityInput = GetComponent<AbilityInput>();
     }
 
     void Start()
@@ -91,4 +92,10 @@ public class PlayerController : MonoBehaviour
 
         isRunning = true;
     }
+
+    // void OnDrawGizmosSelected() 
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, radius);
+    // }
 }

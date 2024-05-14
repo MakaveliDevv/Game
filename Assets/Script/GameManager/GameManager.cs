@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> powerups = new();
 
     [Header("Enemy Stuff")]
+    public List<GameObject> enmiesInGame = new();
     [SerializeField] private int initialEnemyAmount; // Initial amount for the first wave
     private int enemyAmount;
     public int enemyCounter; // To keep track of the enemy
@@ -134,6 +136,7 @@ public class GameManager : MonoBehaviour
         Transform spawnPos = spawnLocations[Random.Range(0, spawnLocations.Count)];
 
         Instantiate(enemy, spawnPos.position, spawnPos.transform.rotation);
+        enmiesInGame.Add(enemy);
     }
 
     IEnumerator SpawnEnemy()
