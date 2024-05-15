@@ -1518,7 +1518,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 45
+  field of view: 85
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1544,13 +1544,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15394522, y: -0, z: -0, w: 0.9880794}
-  m_LocalPosition: {x: 0, y: 9.4, z: -25.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.41, z: -14.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 17.711, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,8 +1563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfc714b16b1d134b9e3654b5d8f446a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPosition: {x: 0, y: 12.5, z: -5}
-  cameraRotation: {x: 65, y: 0, z: 0}
+  cameraPosition: {x: 0, y: 12.5, z: 0}
+  cameraRotation: {x: 90, y: 0, z: 0}
   player: {fileID: 1916179913}
   followSpeed: 5
 --- !u!1 &992560271
@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   enemyTypes:
-  - {fileID: 1070980337100862366, guid: 0b88366b3b472de47b7b7f62292ab901, type: 3}
+  - {fileID: 5034793595742867596, guid: 26119941768dccc4286da6fd444067bb, type: 3}
   spawnLocations:
   - {fileID: 255474561}
   - {fileID: 992560272}
@@ -2837,6 +2837,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2990714593444551734, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: abilityName
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050973924579738091, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: abilityName
+      value: ShockWave
+      objectReference: {fileID: 0}
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2876,6 +2884,18 @@ PrefabInstance:
     - target: {fileID: 3561447523729520398, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_dashRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540965080098338543, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: enemy_attackRangeRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266530369577491009, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
+      propertyPath: abilityName
+      value: Dash
       objectReference: {fileID: 0}
     - target: {fileID: 8609454900119390210, guid: 10a942d7175eacb4d88d6a92090510f4, type: 3}
       propertyPath: m_Name

@@ -20,7 +20,8 @@ public class EnemyGun : MonoBehaviour
 
     void Update() 
     {
-        if(enemyController.state == EnemyController.EnemyState.RANGE_ATTACK) 
+        if(enemyController.state == EnemyController.EnemyState.COMBAT 
+        && enemyController.attackState == EnemyController.AttackState.RANGE_ATTACK) 
         {
             if (Time.time >= weapon.nextTimeToFire)
             {

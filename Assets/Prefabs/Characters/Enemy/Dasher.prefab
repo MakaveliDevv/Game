@@ -212,10 +212,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcba200ff999a3b42b7218cb0b779333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
-  typeState: 2
+  state: 3
+  type: 2
+  attackState: 3
+  target: {fileID: 0}
   stillTreshold: 0.05
   distanceBehindPlayer: -10
+  rotationSpeed: 20
 --- !u!136 &-6419497881296143181
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -7,11 +7,12 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))] 
 public class EnemyController : MonoBehaviour
 {
-    public enum EnemyState { CHASE, CLOSE_ATTACK, KNOCKEDBACK, RANGE_ATTACK, DASH_ATTACK, IDLE }
-    public enum EnemyType { RANGE_ATTACKER, CLOSE_COMBAT, DASH_COMBAT }
+    public enum EnemyState { CHASE, COMBAT, KNOCKEDBACK, IDLE }
+    public enum AttackState { CLOSE_COMBAT, RANGE_ATTACK, DASH_ATTACK, IDLE }
+    public enum EnemyType { RANGE, MELEE, DASHER }
     public EnemyState state;
-    [SerializeField] private EnemyType typeState;
-    // [SerializeField] private EnemyState previousState;
+    [SerializeField] private EnemyType type;
+    public AttackState attackState;
 
     public Transform target; // Player
     private PlayerController playerContr;
@@ -21,6 +22,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody rb;
     private CapsuleCollider capsColl;
     [Range(0.00f, .1f)] [SerializeField] private float stillTreshold = .05f;
+    [SerializeField] private bool isDashing = false;
 
 
 
@@ -40,6 +42,7 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsColl = GetComponent<CapsuleCollider>();
 
+        attackState = AttackState.IDLE;
     }
 
     void Start() 
@@ -56,27 +59,51 @@ public class EnemyController : MonoBehaviour
     void Update()
     {        
         FaceTarget(); 
+    	DefaultStateSwitch();
+        AttackStateSwitch();
+    }   
 
+    private void AttackStateSwitch() 
+    {
+        switch(attackState)
+        {
+            case AttackState.CLOSE_COMBAT:
+    	        CloseCombat();
+
+            break;
+
+            case AttackState.DASH_ATTACK:
+                DashAttack();
+
+            break;
+
+            case AttackState.RANGE_ATTACK:
+                RangeAttack();
+
+            break;
+        }
+    }
+
+    private void DefaultStateSwitch() 
+    {
         switch (state)
         {
             case EnemyState.CHASE:
-                ChaseState();
+                Chase();
                                
             break;
 
-            case EnemyState.CLOSE_ATTACK:
-                AttackState();
-
-            break;
-
-            case EnemyState.DASH_ATTACK:
-                DashAttackState();
+            case EnemyState.COMBAT:
+                if(type == EnemyType.MELEE) 
+                    attackState = AttackState.CLOSE_COMBAT;
                 
-            break;
-
-            case EnemyState.RANGE_ATTACK:
-                RangeAttackState();
+                else if(type == EnemyType.DASHER)
+                    attackState = AttackState.DASH_ATTACK;
                 
+                else if(type == EnemyType.RANGE) 
+                    attackState = AttackState.RANGE_ATTACK;
+                
+                               
             break;
 
             case EnemyState.KNOCKEDBACK:
@@ -85,7 +112,7 @@ public class EnemyController : MonoBehaviour
             break;
             // default: 
         }
-    }    
+    } 
 
     private void FaceTarget()
     {
@@ -101,25 +128,124 @@ public class EnemyController : MonoBehaviour
 
         float distance = Vector3.Distance(target.position, transform.position);
      
-        if (distance > agent.stoppingDistance)
+        if (distance > agent.stoppingDistance && !isDashing)
         {
+            // Chase
             state = EnemyState.CHASE;
 
-            if (distance <= agent.stoppingDistance && typeState == EnemyType.CLOSE_COMBAT)
+            // Check for close combat
+            if (distance <= agent.stoppingDistance && type == EnemyType.MELEE)
             {
-                state = EnemyState.CLOSE_ATTACK;
+                state = EnemyState.COMBAT;
+                attackState = AttackState.CLOSE_COMBAT;
             }
-            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_attackRangeRadius && typeState == EnemyType.RANGE_ATTACKER)
+            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_attackRangeRadius && type == EnemyType.RANGE)
             {
-                state = EnemyState.RANGE_ATTACK;
+                state = EnemyState.COMBAT;
+                attackState = AttackState.RANGE_ATTACK;
             }
-            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && typeState == EnemyType.DASH_COMBAT)
+            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && type == EnemyType.DASHER)
             {
-                state = EnemyState.DASH_ATTACK;
+                state = EnemyState.COMBAT;
+                attackState = AttackState.DASH_ATTACK;
             }
         }
     } 
-     // private IEnumerator DashTowardsPosition()
+
+    private void Chase() 
+    {
+        attackState = AttackState.IDLE;
+        rb.isKinematic = false;
+        capsColl.isTrigger = false;
+
+        if(agent.enabled == true)
+            agent.SetDestination(target.position); 
+    }
+
+    private void CloseCombat() 
+    {
+        rb.isKinematic = true;
+        capsColl.isTrigger = true;
+        
+        Debug.Log("Attacking");
+        if(target.TryGetComponent<PlayerStats>(out var targetStats)) 
+        {
+            combat.Attack(targetStats);
+
+            // Play attack animation
+        }
+    }
+
+    // Range attack
+    private void RangeAttack() 
+    {
+        agent.velocity = new(0, 0, 0);
+
+        // float distance = Vector3.Distance(target.position, transform.position);
+        // if(distance > playerContr.enemy_attackRangeRadius) 
+        //     state = EnemyState.CHASE;
+
+        // If the position of the enemy is larger than the radius of the player then move the enemy again
+        Debug.Log("Enemy is attacking from a distance");   
+    }
+
+    // Dash
+    private void DashAttack() 
+    {
+        // Check if not already dashing
+        if (!isDashing)
+        {
+            // Set isDashing to true
+            isDashing = true;
+
+            // Start dashing coroutine
+            StartCoroutine(DashTowardsPosition());
+        }
+    } 
+
+    // private void DashAttack() 
+    // {
+    //     // Some dash movement
+    //     StartCoroutine(DashTowardsPosition());
+
+    //     // float distance = Vector3.Distance(target.position, transform.position);
+    //     // if(distance > playerContr.enemy_dashRadius) 
+    //     //     state = EnemyState.CHASE;
+    
+    // }
+
+    private IEnumerator DashTowardsPosition()
+    {
+        agent.enabled = false;
+        
+        yield return new WaitForSeconds(.25f);
+
+        agent.enabled = true;
+        // Disable NavMeshAgent auto-update
+        agent.autoBraking = true;
+        agent.speed = 15f; // Adjust as needed
+        agent.acceleration = 10f; // Adjust as needed
+
+        rb.isKinematic = true;
+        capsColl.isTrigger = true;
+
+        // Calculate the target position behind the player
+        Vector3 dashDirection = (target.position - transform.position).normalized;
+        Vector3 targetDashPosition = target.position - dashDirection * distanceBehindPlayer;
+
+        // Set the destination for NavMeshAgent
+        agent.SetDestination(targetDashPosition);
+
+        // Wait until the enemy reaches the destination
+        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+        {
+            yield return null;
+        }
+
+        isDashing = false;
+    }
+
+        // private IEnumerator DashTowardsPosition()
     // {
     //     isDashing = true;
 
@@ -179,80 +305,6 @@ public class EnemyController : MonoBehaviour
     // }
 
 
-   
-
-    private void ChaseState() 
-    {
-        rb.isKinematic = false;
-        capsColl.isTrigger = false;
-
-        if(agent.enabled == true)
-            agent.SetDestination(target.position); 
-    }
-
-    private void AttackState() 
-    {
-        rb.isKinematic = true;
-        capsColl.isTrigger = true;
-        
-        Debug.Log("Attacking");
-        if(target.TryGetComponent<PlayerStats>(out var targetStats)) 
-        {
-            combat.Attack(targetStats);
-
-            // Play attack animation
-        }
-    }
-
-    private void RangeAttackState() 
-    {
-        agent.velocity = new(0, 0, 0);
-
-        float distance = Vector3.Distance(target.position, transform.position);
-        if(distance > playerContr.enemy_attackRangeRadius) 
-            state = EnemyState.CHASE;
-
-        // If the position of the enemy is larger than the radius of the player then move the enemy again
-        Debug.Log("Enemy is attacking from a distance");   
-    }
-
-    private void DashAttackState() 
-    {
-        // Some dash movement
-        StartCoroutine(DashTowardsPosition());
-
-        float distance = Vector3.Distance(target.position, transform.position);
-        if(distance > playerContr.enemy_dashRadius) 
-            state = EnemyState.CHASE;
-    
-    }
-    private IEnumerator DashTowardsPosition()
-    {
-        // Disable NavMeshAgent auto-update
-        agent.autoBraking = false;
-        agent.speed = 15f; // Adjust as needed
-        agent.acceleration = 10f; // Adjust as needed
-
-        rb.isKinematic = true;
-        capsColl.isTrigger = true;
-
-        // Calculate the target position behind the player
-        Vector3 dashDirection = (target.position - transform.position).normalized;
-        Vector3 targetDashPosition = target.position - dashDirection * distanceBehindPlayer;
-
-        // Set the destination for NavMeshAgent
-        agent.SetDestination(targetDashPosition);
-
-        // Wait until the enemy reaches the destination
-        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
-        {
-            yield return null;
-        }
-
-        // Re-enable NavMeshAgent auto-update
-        agent.autoBraking = true;
-                
-    }
  
     // public void GetKnockedBack(Vector3 force)
     // {
