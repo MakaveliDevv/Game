@@ -7,13 +7,13 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Rigidbody))] 
 public class EnemyController : MonoBehaviour
 {
-    public enum EnemyState { CHASE, ATTACK, KNOCKEDBACK, RANGE_ATTACK, DASH_ATTACK, IDLE }
+    public enum EnemyState { CHASE, CLOSE_ATTACK, KNOCKEDBACK, RANGE_ATTACK, DASH_ATTACK, IDLE }
     public enum EnemyType { RANGE_ATTACKER, CLOSE_COMBAT, DASH_COMBAT }
-    [SerializeField] private EnemyState state;
+    public EnemyState state;
     [SerializeField] private EnemyType typeState;
     // [SerializeField] private EnemyState previousState;
 
-    private Transform target; // Player
+    public Transform target; // Player
     private PlayerController playerContr;
     private NavMeshAgent agent;
     private CharacterCombat combat;
@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
 
     // new stuff
     [SerializeField] private float distanceBehindPlayer;
+    [SerializeField] private float rotationSpeed = 20f;
 
     void Awake() 
     {
@@ -54,6 +55,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {        
+        FaceTarget(); 
+
         switch (state)
         {
             case EnemyState.CHASE:
@@ -61,7 +64,7 @@ public class EnemyController : MonoBehaviour
                                
             break;
 
-            case EnemyState.ATTACK:
+            case EnemyState.CLOSE_ATTACK:
                 AttackState();
 
             break;
@@ -88,7 +91,7 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
     private void Movement() 
@@ -97,53 +100,86 @@ public class EnemyController : MonoBehaviour
         agent.transform.position = new(transform.position.x, transform.position.y, transform.position.z);
 
         float distance = Vector3.Distance(target.position, transform.position);
-        
-        if(distance > agent.stoppingDistance && state != EnemyState.RANGE_ATTACK
-        && state != EnemyState.DASH_ATTACK)  
+     
+        if (distance > agent.stoppingDistance)
+        {
             state = EnemyState.CHASE;
 
-        if(distance <= agent.stoppingDistance) 
-            state = EnemyState.ATTACK;
-
-        if(typeState == EnemyType.RANGE_ATTACKER && distance <= playerContr.enemy_attackRangeRadius) 
-            state = EnemyState.RANGE_ATTACK;
-
-        if(typeState == EnemyType.DASH_COMBAT && distance <= playerContr.enemy_dashRadius)
-            state = EnemyState.DASH_ATTACK;  
-    }
-
-
-    // Check if the enemy is within the player's radius
-    // if (distance <= playerContr.radius) 
+            if (distance <= agent.stoppingDistance && typeState == EnemyType.CLOSE_COMBAT)
+            {
+                state = EnemyState.CLOSE_ATTACK;
+            }
+            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_attackRangeRadius && typeState == EnemyType.RANGE_ATTACKER)
+            {
+                state = EnemyState.RANGE_ATTACK;
+            }
+            else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && typeState == EnemyType.DASH_COMBAT)
+            {
+                state = EnemyState.DASH_ATTACK;
+            }
+        }
+    } 
+     // private IEnumerator DashTowardsPosition()
     // {
-    //     // Generate a random angle in radians
-    //     float randomAngle = Random.Range(0f, Mathf.PI * 2); // Range from 0 to 2*PI radians
-        
-    //     // Calculate the x and y offsets using trigonometry
-    //     float offsetX = Mathf.Cos(randomAngle) * Random.Range(playerContr.enemy_minOffset, playerContr.enemy_maxOffset);
-    //     float offsetY = Mathf.Sin(randomAngle) * Random.Range(playerContr.enemy_minOffset, playerContr.enemy_maxOffset);
-        
-    //     // Calculate the attack position relative to the player
-    //     Vector3 attackPosition = target.position + new Vector3(offsetX, 0f, offsetY);
-    //     Debug.Log(attackPosition);
-        
-    //     // Check if the enemy is within the attack range
-    //     if (Vector3.Distance(transform.position, attackPosition) <= playerContr.radius) 
-    //         state = EnemyState.RANGE_ATTACK;
-    // }
-    // Check if the enemy is within the player's radius
-    // if (distance <= playerContr.radius) 
-    // {
-    //     float randomOffset = Random.Range(playerContr.enemy_minOffset, playerContr.enemy_maxOffset);
-    //     int sign = Random.Range(-1, 2);
+    //     isDashing = true;
 
-    //     randomOffset *= sign;
-        
-    //     float attackDistanceRange = playerContr.radius + randomOffset;
-        
-    //     if (distance <= attackDistanceRange) 
-    //         state = EnemyState.RANGE_ATTACK;
+    //     // Disable NavMeshAgent
+    //     agent.enabled = false;
+
+    //     // Enable CapsuleCollider trigger to prevent collisions during dash
+    //     capsColl.isTrigger = true;
+
+    //     // Calculate the dash direction towards the target position
+    //     Vector3 dashDirection = (target.position - transform.position).normalized;
+
+    //     // Calculate the position behind the player
+    //     Vector3 targetDashPosition = target.position + dashDirection * distanceBehindPlayer;
+
+    //     // Calculate the distance to move during the dash
+    //     float distanceToMove = Vector3.Distance(transform.position, targetDashPosition);
+
+    //     // Calculate the duration based on the desired speed
+    //     float dashDuration = distanceToMove / dashSpeed;
+
+    //     // Start position of the dash
+    //     Vector3 startPosition = transform.position;
+
+    //     // Time elapsed during the dash
+    //     float elapsedTime = 0f;
+
+    //     // Dash movement loop
+    //     while (elapsedTime < dashDuration)
+    //     {
+    //         // Interpolate the enemy's position towards the target position
+    //         transform.position = Vector3.Lerp(startPosition, targetDashPosition, elapsedTime / dashDuration);
+
+    //         // Update elapsed time
+    //         elapsedTime += Time.deltaTime;
+
+    //         yield return null;
+    //     }
+
+    //     // Ensure the enemy reaches the target position
+    //     transform.position = targetDashPosition;
+
+    //     // Optional delay before allowing the enemy to move or dash again
+    //     yield return new WaitForSeconds(waitDuration);
+
+    //     // Reset CapsuleCollider properties
+    //     capsColl.isTrigger = false; // Re-enable collision
+
+    //     // Warp agent to the current position
+    //     agent.Warp(transform.position);
+    //     Debug.Log("Agent Warp");
+
+    //     // Re-enable NavMeshAgent
+    //     agent.enabled = true;
+
+    //     isDashing = false;
     // }
+
+
+   
 
     private void ChaseState() 
     {
@@ -156,8 +192,6 @@ public class EnemyController : MonoBehaviour
 
     private void AttackState() 
     {
-        FaceTarget(); 
-
         rb.isKinematic = true;
         capsColl.isTrigger = true;
         

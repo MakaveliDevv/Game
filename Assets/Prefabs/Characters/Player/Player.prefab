@@ -117,9 +117,9 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  shieldRadius: 5
+  shieldRadius: 3
   shieldCoolDownTimer: 15
-  shieldTimer: 5
+  shieldTimer: 10
   shieldCooldown: 0
 --- !u!114 &999185321312291616
 MonoBehaviour:
@@ -203,7 +203,6 @@ GameObject:
   - component: {fileID: 5367014072721165555}
   - component: {fileID: 7897911403392338819}
   - component: {fileID: 245809662851086556}
-  - component: {fileID: 2979312267030739970}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -316,10 +315,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 0}
   anim: {fileID: 0}
-  abilityInput: {fileID: 0}
   isIdle: 0
   isWalking: 0
   isRunning: 0
+  enemy_attackRangeRadius: 7
+  enemy_dashRadius: 3
 --- !u!114 &7904287257019437936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,18 +391,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 20
---- !u!114 &2979312267030739970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8609454900119390210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1339820e9a422541a474cf355289b0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6268999969840002788
 PrefabInstance:
   m_ObjectHideFlags: 0

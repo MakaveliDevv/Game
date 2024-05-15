@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
         direction.y = 0;
 
 
-        GameObject bulletInstance = Instantiate(weapon.bullet, firePoint.transform.position, Quaternion.identity);
+        GameObject bulletInstance = Instantiate(weapon.bullet, firePoint.transform.position, firePoint.rotation);
         Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
         rb.velocity = weapon.bulletVelocity * direction;
     }

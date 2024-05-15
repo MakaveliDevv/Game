@@ -26,10 +26,7 @@ public class WeaponEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("bulletVelocity"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("fireRate"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("range"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("nextTimeToFire"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("waitBeforeEquipTime"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("equipTimer"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("equipped"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultWeapon"));
         
 

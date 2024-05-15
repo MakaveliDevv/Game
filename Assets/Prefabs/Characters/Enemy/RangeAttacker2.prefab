@@ -130,11 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  typeState: 1
-  inRangeRadius: 0
+  typeState: 0
   stillTreshold: 0.05
-  dashSpeed: 0
-  dashLerpDuration: 0
   distanceBehindPlayer: 0
 --- !u!136 &3924062965532665364
 CapsuleCollider:
