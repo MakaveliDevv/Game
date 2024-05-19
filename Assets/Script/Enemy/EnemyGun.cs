@@ -4,38 +4,67 @@ using UnityEngine;
 
 public class EnemyGun : MonoBehaviour
 {
-    [SerializeField] private EnemyWeapon weapon;
-    [SerializeField] private Transform firePoint;
+    public EnemyWeapon weapon;
+    public Transform firePoint;
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private GameObject weaponSlot;
+    // [SerializeField] private GameObject weaponSlot;
     // [SerializeField] private float rotationSpeed = 5f;
     // [SerializeField] private float aimTreshHold = 15f;
 
-    private EnemyController enemyController;
+    // private EnemyController controller;
 
     void Awake() 
     {
-        enemyController = weaponSlot.GetComponentInParent<EnemyController>();
+        // controller = GetComponentInParent<EnemyController>();
+
+        weapon.nextTimeToFire = 0;
     }
 
-    void Update() 
-    {
-        if(enemyController.state == EnemyController.EnemyState.COMBAT 
-        && enemyController.attackState == EnemyController.AttackState.RANGE_ATTACK) 
-        {
-            if (Time.time >= weapon.nextTimeToFire)
-            {
-                weapon.nextTimeToFire = Time.time + 1f / weapon.fireRate;
-                EnemyShoot();
-            }
-        }
-    }
 
-    void EnemyShoot()
-    {
-        GameObject bullet = Instantiate(weapon.bullet, firePoint.position, firePoint.rotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.velocity = weapon.bulletVelocity * (enemyController.target.position - firePoint.position).normalized;
-    }
+    // I MADE THIS BEFORE THE ANIMATION
+    // NOW I FIRE THE BULLETS OFF AT A SPECIFIC KEY FRAME
+    // MAYBE I CAN STILL MAKE USE OF THIS
+
+    // void Update() 
+    // {
+    //     if(controller.state == EnemyController.State.COMBAT 
+    //     && controller.attackState == EnemyController.AttackState.RANGE_ATTACK) 
+    //     {
+    //         if (!controller.shooting)
+    //         {
+    //             StartCoroutine(ShootCoroutine());
+    //         }
+    //     }
+    // }
+
+
+    // private IEnumerator ShootCoroutine()
+    // {
+    //     while(controller.state == EnemyController.State.COMBAT 
+    //         && controller.attackState == EnemyController.AttackState.RANGE_ATTACK)
+    //     {
+    //         if (Time.time >= weapon.nextTimeToFire)
+    //         {
+    //             weapon.nextTimeToFire = Time.time + 1f / weapon.fireRate;
+    //             // Shoot();
+
+    //             controller.animator.Shoott("Shoot");
+    //         }
+
+    //         yield return null;  // Wait for the next frame
+    //     }
+
+    //     controller.shooting = false;
+    // }
+
+    // public void Shoot()
+    // {
+    //     GameObject bullet = Instantiate(weapon.bullet, firePoint.position, firePoint.rotation);
+    //     Rigidbody rb = bullet.GetComponent<Rigidbody>();
+    //     rb.velocity = weapon.bulletVelocity * (controller.target.position - firePoint.position).normalized;
+        
+    //     controller.shooting = true;
+    // }
+    
 
 }

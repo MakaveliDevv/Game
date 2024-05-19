@@ -18,6 +18,6 @@ MonoBehaviour:
   Name: RayGun
   bulletDamage: 25
   bulletVelocity: 10
-  fireRate: 0.75
+  fireRate: 0.5
   range: 200
-  nextTimeToFire: 66.92
+  nextTimeToFire: 12.407572

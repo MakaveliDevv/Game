@@ -71,8 +71,5 @@ public class TimeBomb : AbilityInput
                 }
             }
         }
-
-        // Destroy the bomb GameObject
-        // Destroy(gameObject);
     }
 }

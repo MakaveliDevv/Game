@@ -16,5 +16,5 @@ public class EnemyWeapon : ScriptableObject
     public float bulletVelocity;
     public float fireRate = 5f;
     public float range = 200f;
-    [HideInInspector] public float nextTimeToFire;
+    public float nextTimeToFire;
 }

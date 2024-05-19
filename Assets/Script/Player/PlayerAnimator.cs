@@ -16,13 +16,19 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool("Idle", idle);
     }   
     
-    public void Walk(bool walk) 
+    public void MoveForward(bool moveForward) 
     {
-        animator.SetBool("Walk", walk);
+        animator.SetBool("MoveForward", moveForward);
     }
 
-    public void Run(bool run) 
+    public void MoveBackward(bool moveBackward)
     {
-        animator.SetBool("Run", run);
+        animator.SetBool("MoveBackward", moveBackward);
+    }
+    
+    public void Death(bool death) 
+    {
+        animator.SetBool("Death", death);
     }
 }
+ 

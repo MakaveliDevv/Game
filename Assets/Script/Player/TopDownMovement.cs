@@ -6,62 +6,151 @@ using UnityEngine;
 
 public class TopDownMovement : MonoBehaviour
 {
-    [HideInInspector] public Stat stat;
     [HideInInspector] public CharacterController controller;
-    private Camera cam;
-    
-    public bool isMoving;
+    [SerializeField] private PlayerAnimator playerAnim;
+    private Camera cam;    
+    [SerializeField] private float verticalVelocity;
+    [SerializeField] private float gravity = 5f;
 
-    public float verticalVelocity;
-    public float gravity;
+    public bool moveForward, moveBackward, moveLeft, moveRight, idle;
 
     void Awake() 
     {
         controller = GetComponent<CharacterController>();
+        playerAnim = GetComponent<PlayerAnimator>();
         cam = Camera.main;
+        idle = true;
     }
 
     void Update() 
     {
-        var targetVector = new Vector3(Input.GetAxisRaw(Tags.HORIZONTAL), 0, Input.GetAxisRaw(Tags.VERTICAL));
-        // MovingTowardsOppositeDirection(targetVector);
+        if(controller.velocity.sqrMagnitude < 0.01) 
+        {
+            // Animation
+            playerAnim.Idle(true);
+        }
+
+        HandleMovementInput();
+        Vector3 targetVector = GetMovementInput(); 
 
         MoveTowardTarget(targetVector);
         RotateTowardMouseVector();
     }
 
-    // private bool MovingTowardsOppositeDirection(Vector3 movementDirection)
-    // {
-    //     // Calculate the direction from player to mouse pointer
-    //     Vector3 directionToMouse = (cam.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+    private void HandleMovementInput()
+    {
+        // Move forward
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            moveForward = true;
 
-    //     // Calculate the angle between movement direction and direction to mouse
-    //     float angle = Vector3.Angle(movementDirection, directionToMouse);
+            // Animation
+            playerAnim.MoveForward(true);
+        }
 
-    //     // Check if the angle is close to 180 degrees (opposite direction)
-    //     if (Mathf.Approximately(angle, 180f))
-    //     {
-    //         Debug.Log("Walking towards the opposite direction of the mouse position!");
-    //         return true;
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("Walking towards the same direction as the mouse position");
-    //         return false;
-    //     }
-    // }
+        if (Input.GetKeyUp(KeyCode.W))
+        { 
+            moveForward = false;
+
+            // Animation
+            playerAnim.MoveForward(false);
+            playerAnim.Idle(true);    
+        }
+        
+        // Move backward
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            moveBackward = true;
+
+            // Animation
+            playerAnim.MoveBackward(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            moveBackward = false;
+
+            // Animation
+            playerAnim.MoveBackward(false);
+            playerAnim.Idle(true);
+        }
+
+        // Move left
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            moveLeft = true;
+            playerAnim.MoveBackward(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            moveLeft = false;
+
+            // Animation
+            playerAnim.MoveBackward(false);
+            playerAnim.Idle(true);
+        }
+
+        // Move right
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            moveRight = true;
+
+            // Animation
+            playerAnim.MoveForward(true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            moveRight = false;
+
+            // Animation
+            playerAnim.MoveForward(false);
+            playerAnim.Idle(true);
+        }
+    }
+
+    private Vector3 GetMovementInput()
+    {
+        float x = 0;
+        float z = 0;
+
+        if (moveForward)
+        {
+            z += 1;
+        }
+
+        if (moveBackward)
+        {
+            z -= 1;
+        }
+
+        if (moveLeft)
+        {
+            x -= 1;
+        }
+
+        if (moveRight)
+        {
+            x += 1;
+
+        }
+
+        return new Vector3(x, 0, z).normalized;
+    }
 
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
-        var speed = stat.ReturnBaseValue() * Time.deltaTime;
+        PlayerStats stat = GetComponent<PlayerStats>();
+        float speed = stat.walkSpeed.GetValue();    
+            
         targetVector = Quaternion.Euler(0, cam.gameObject.transform.eulerAngles.y, 0) * targetVector;
-        
         targetVector *= (Mathf.Abs(targetVector.x) == 1 && Mathf.Abs(targetVector.z) == 1) ? .7f : 1; // Prevent quicker movement when moving diagonally
-        var targetPosition = targetVector * speed;
+        Vector3 targetPosition = targetVector * speed;
 
         Gravity(ref targetPosition);
-        controller.Move(targetPosition);
+        controller.Move(targetPosition * Time.deltaTime);
         
         return targetVector;
     }

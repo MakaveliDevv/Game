@@ -6,10 +6,10 @@ public class PlayerStats : CharacterStats
 {
     private readonly Dictionary<Stat, float> initialBaseValues = new();
 
-    void Start()
-    {
-        PowerupInventory.instance.powerupPickupCallBack += OnPowerupPickUp;
-    }
+    // void Start()
+    // {
+    //     PowerupInventory.instance.powerupPickupCallBack += OnPowerupPickUp;
+    // }
 
     void OnPowerupPickUp(Item _item)
     {

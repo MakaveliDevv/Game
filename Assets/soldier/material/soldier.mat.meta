@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e37461874cf853b4eb2f34db385b7524
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 159523
+  packageName: Soldier
+  packageVersion: 1.0
+  assetPath: Assets/soldier/material/soldier.mat
+  uploadId: 343815

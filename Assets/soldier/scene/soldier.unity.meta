@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2a8d83b343fe91945b33358ec7a606c8
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 159523
+  packageName: Soldier
+  packageVersion: 1.0
+  assetPath: Assets/soldier/scene/soldier.unity
+  uploadId: 343815

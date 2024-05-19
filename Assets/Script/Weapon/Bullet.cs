@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         if(other.gameObject.layer == gameObject.layer)
         {
             hit = true;
-            Debug.Log(hit + " " + other.gameObject.name + " - The same layer");
+            Debug.Log(other.gameObject.name);
             Destroy(gameObject);
         } 
     }

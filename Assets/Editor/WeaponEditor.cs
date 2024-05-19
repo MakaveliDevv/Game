@@ -28,6 +28,8 @@ public class WeaponEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("range"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("equipTimer"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("defaultWeapon"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("nextTimeToFire"));
+
         
 
         // Convert percentage drop rate to value between 0 and 1

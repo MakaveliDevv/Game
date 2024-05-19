@@ -12,7 +12,6 @@ public class HealingAura : AbilityInput
     public float healTickInterval = 1f; // Time interval between each healing tick
     public float healDuration = 5f; // Duration of the healing ability
 
-    // Flag to track if the healing ability is active
     private bool isHealingActive = false;
     private bool healingCooldown;
 
