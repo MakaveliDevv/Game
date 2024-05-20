@@ -27,16 +27,16 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private Vector3 ReturnMousePosition(Transform _transform) 
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Camera.main.transform.position.y; // Distance from the camera to the game world
+    // private Vector3 ReturnMousePosition(Transform _transform) 
+    // {
+    //     Vector3 mousePosition = Input.mousePosition;
+    //     mousePosition.z = Camera.main.transform.position.y; // Distance from the camera to the game world
 
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        worldPosition.y = _transform.position.y;
+    //     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+    //     worldPosition.y = _transform.position.y;
 
-        return worldPosition;
-    }
+    //     return worldPosition;
+    // }
 
     void Update() 
     {
@@ -76,22 +76,26 @@ public class Gun : MonoBehaviour
     {
         if(weapon.equipped && !weapon.defaultWeapon) 
         {
-            Debug.Log("Timer started");
+            // Debug.Log("Timer started");
             yield return new WaitForSeconds(weapon.equipTimer);
 
             weapon.equipped = false;
+            WeaponInventory.instance.RemoveWeapon(weapon);
+
+            yield return null;
             
-            WeaponInventory.instance.weapons.Clear();
-            WeaponInventory.instance.weapons.Add(WeaponInventory.instance.defaultWeapon);
-            
+            WeaponInventory.instance.AddWeapon(WeaponInventory.instance.defaultWeapon);
             WeaponInventory.instance.defaultWeaponSlot.gameObject.SetActive(true);           
             WeaponInventory.instance.defaultWeapon.equipped = true; 
 
-            WeaponInventory.instance.previousWeapon = WeaponInventory.instance.currentWeapon;
+            // WeaponInventory.instance.previousWeapon = WeaponInventory.instance.currentWeapon;
             WeaponInventory.instance.currentWeapon = WeaponInventory.instance.defaultWeapon;
 
             Destroy(gameObject);
-        }
+        } 
+        else
+            yield break;
+
 
         // yield break;
     }

@@ -52,6 +52,8 @@ public class Teleport : AbilityInput
 
     private IEnumerator TeleportTowardsMousePosition(Vector3 _targetPosition)
     {
+        vfxObj.SetActive(true);           
+
         Vector3 startPosition = player.transform.position;
         float distance = Vector3.Distance(startPosition, _targetPosition);
         float duration = Mathf.Min(distance, teleportDuration);
@@ -70,7 +72,6 @@ public class Teleport : AbilityInput
 
         player.transform.position = _targetPosition;
         PlayerManager.instance.state = PlayerManager.instance.previousState; // Switch to the previous state
-
     }
 }
 

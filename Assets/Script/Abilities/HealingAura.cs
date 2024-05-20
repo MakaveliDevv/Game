@@ -53,6 +53,7 @@ public class HealingAura : AbilityInput
 
         float elapsedTime = 0f;
 
+        vfxObj.SetActive(true);           
         while (elapsedTime < healDuration)
         {
             // Heal the player
@@ -66,6 +67,6 @@ public class HealingAura : AbilityInput
         }
 
         isHealingActive = false;
+        Debug.Log("Healing Done");        
     }
-
 }

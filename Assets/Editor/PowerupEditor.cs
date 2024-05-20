@@ -22,7 +22,7 @@ public class PowerupEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("Name"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("damageModifier"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("armorModifier"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("speedModifier"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("movementModifier"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("maxHealthModifier"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("cooldownTimer"));
 

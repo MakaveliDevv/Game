@@ -33,18 +33,24 @@ public class Shield : AbilityInput
 
     private IEnumerator ShieldInput()
     {
-        SphereCollider coll = GetComponent<SphereCollider>();
-        if(coll == null && !shieldCooldown) 
+        if(vfxObj != null && !shieldCooldown)  
         {
-            SphereCollider sphere = transform.AddComponent<SphereCollider>();
-            sphere.radius = shieldRadius;
-            sphere.center = new Vector3(0, .85f, 0);
+            vfxObj.SetActive(true);
         }
+
+        // SphereCollider coll = GetComponent<SphereCollider>();
+        // if(coll == null && !shieldCooldown) 
+        // {
+        //     SphereCollider sphere = transform.AddComponent<SphereCollider>();
+        //     sphere.radius = shieldRadius;
+        //     sphere.center = new Vector3(0, .85f, 0);
+        // }
 
         yield return new WaitForSeconds(shieldTimer);
 
-        SphereCollider sphereCollider = transform.GetComponent<SphereCollider>();
-        Destroy(sphereCollider);
+        // SphereCollider sphereCollider = transform.GetComponent<SphereCollider>();
+        // Destroy(sphereCollider);
+        vfxObj.SetActive(false);
 
         yield return null;
 

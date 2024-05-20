@@ -54,6 +54,7 @@ public class TimeBomb : AbilityInput
     {
         // Instantiate explosion effects
         // Instantiate(explosionPrefab, transform.position, Quaternion.identity); 
+        vfxObj.SetActive(true);           
 
         // Find all colliders within the explosion radius
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);

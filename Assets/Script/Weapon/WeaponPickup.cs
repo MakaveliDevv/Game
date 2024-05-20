@@ -24,15 +24,15 @@ public class WeaponPickup : Interactable, IDGameObject
         bool pickedUpWeapon = WeaponInventory.instance.AddWeapon(weapon);
         if(pickedUpWeapon)
         {
-            Destroy(gameObject);
             Equip();
+            Destroy(gameObject);
         }
     }
 
     public GameObject Equip()
     {
         WeaponInventory.instance.weapons.Clear();
-        WeaponInventory.instance.weapons.Add(weapon);
+        WeaponInventory.instance.AddWeapon(weapon);
         WeaponInventory.instance.defaultWeaponSlot.gameObject.SetActive(false);
         
         weaponObj = Instantiate(weapon.wpnObject, WeaponInventory.instance.weaponSlot.position, WeaponInventory.instance.weaponSlot.rotation);
@@ -42,6 +42,9 @@ public class WeaponPickup : Interactable, IDGameObject
 
         WeaponInventory.instance.weaponGameObject = weaponObj;
 
+        BoxCollider col = weaponObj.GetComponent<BoxCollider>();
+        Destroy(col);
+        
         // Destroy the weapon pickup component
         WeaponPickup pickup = weaponObj.GetComponent<WeaponPickup>();
         Destroy(pickup);

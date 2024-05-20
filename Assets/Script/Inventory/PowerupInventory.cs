@@ -19,11 +19,18 @@ public class PowerupInventory : MonoBehaviour
     #endregion 
     
     public delegate void OnPowerupPickup(Item item);
-    public delegate void OnPowerupPickUpUI();
     public OnPowerupPickup powerupPickupCallBack;
+
+    public delegate void OnPowerupPickUpUI();
     public OnPowerupPickUpUI powerupPickUpCallBackUI;
 
-    public int space = 3;
+    public delegate void OnPowerupRemove(Item item);
+    public OnPowerupRemove powerupRemoveCallBack;
+    
+    public delegate void OnPowerupRemoveUI();
+    public OnPowerupRemoveUI powerupRemoveCallBackUI;
+
+    public int space = 4;
 
     public List<Item> powerups = new();
 
@@ -50,7 +57,7 @@ public class PowerupInventory : MonoBehaviour
     public void RemoveItem(Item _item) 
     {
         powerups.Remove(_item);
-        powerupPickupCallBack?.Invoke(_item);
-        powerupPickUpCallBackUI?.Invoke();
+        powerupRemoveCallBack?.Invoke(_item);
+        powerupRemoveCallBackUI?.Invoke();
     }   
 }

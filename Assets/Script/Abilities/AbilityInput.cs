@@ -2,11 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class AbilityInput : MonoBehaviour
 {
     protected CharacterController characterContr;
     protected GameObject player;
+    [SerializeField] protected GameObject vfxObj;
+    [SerializeField] protected GameObject image;
+    [SerializeField] protected Image img;
+    [SerializeField] protected Color color;
+
     protected PlayerStats stats;
 
     private static Dictionary<string, float> abilityCooldowns = new();
@@ -47,8 +53,18 @@ public abstract class AbilityInput : MonoBehaviour
     private IEnumerator UpdateCooldown()
     {
         float cooldown = abilityCooldowns[AbilityName]; 
-
+        color = img.color;
+        float currentA = color.a;
+        float aDecrease = currentA * .25f;
+        float a = currentA - aDecrease;
+        color.a -= a;
+        img.color = color;
+        
         yield return new WaitForSeconds(cooldown); 
+
+        vfxObj.SetActive(false);
+        color.a += a;
+        img.color = color;
 
         abilityCooldowns.Remove(AbilityName); 
         CooldownFinished?.Invoke(abilityName);

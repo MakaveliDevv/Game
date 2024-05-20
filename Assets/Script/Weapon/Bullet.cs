@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerStay(Collider other) 
     {
-        if(other.gameObject.layer == gameObject.layer)
+        if(other.gameObject.layer == gameObject.layer && other.gameObject.name != "Player")
         {
             hit = true;
             Debug.Log(other.gameObject.name);

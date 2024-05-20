@@ -12,6 +12,8 @@ public class PowerupInventoryUI : MonoBehaviour
     {
         PowerupInventory.instance.powerupPickUpCallBackUI += UpdatePowerupUI;
         slots = itemsParent.GetComponentsInChildren<PowerupSlotUI>();
+
+        PowerupInventory.instance.powerupRemoveCallBackUI += UpdatePowerupUI;
     }
 
     // void Update()
@@ -20,7 +22,7 @@ public class PowerupInventoryUI : MonoBehaviour
     //         inventoryUI.SetActive(!inventoryUI.activeSelf);
     // }
 
-    void UpdatePowerupUI() 
+    private void UpdatePowerupUI() 
     {
         for (int i = 0; i < slots.Length; i++)
         {   

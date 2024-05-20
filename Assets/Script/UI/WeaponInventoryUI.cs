@@ -7,8 +7,10 @@ public class WeaponInventoryUI : MonoBehaviour
 
     void Start() 
     {
-        WeaponInventory.instance.weaponPickupUICallBack += UpdateWeaponUI;
+        WeaponInventory.instance.weaponPickupCallBackUI += UpdateWeaponUI;
         slots = itemsParent.GetComponentInChildren<WeaponSlotUI>();
+
+        WeaponInventory.instance.weaponRemoveCallBackUI += UpdateWeaponUI;
     }
 
     void UpdateWeaponUI() 
@@ -16,7 +18,7 @@ public class WeaponInventoryUI : MonoBehaviour
         if(WeaponInventory.instance.weapons.Count > 0) 
         {
             slots.AddWeaponUI(WeaponInventory.instance.weapons[0]);
-        }
+        } 
         else 
         {
             slots.ClearWeaponSLot();

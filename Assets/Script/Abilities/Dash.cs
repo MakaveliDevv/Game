@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Dash : AbilityInput
@@ -8,12 +9,17 @@ public class Dash : AbilityInput
     [SerializeField] private float dashLerpDuration = 0.2f; 
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private bool dashCoolDown;
+    // [SerializeField] private ParticleSystem vfx;
 
     protected override string AbilityName => abilityName; // Override to specify the ability name
 
     void Start()
     {
         CooldownFinished += OnCooldownFinished; // Subscribe to the cooldown finished event
+        // vfx = vfxObj.GetComponent<ParticleSystem>();
+        // vfx.time = 1.25f;
+        // var main = vfx.main;
+        // main.simulationSpeed = 2f;
     }
 
     void Update() 
@@ -54,6 +60,8 @@ public class Dash : AbilityInput
         float distance = Vector3.Distance(startPosition, _targetPosition);
         float duration = Mathf.Min(distance / dashSpeed, dashLerpDuration);
         float startTime = Time.time;
+
+        vfxObj.SetActive(true);           
 
         while (Time.time < startTime + duration)
         {

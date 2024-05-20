@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19db6014f7503504ab1e8c0eaddc1fc3, type: 3}
+  m_Name: MovementMod
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: cc66bb71b91b5e0408f561a40a3510cd, type: 3}
+  powerupType: Movement
+  Name: MovementMod
+  maxHealthModifier: 0
+  damageModifier: 0
+  armorModifier: 0
+  movementModifier: 5
+  cooldownTimer: 10
+  dropRate: 0.35
+  isDefaultItem: 0
