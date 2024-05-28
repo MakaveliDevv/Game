@@ -14,7 +14,7 @@ public class PowerupInventory : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
+        // DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
     }
     #endregion 
     

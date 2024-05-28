@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +23,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKey(KeyCode.LeftShift)) 
+        {
+            SceneManager.LoadScene("GameplayScene");
+        }
+
         switch (PlayerManager.instance.state)
         {
             case PlayerManager.PlayerState.IDLE:

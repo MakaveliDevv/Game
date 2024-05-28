@@ -16,7 +16,7 @@ public class WeaponInventory : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     #endregion 
 
