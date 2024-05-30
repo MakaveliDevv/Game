@@ -7,7 +7,6 @@ public class Stat
 {
     [SerializeField] private float baseValue;
     [SerializeField] private List<float> modifiers = new();
-    private float initialValue;
 
     public float GetValue() 
     {

@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wpnObject: {fileID: 409742075594418154, guid: e35cba14d4dc8d44e98ccba4a1fd991b, type: 3}
   muzzleFlash: {fileID: 0}
-  bullet: {fileID: 9201513334725972210, guid: 2f0be29cc86862f488835de7e9ca69bd, type: 3}
+  bullet: {fileID: 6061430694348713792, guid: 14f114a3093482d4398ebbc73938c3d9, type: 3}
   icon: {fileID: 21300000, guid: dd46bfaab0dd14b46ba1dce4b14dc9c0, type: 3}
   weaponType: 4
   fireType: 0
   Name: SuperPistol
   bulletDamage: 50
-  bulletVelocity: 30
+  bulletVelocity: 10
   fireRate: 1
   range: 300
-  nextTimeToFire: 4.539999
+  nextTimeToFire: 12.7199955
   waitBeforeEquipTime: 0
-  equipTimer: 3
+  equipTimer: 20
   dropRate: 0.15
   defaultWeapon: 0
   equipped: 0

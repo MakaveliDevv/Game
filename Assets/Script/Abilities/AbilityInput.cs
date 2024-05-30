@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class AbilityInput : MonoBehaviour
 {
     protected CharacterController characterContr;
     protected GameObject player;
+
     [SerializeField] protected GameObject vfxObj;
     [SerializeField] protected GameObject image;
     [SerializeField] protected Image img;
     [SerializeField] protected Color color;
+    [SerializeField] protected TextMeshProUGUI timer;
+    
 
     protected PlayerStats stats;
 
@@ -59,9 +63,21 @@ public abstract class AbilityInput : MonoBehaviour
         float a = currentA - aDecrease;
         color.a -= a;
         img.color = color;
-        
-        yield return new WaitForSeconds(cooldown); 
 
+        float elapsedTime = 0f;
+        while(elapsedTime < cooldown)
+        {
+            float remainingTime = cooldown - elapsedTime;
+            timer.gameObject.SetActive(true);
+            timer.text = remainingTime.ToString("F2");
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        // yield return new WaitForSeconds(cooldown); 
+        
+        timer.gameObject.SetActive(false);
         vfxObj.SetActive(false);
         color.a += a;
         img.color = color;

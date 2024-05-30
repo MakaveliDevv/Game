@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5764776918066965748}
   - component: {fileID: 1982435146240287493}
   m_Layer: 0
-  m_Name: SuperPistolBullet
+  m_Name: UMP45_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e3c84a8d37a264797476b027a259d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Weapon: {fileID: 11400000, guid: 20c4eb085d74cba4196e89c0912e599d, type: 2}

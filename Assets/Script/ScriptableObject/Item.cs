@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 [CreateAssetMenu(fileName = "New Powerup", menuName = "Scriptables/Powerup")]
 public class Item : ScriptableObject
@@ -18,9 +19,5 @@ public class Item : ScriptableObject
     public int cooldownTimer;
     public float dropRate;
     public bool isDefaultItem = false;
- 
-    public virtual void Use() 
-    {
-        Debug.Log("Using" + name);
-    }
+    public TextMeshProUGUI cooldownText;
 }
