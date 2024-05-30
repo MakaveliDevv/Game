@@ -6,7 +6,7 @@ public class CharacterCombat : MonoBehaviour
 {
     private CharacterStats myStats;
     public float attackSpeed = 1f;
-    private float attackCooldown = 0f;
+    // private float attackCooldown = 0f;
 
     void Start() 
     {

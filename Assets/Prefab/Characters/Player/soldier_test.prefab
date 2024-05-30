@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 7977917765139792389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0.1}
+  m_LocalPosition: {x: 0.05, y: 0.4, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,6 +672,11 @@ MonoBehaviour:
   runSpeed:
     baseValue: 0
     modifiers: []
+  currentHealthText: {fileID: 0}
+  maxHealthText: {fileID: 0}
+  armorText: {fileID: 0}
+  moveSpeedText: {fileID: 0}
+  damageText: {fileID: 0}
 --- !u!114 &7418843199091226699
 MonoBehaviour:
   m_ObjectHideFlags: 0

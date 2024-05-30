@@ -19,6 +19,6 @@ MonoBehaviour:
   damageModifier: 0
   armorModifier: 10
   movementModifier: 0
-  cooldownTimer: 15
+  cooldownTimer: 3
   dropRate: 0.4
   isDefaultItem: 0

@@ -25,6 +25,7 @@ public class PowerupEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("movementModifier"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("maxHealthModifier"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("cooldownTimer"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("cooldownText"));
 
         // Convert percentage drop rate to value between 0 and 1
         SerializedProperty dropRateProperty = serializedObject.FindProperty("dropRate");

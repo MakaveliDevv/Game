@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         // DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
     }
     #endregion 
+    
     public SpawnState state;
 
     [Header("GameObjects & Components")]

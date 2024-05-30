@@ -14,7 +14,7 @@ public class Gun : MonoBehaviour
     void Start() 
     {
         cam = Camera.main;
-        firePoint = transform.GetChild(1);
+        firePoint = transform.GetChild(0);
         
         if(WeaponInventory.instance != null) 
         {
@@ -67,9 +67,9 @@ public class Gun : MonoBehaviour
         direction.y = 0;
 
 
-        GameObject bulletInstance = Instantiate(weapon.bullet, firePoint.transform.position, firePoint.rotation);
-        Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
-        rb.velocity = weapon.bulletVelocity * direction;
+        Instantiate(weapon.bullet, firePoint.transform.position, firePoint.rotation);
+        // Rigidbody rb = bulletInstance.GetComponent<Rigidbody>();
+        // rb.velocity = weapon.bulletVelocity * direction;
     }
 
     private IEnumerator EquipTimer() 

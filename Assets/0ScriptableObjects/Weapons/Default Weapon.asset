@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wpnObject: {fileID: 6185001439759085702, guid: 9c08687508d73c94d9d8085a580c1905, type: 3}
   muzzleFlash: {fileID: 0}
-  bullet: {fileID: 6061430694348713792, guid: 14f114a3093482d4398ebbc73938c3d9, type: 3}
+  bullet: {fileID: 6061430694348713792, guid: 0b5f4e3c79391944388f2b9b2f9342e0, type: 3}
   icon: {fileID: 21300000, guid: 9b438510151b345458b42531f4ff95ab, type: 3}
   weaponType: 2
   fireType: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
   bulletVelocity: 10
   fireRate: 5
   range: 100
-  nextTimeToFire: 808.8197
+  nextTimeToFire: 4.859998
   waitBeforeEquipTime: 0
   equipTimer: 0
   dropRate: 0

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private bool hit;
     private readonly float timer = 4f;
+    [SerializeField] Weapon _Weapon;
 
     void Update() 
     {
@@ -13,6 +14,11 @@ public class Bullet : MonoBehaviour
         {
             StartCoroutine(DestroyOverTime());
         }
+    }
+
+    void FixedUpdate() 
+    {
+        transform.Translate(Time.deltaTime * _Weapon.bulletVelocity * Vector3.forward);
     }
 
     void OnTriggerEnter(Collider collider) 
