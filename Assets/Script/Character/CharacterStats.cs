@@ -21,7 +21,7 @@ public class CharacterStats : MonoBehaviour
     public TextMeshProUGUI moveSpeedText;
 
     // [Header("Modifiers")]
-    public TextMeshProUGUI maxHp_Mod;
+    // public TextMeshProUGUI maxHp_Mod;
     // public TextMeshProUGUI Armor_Mod;
     // public TextMeshProUGUI Dmg_Mod;
     // public TextMeshProUGUI MoveSp_Mod;

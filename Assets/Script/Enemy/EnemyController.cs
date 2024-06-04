@@ -28,8 +28,8 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent;
     private CharacterCombat combat;
     private CharacterStats stats;
-    private Rigidbody rb;
-    private CapsuleCollider capsColl;
+    // private Rigidbody rb;
+    // private CapsuleCollider capsColl;
 
 
     private SphereCollider leftPalmCol;
@@ -58,8 +58,6 @@ public class EnemyController : MonoBehaviour
         combat = GetComponent<CharacterCombat>();
         stats = GetComponent<CharacterStats>();
         
-        // rb = GetComponent<Rigidbody>();
-        // capsColl = GetComponent<CapsuleCollider>();
         gun = GetComponentInChildren<EnemyGun>();
 
         animator = GetComponent<EnemyAnimator>();
@@ -102,12 +100,12 @@ public class EnemyController : MonoBehaviour
                 // Play attack animation
                 animator.Move(false);
                 animator.Attack();
-    	        // CloseCombat();
+    	        CloseCombat();
 
             break;
 
             case AttackState.DASH_ATTACK:
-                DashAttack();
+                // DashAttack();
 
             break;
 
@@ -185,11 +183,11 @@ public class EnemyController : MonoBehaviour
             state = State.COMBAT;
             attackState = AttackState.RANGE_ATTACK;
         }
-        else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && type == EnemyType.DASHER)
-        {
-            state = State.COMBAT;
-            attackState = AttackState.DASH_ATTACK;
-        }
+        // else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && type == EnemyType.DASHER)
+        // {
+        //     state = State.COMBAT;
+        //     attackState = AttackState.DASH_ATTACK;
+        // }
 
         // if(agent.remainingDistance <= agent.stoppingDistance) 
         // {
@@ -314,18 +312,18 @@ public class EnemyController : MonoBehaviour
 
 
     // Dash
-    private void DashAttack() 
-    {
-        // Check if not already dashing
-        if (!dashing)
-        {
-            // Set isDashing to true
-            dashing = true;
+    // private void DashAttack() 
+    // {
+    //     // Check if not already dashing
+    //     if (!dashing)
+    //     {
+    //         // Set isDashing to true
+    //         dashing = true;
 
-            // Start dashing coroutine
-            StartCoroutine(DashTowardsPosition());
-        }
-    } 
+    //         // Start dashing coroutine
+    //         StartCoroutine(DashTowardsPosition());
+    //     }
+    // } 
 
     // private void DashAttack() 
     // {
@@ -338,36 +336,36 @@ public class EnemyController : MonoBehaviour
     
     // }
 
-    private IEnumerator DashTowardsPosition()
-    {
-        agent.enabled = false;
+    // private IEnumerator DashTowardsPosition()
+    // {
+    //     agent.enabled = false;
         
-        yield return new WaitForSeconds(.25f);
+    //     yield return new WaitForSeconds(.25f);
 
-        agent.enabled = true;
-        // Disable NavMeshAgent auto-update
-        agent.autoBraking = true;
-        agent.speed = 15f; // Adjust as needed
-        agent.acceleration = 10f; // Adjust as needed
+    //     agent.enabled = true;
+    //     // Disable NavMeshAgent auto-update
+    //     agent.autoBraking = true;
+    //     agent.speed = 15f; // Adjust as needed
+    //     agent.acceleration = 10f; // Adjust as needed
 
-        rb.isKinematic = true;
-        capsColl.isTrigger = true;
+    //     rb.isKinematic = true;
+    //     capsColl.isTrigger = true;
 
-        // Calculate the target position behind the player
-        Vector3 dashDirection = (target.position - transform.position).normalized;
-        Vector3 targetDashPosition = target.position - dashDirection * distanceBehindPlayer;
+    //     // Calculate the target position behind the player
+    //     Vector3 dashDirection = (target.position - transform.position).normalized;
+    //     Vector3 targetDashPosition = target.position - dashDirection * distanceBehindPlayer;
 
-        // Set the destination for NavMeshAgent
-        agent.SetDestination(targetDashPosition);
+    //     // Set the destination for NavMeshAgent
+    //     agent.SetDestination(targetDashPosition);
 
-        // Wait until the enemy reaches the destination
-        while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
-        {
-            yield return null;
-        }
+    //     // Wait until the enemy reaches the destination
+    //     while (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+    //     {
+    //         yield return null;
+    //     }
 
-        dashing = false;
-    }
+    //     dashing = false;
+    // }
 
         // private IEnumerator DashTowardsPosition()
     // {

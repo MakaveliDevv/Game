@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -43,9 +43,11 @@ public class GameManager : MonoBehaviour
     private float searchCountDown = 1f;
 
     [Header("Wave Stuff")]
-    [SerializeField] private int waveCount;
+    [SerializeField] private int waveCounter;
     [SerializeField] private float timeBetweenWaves;
     private float waveCountDown;
+    [SerializeField] private TextMeshProUGUI waveCounterText;
+    [SerializeField] private TextMeshProUGUI enemyCounterText;
 
 
     void Start()
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("There are no spawn locations assigned, please assign spawn locations in the inspector");
         }
 
-        waveCount = 1;
+        waveCounter = 1;
         waveCountDown = timeBetweenWaves;
 
         enemyAmount = initialEnemyAmount;
@@ -67,6 +69,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        waveCounterText.text = waveCounter.ToString();
+        enemyCounterText.text = enemyCounter.ToString();
+        
         if (state == SpawnState.WAITING)
         {
             if (!EnemyIsAlive())
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
         state = SpawnState.COUNTING;
         waveCountDown = timeBetweenWaves;
 
-        waveCount++;
+        waveCounter++;
         IncreaseEnemyAmountPerWave(); // Increase the number of enemies for the next wave
         ResetEnemyCounter();
     }

@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.LeftShift)) 
+        if(Input.GetKey(KeyCode.Escape)) 
         {
             SceneManager.LoadScene("GameplayScene");
         }

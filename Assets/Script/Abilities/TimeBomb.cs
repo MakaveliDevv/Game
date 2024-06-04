@@ -20,7 +20,7 @@ public class TimeBomb : AbilityInput
 
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.B)) 
+        if(Input.GetKeyDown(KeyCode.Alpha2)) 
         {
             DeployTimeBomb();
         }
@@ -42,11 +42,12 @@ public class TimeBomb : AbilityInput
     private IEnumerator ExplodeAfterDelay()
     {
         yield return new WaitForSeconds(detonationDelay);
+        
+        StartCoroutine(AbilityCooldown(bombCooldownTimer));
+        bombCooldown = true;
 
         Explode();
 
-        StartCoroutine(AbilityCooldown(bombCooldownTimer));
-        bombCooldown = true;
     }
 
     // Method to trigger the explosion

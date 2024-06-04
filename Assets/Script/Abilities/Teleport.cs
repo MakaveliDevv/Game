@@ -40,12 +40,13 @@ public class Teleport : AbilityInput
 
         if(!teleportCooldown) 
         {
+            StartCoroutine(AbilityCooldown(teleportCooldownTimer));
+            
             StartCoroutine(TeleportTowardsMousePosition(targetPosition));
 
             PlayerManager.instance.previousState = PlayerManager.instance.state; // Store the previous state
             PlayerManager.instance.state = PlayerManager.PlayerState.TELEPORT; // Switch to Dash state
 
-            StartCoroutine(AbilityCooldown(teleportCooldownTimer));
             teleportCooldown = true;
         }
     }

@@ -11,7 +11,6 @@ public abstract class AbilityInput : MonoBehaviour
     protected GameObject player;
 
     [SerializeField] protected GameObject vfxObj;
-    [SerializeField] protected GameObject image;
     [SerializeField] protected Image img;
     [SerializeField] protected Color color;
     [SerializeField] protected TextMeshProUGUI timer;
@@ -43,6 +42,7 @@ public abstract class AbilityInput : MonoBehaviour
 
         return worldPosition;
     }
+
     protected IEnumerator AbilityCooldown(float cooldown)
     {
         if (!abilityCooldowns.ContainsKey(AbilityName))

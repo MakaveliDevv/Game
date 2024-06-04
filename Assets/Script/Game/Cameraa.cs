@@ -9,8 +9,11 @@ public class Cameraa : MonoBehaviour
     [SerializeField]private GameObject player;
     public float followSpeed;
 
-    void Start()
+    void Awake()
     {
+        if(player == null)
+            GameObject.FindGameObjectWithTag("Player");
+            
         ResetCamera();
         SetPositionAndRotation(cameraPosition, Quaternion.Euler(cameraRotation));
     }

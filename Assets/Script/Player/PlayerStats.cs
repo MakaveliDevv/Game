@@ -46,6 +46,38 @@ public class PlayerStats : CharacterStats
         StartCoroutine(ModifierCooldown(_item, _item.cooldownTimer));
     }
     
+    private IEnumerator ModifierCooldown(Item _item, float _modifierCooldown) 
+    {
+        yield return new WaitForSeconds(_modifierCooldown);
+
+        damage.RemoveModifier(_item.damageModifier); // Damage
+        armor.RemoveModifier(_item.armorModifier); // Armor
+        maxHealth.RemoveModifier(_item.maxHealthModifier); // Maxhealth
+        walkSpeed.RemoveModifier(_item.movementModifier); // Maxhealth
+
+        yield return new WaitForSeconds(1.5f);
+
+        Debug.Log("Modifiers removed from the list of modifiers");
+
+        // Return the base value prior to picking up the modifier
+        damage.SetValue(initialBaseValues[damage]); // Damage
+        damageText.text = damage.GetValue().ToString();
+
+        armor.SetValue(initialBaseValues[armor]); // Armor
+        armorText.text = armor.GetValue().ToString();
+
+        maxHealth.SetValue(initialBaseValues[maxHealth]); // Maxhealth
+        maxHealthText.text = maxHealth.GetValue().ToString();
+
+        walkSpeed.SetValue(initialBaseValues[walkSpeed]); // Movementspeed
+        moveSpeedText.text = walkSpeed.GetValue().ToString(); 
+
+        Debug.Log("Base value returned");
+
+        // Remove from the powerup list
+        PowerupInventory.instance.RemoveItem(_item);
+    }
+
     // private IEnumerator ModifierCooldown(Item _item, float _modifierCooldown) 
     // {
     //     float elapsedTime = 0f;
@@ -58,16 +90,18 @@ public class PlayerStats : CharacterStats
 
     //         elapsedTime += Time.deltaTime;
     //         yield return null;
-    //     }
+    //     } 
 
     //     damage.RemoveModifier(_item.damageModifier); // Damage
     //     armor.RemoveModifier(_item.armorModifier); // Armor
     //     maxHealth.RemoveModifier(_item.maxHealthModifier); // Maxhealth
-    //     walkSpeed.RemoveModifier(_item.movementModifier); // Movementspeed
+    //     walkSpeed.RemoveModifier(_item.movementModifier); // Maxhealth
 
     //     yield return new WaitForSeconds(.15f);
 
-    //     // Return the base value
+    //     Debug.Log("Modifiers removed from the list of modifiers");
+
+    //     // Return the base value prior to picking up the modifier
     //     damage.SetValue(initialBaseValues[damage]); // Damage
     //     damageText.text = damage.GetValue().ToString();
 
@@ -87,51 +121,6 @@ public class PlayerStats : CharacterStats
     //     // Remove from the powerup list
     //     PowerupInventory.instance.RemoveItem(_item);
     // }
-    private IEnumerator ModifierCooldown(Item _item, float _modifierCooldown) 
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < _modifierCooldown)
-        {
-            // Update the cooldown text with remaining time
-            float remainingTime = _modifierCooldown - elapsedTime;
-            maxHp_Mod.text = remainingTime.ToString("F2");
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // yield return new WaitForSeconds(_modifierCooldown);
-
-        damage.RemoveModifier(_item.damageModifier); // Damage
-        armor.RemoveModifier(_item.armorModifier); // Armor
-        maxHealth.RemoveModifier(_item.maxHealthModifier); // Maxhealth
-        walkSpeed.RemoveModifier(_item.movementModifier); // Maxhealth
-
-        yield return new WaitForSeconds(.15f);
-
-        Debug.Log("Modifiers removed from the list of modifiers");
-
-        // Return the base value prior to picking up the modifier
-        damage.SetValue(initialBaseValues[damage]); // Damage
-        damageText.text = damage.GetValue().ToString();
-
-        armor.SetValue(initialBaseValues[armor]); // Armor
-        armorText.text = armor.GetValue().ToString();
-
-        maxHealth.SetValue(initialBaseValues[maxHealth]); // Maxhealth
-        maxHealthText.text = maxHealth.GetValue().ToString();
-
-        walkSpeed.SetValue(initialBaseValues[walkSpeed]); // Movementspeed
-        moveSpeedText.text = walkSpeed.GetValue().ToString(); 
-
-        yield return new WaitForSeconds(.1f);
-
-        Debug.Log("Base value returned");
-
-        // Remove from the powerup list
-        PowerupInventory.instance.RemoveItem(_item);
-    }
 
     public override void Die()
     {

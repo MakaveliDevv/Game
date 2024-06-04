@@ -11,6 +11,7 @@ TagManager:
   - WpnSlot
   - WeaponSlot
   - DefaultWeaponSlot
+  - SpawnLocation
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class Shield : AbilityInput
 
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.E)) 
+        if(Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             StartCoroutine(ShieldInput());
         }
@@ -35,27 +35,18 @@ public class Shield : AbilityInput
     {
         if(vfxObj != null && !shieldCooldown)  
         {
+            StartCoroutine(AbilityCooldown(shieldCoolDownTimer));
+            shieldCooldown = true;
+
             vfxObj.SetActive(true);
         }
 
-        // SphereCollider coll = GetComponent<SphereCollider>();
-        // if(coll == null && !shieldCooldown) 
-        // {
-        //     SphereCollider sphere = transform.AddComponent<SphereCollider>();
-        //     sphere.radius = shieldRadius;
-        //     sphere.center = new Vector3(0, .85f, 0);
-        // }
-
         yield return new WaitForSeconds(shieldTimer);
 
-        // SphereCollider sphereCollider = transform.GetComponent<SphereCollider>();
-        // Destroy(sphereCollider);
         vfxObj.SetActive(false);
 
         yield return null;
 
-        StartCoroutine(AbilityCooldown(shieldCoolDownTimer));
-        shieldCooldown = true;
     }
 }
 

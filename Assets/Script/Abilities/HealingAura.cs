@@ -11,6 +11,7 @@ public class HealingAura : AbilityInput
     public float healAmountPerTick = 5f; // Amount of health restored per tick
     public float healTickInterval = 1f; // Time interval between each healing tick
     public float healDuration = 5f; // Duration of the healing ability
+    public float healCoolDown = 30f;
 
     private bool isHealingActive = false;
     private bool healingCooldown;
@@ -22,7 +23,7 @@ public class HealingAura : AbilityInput
 
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.H)) 
+        if(Input.GetKeyDown(KeyCode.LeftShift)) 
         {
             Debug.Log("Healing ability activated!");
             ActivateHealingAbility();
@@ -40,9 +41,11 @@ public class HealingAura : AbilityInput
     {
         if (!isHealingActive && !healingCooldown)
         {
+            healingCooldown = true;
+            StartCoroutine(AbilityCooldown(healCoolDown));
+
             // Check if the current health is not equal to max health
             StartCoroutine(HealOverTimeCoroutine());
-            healingCooldown = true;
         }
     }
 

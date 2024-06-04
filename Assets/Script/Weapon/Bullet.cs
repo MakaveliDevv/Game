@@ -28,20 +28,22 @@ public class Bullet : MonoBehaviour
             if(collider.TryGetComponent<CharacterCombat>(out var combat) 
             && collider.TryGetComponent<EnemyStats>(out var stats)) 
             {
+                hit = true;
                 combat.Attack(stats);
+                Destroy(gameObject);
             }
         }
     }
 
-    void OnTriggerStay(Collider other) 
-    {
-        if(other.gameObject.layer == gameObject.layer && other.gameObject.name != "Player")
-        {
-            hit = true;
-            Debug.Log(other.gameObject.name);
-            Destroy(gameObject);
-        } 
-    }
+    // void OnTriggerStay(Collider other) 
+    // {
+    //     if(other.gameObject.layer == gameObject.layer && other.gameObject.name != "Player")
+    //     {
+    //         hit = true;
+    //         Debug.Log(other.gameObject.name);
+    //         Destroy(gameObject);
+    //     } 
+    // }
 
     private IEnumerator DestroyOverTime() 
     {
