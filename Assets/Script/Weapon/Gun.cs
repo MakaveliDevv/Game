@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float aimTreshHold = 15f;
+    [SerializeField] private float aimTreshHold = 15f;  
 
     void Start() 
     {
@@ -45,6 +45,9 @@ public class Gun : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(GameManager.instance.menuIsOpen)
+            return;
+            
         if (Input.GetButton("Fire1") && Time.time >= weapon.nextTimeToFire)
         {
             weapon.nextTimeToFire = Time.time + 1f/weapon.fireRate;

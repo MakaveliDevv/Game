@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
 
     [Header("GameObjects & Components")]
     private Enemy enemyInstance;
-    [SerializeField] private GameObject inGameMenu; 
-    
+    [SerializeField] private GameObject inGameMenu;     
 
     #region Lists
     [Header("List")]
@@ -53,17 +52,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject difficultyPanel;
     [SerializeField] private string selectedDifficulty;
 
-    // [SerializeField] private TextMeshProUGUI text;
     #endregion 
 
     [Header("GameManagementStuff")]
     public TextMeshProUGUI timerText; 
     public bool isTimerRunning; 
-    public bool tabPressed;
+    public bool menuIsOpen;
     public float elapsedGameplayTime;
 
     #region Singleton
     public static GameManager instance;
+    private bool isLoadingScene;
 
     void Awake()
     {
@@ -81,7 +80,6 @@ public class GameManager : MonoBehaviour
     #endregion
     void Start()
     {
-        // if(text != null) text = difficultyButton.GetComponentInChildren<TextMeshProUGUI>();
 
         if(IsSceneActive("GamePlayScene"))
         {
@@ -112,7 +110,7 @@ public class GameManager : MonoBehaviour
         if(IsSceneActive("MainMenu"))
             gameState = GameState.MAIN_MENU;
 
-        else if(IsSceneActive("GamePlayScene") || IsSceneActive("SampleScene"))
+        else if(IsSceneActive("GamePlayScene"))
         {
             gameState = GameState.GAMEPLAY;
 
@@ -142,59 +140,40 @@ public class GameManager : MonoBehaviour
                 waveCountDown -= Time.deltaTime;
         }
 
-        if(Input.GetKeyDown(KeyCode.M)) 
+        LoadGameCompleteSceneWithDelay();
+    }
+
+    private void LoadGameCompleteSceneWithDelay()
+    {
+        if (waveCounter == 2 && !isLoadingScene)
         {
-            tabPressed = true;
-            // isInGameMenu = true;
+            isLoadingScene = true;
+            StartCoroutine(LoadSceneAfterDelay("GameCompleteScene", 3f));
         }
+    }
 
-        if(Input.GetKeyUp(KeyCode.M)) 
-        {
-            tabPressed = false;
-            // isInGameMenu = false;
-        }
+    // Coroutine to load scene after a delay
+    private IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
 
-        // switch (gameState)
-        // {
-        //     case(GameState.MAIN_MENU):
-        //         Debug.Log("We are in the Main menu scene");
-
-        //     break;
-
-        //     case(GameState.GAMEPLAY):
-        //         // StartTimer();
-        //         // Resume the game timer
-        //         // Activate agent
-
-        //     break;
-
-        //     case(GameState.PAUSE):
-        //         // Stop the game timer
-        //         // Stop the agent
-
-        //     break;
-
-        //     case(GameState.GAMEOVER):
-        //         // Stop the game timer
-        //         // Stop the agent
-        //         // Switch to Main menu scene
-
-        //     break;
-        // }
+        // Load the scene
+        SceneManager.LoadScene(sceneName);
     }
 
     void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            tabPressed = true; // Toggle the menu state
-            SetMenuOpen(tabPressed);
+            menuIsOpen = true; // Toggle the menu state
+            SetMenuOpen(menuIsOpen);
         }
 
-        if(Input.GetKeyUp(KeyCode.Tab))
+        if(Input.GetKeyUp(KeyCode.Escape))
         {
-           tabPressed = false;
-           SetMenuOpen(tabPressed);
+           menuIsOpen = false;
+           SetMenuOpen(menuIsOpen);
         }
     }
 
@@ -213,10 +192,12 @@ public class GameManager : MonoBehaviour
         if (isOpen)
         {
             StopTimer();
+            inGameMenu.SetActive(true);
         }
         else
         {
             StartTimer();
+            inGameMenu.SetActive(false);
         }
     }
 
@@ -241,12 +222,12 @@ public class GameManager : MonoBehaviour
     // Method to handle in-game menu open/close
     public void SetMenuOpen()
     {
-        if (tabPressed)  
+        if (menuIsOpen)  
         {
             StopTimer();
         }
         
-        if(!tabPressed)
+        if(!menuIsOpen)
         {
             StartTimer();
         }
@@ -349,49 +330,16 @@ public class GameManager : MonoBehaviour
 
     public void SwitchScene(string sceneName) 
     {
-        // PlayerPrefs.SetString("Difficulty", selectedDifficulty);
         SceneManager.LoadScene(sceneName);
     }
 
-    // public void SwitchToDifficultyPanel() 
-    // {
-    //     if(difficultyButton != null) 
-    //     {
-    //         difficultyButton.GetComponent<Button>().enabled = false;
-    //         difficultyButton.GetComponent<Image>().enabled = false;
-    //         text.gameObject.SetActive(false);
-    //         // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
-
-
-    //         difficultyPanel.SetActive(true);
-    //     }
-    // }
-
-    // public void SelectDifficulty(string difficulty) 
-    // {
-    //     // Store the selected difficulty
-    //     selectedDifficulty = difficulty;
-
-    //     difficultyPanel.SetActive(false);
-
-    //     difficultyButton.SetActive(true);
-    //     difficultyButton.GetComponent<Button>().enabled = true;
-    //     difficultyButton.GetComponent<Image>().enabled = true;
-    //     text.gameObject.SetActive(true);
-    //     // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
-    // }
-
-    // bool ShouldSpawnWeapon()
-    // {
-    //     // Calculate a percentage of the drop rate for each enemy killed
-
-    //     // For every x amount of enemies killed, spawn a weapon
-    //     // Calculate the x amount of enemies based on a percentage
-    //     // The percentage should be 
-    //     float weaponSpawnPercentage = 0.1f; // Example: 10% of dead enemies spawn a weapon
-    //     float deadPercentage = deadCounter / (float)initialEnemyAmount;
-
-    //     // Check if the percentage of dead enemies is greater than or equal to the desired percentage
-    //     return deadPercentage >= weaponSpawnPercentage;
-    // }
+    public void QuitGame()
+    {
+        Debug.Log("Quitting game...");
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
+    }
 }

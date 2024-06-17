@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 376316759677820526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.7, y: 0.3, z: -5.7}
+  m_LocalPosition: {x: -6, y: 0.3, z: -7.03}
   m_LocalScale: {x: 3, y: 0.01, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -357,7 +357,7 @@ Transform:
   m_GameObject: {fileID: 2076977312705007083}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -116.3, y: 0.3, z: -154.8}
+  m_LocalPosition: {x: -72.3, y: 0.3, z: -157.8}
   m_LocalScale: {x: 3, y: 0.01, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45d69daec6be084aa8de505b165f053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultWeapon: {fileID: 11400000, guid: b4a916b07fc644a4fb9a9f4f1dacaaff, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: 2c03a9af0b73d8340a6fcba997e02c8c, type: 2}
   currentWeapon: {fileID: 0}
   previousWeapon: {fileID: 0}
   weaponGameObject: {fileID: 0}
@@ -676,10 +676,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d35855768bd7f4790f2b8dc265c2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  spawnState: 0
+  gameState: 0
+  inGameMenu: {fileID: 8325488835352038671, guid: 1c06332cb8584a343a5e54a41012881d, type: 3}
   enemyTypes:
   - {fileID: 7004322138049712541, guid: ac621897dcb95834e85efbfca1adeae9, type: 3}
-  spawnLocations: []
+  spawnLocations:
+  - {fileID: 903121051938986616}
+  - {fileID: 377840220023315315}
+  - {fileID: 6251267240713217063}
+  - {fileID: 9170939908915140534}
+  - {fileID: 6492222543065014574}
+  - {fileID: 4029784429568556562}
+  - {fileID: 2100145910938719791}
+  - {fileID: 3060714171739169733}
+  - {fileID: 1806101432762561801}
+  - {fileID: 5343421366828337123}
+  - {fileID: 6238166140670214798}
+  - {fileID: 9207918707448168926}
+  - {fileID: 3798370945609830097}
+  - {fileID: 5043863351832604469}
+  - {fileID: 6586816173712597892}
+  - {fileID: 1394149840589031119}
+  - {fileID: 717281226519162759}
+  - {fileID: 1643508556961946644}
+  - {fileID: 8586698576244589043}
+  - {fileID: 4604006026410606578}
+  - {fileID: 4223297513734761927}
+  - {fileID: 2496441131883195785}
+  - {fileID: 1464092444741780219}
+  - {fileID: 7180525984027815745}
+  - {fileID: 4932674263416084946}
+  - {fileID: 4379543941778975662}
+  - {fileID: 2579167149831009664}
   weapons:
   - {fileID: 9098900258679094877, guid: b7f1c8c26b7c444419d55953c0a77a3c, type: 3}
   - {fileID: 2921872271058028578, guid: 8f55aecc95350c146a32e2ed357c4d9d, type: 3}
@@ -694,15 +723,18 @@ MonoBehaviour:
   initialEnemyAmount: 15
   enemyCounter: 0
   deadCounter: 0
-  spawnRate: 0
+  spawnRate: 2
   waveCounter: 0
   timeBetweenWaves: 1.5
-  waveCounterText: {fileID: 2686697614342880425, guid: d0cef1dc740ab7a4884ba4f87585994a, type: 3}
-  enemyCounterText: {fileID: 919638269726854191, guid: 356e5dc2ee949f34aaf5d7c2bd857a2a, type: 3}
+  waveCounterText: {fileID: 0}
+  enemyCounterText: {fileID: 0}
   difficultyButton: {fileID: 0}
   difficultyPanel: {fileID: 0}
   selectedDifficulty: 
-  text: {fileID: 0}
+  timerText: {fileID: 0}
+  isTimerRunning: 0
+  menuIsOpen: 0
+  elapsedGameplayTime: 0
 --- !u!1 &4111372687146074216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2556031770713684532}
+  - component: {fileID: 100437067722768512}
   m_Layer: 0
   m_Name: NavMeshSurface
   m_TagString: Untagged
@@ -1592,6 +1625,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7423053937075492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &100437067722768512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647097199504790064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 3
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 11c97351797c6cd40abe2698363214a4, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &7724287609979268571
 GameObject:
   m_ObjectHideFlags: 0

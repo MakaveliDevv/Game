@@ -23,11 +23,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Escape)) 
-        {
-            SceneManager.LoadScene("GameplayScene");
-        }
-
         switch (PlayerManager.instance.state)
         {
             case PlayerManager.PlayerState.IDLE:

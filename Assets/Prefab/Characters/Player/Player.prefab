@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 9999
+    baseValue: 100
     modifiers: []
   currentHealth:
     baseValue: 0

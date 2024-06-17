@@ -93,7 +93,7 @@ public class EnemyController : MonoBehaviour
     	DefaultStateSwitch();
         AttackStateSwitch();
 
-        if(GameManager.instance.tabPressed) 
+        if(GameManager.instance.menuIsOpen) 
         {
             StopAgent();
         }

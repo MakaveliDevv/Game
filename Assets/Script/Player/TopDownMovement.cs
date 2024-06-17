@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TopDownMovement : MonoBehaviour
 {
@@ -187,11 +188,25 @@ public class TopDownMovement : MonoBehaviour
 
     private void RotateTowardMouseVector()
     {
-        if(canLook) 
+        // if(canLook) 
+        // {
+        //     Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
+        //     mousePosition.y = transform.position.y;
+        //     transform.LookAt(mousePosition);
+        // }
+
+        if (canLook)
         {
-            Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
-            mousePosition.y = transform.position.y;
-            transform.LookAt(mousePosition);
+            // Check if mouse is over UI
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                // Convert mouse position to world coordinates
+                Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
+                mousePosition.y = transform.position.y; // Keep the same y-coordinate as the player
+
+                // Rotate towards the mouse position
+                transform.LookAt(mousePosition);
+            }
         }
     }
 

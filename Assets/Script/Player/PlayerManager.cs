@@ -28,7 +28,8 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("You died!");
 
         // Invoke the ReloadScene method after 5 seconds
-        Invoke(nameof(ReloadScene), 5f);
+        // Invoke(nameof(ReloadScene), 5f);
+        SceneManager.LoadScene("GameOverScene");
     }
 
     private void ReloadScene()
