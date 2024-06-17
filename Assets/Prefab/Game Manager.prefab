@@ -697,8 +697,12 @@ MonoBehaviour:
   spawnRate: 0
   waveCounter: 0
   timeBetweenWaves: 1.5
-  waveCounterText: {fileID: 0}
-  enemyCounterText: {fileID: 0}
+  waveCounterText: {fileID: 2686697614342880425, guid: d0cef1dc740ab7a4884ba4f87585994a, type: 3}
+  enemyCounterText: {fileID: 919638269726854191, guid: 356e5dc2ee949f34aaf5d7c2bd857a2a, type: 3}
+  difficultyButton: {fileID: 0}
+  difficultyPanel: {fileID: 0}
+  selectedDifficulty: 
+  text: {fileID: 0}
 --- !u!1 &4111372687146074216
 GameObject:
   m_ObjectHideFlags: 0

@@ -1812,7 +1812,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.789885, y: 0, z: -10.510991}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7510122573394830231}
@@ -1876,6 +1876,11 @@ MonoBehaviour:
   runSpeed:
     baseValue: 0
     modifiers: []
+  maxHealthText: {fileID: 0}
+  currentHealthText: {fileID: 0}
+  armorText: {fileID: 0}
+  damageText: {fileID: 0}
+  moveSpeedText: {fileID: 0}
   deathIsComingForYou: 0
 --- !u!195 &2255062881641002575
 NavMeshAgent:
@@ -1941,12 +1946,12 @@ MonoBehaviour:
   state: 3
   type: 0
   attackState: 3
-  target: {fileID: 0}
-  animator: {fileID: 0}
-  gun: {fileID: 0}
-  stillTreshold: 0.05
+  leftPalm: {fileID: 0}
+  rightPalm: {fileID: 0}
+  distance: 0
   dashing: 0
   shooting: 0
+  stillTreshold: 0.05
   distanceBehindPlayer: 0
   rotationSpeed: 20
 --- !u!114 &4017051674489225540
@@ -1961,6 +1966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65868d84b7a81914e9bdb5ff4a4dacc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myStats: {fileID: 0}
   attackSpeed: 1
 --- !u!114 &6342449144857255099
 MonoBehaviour:

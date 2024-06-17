@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 3843945758820330982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0.4, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -238,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 9028197133164048030}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -511,27 +511,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.71
+      value: -144.87
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.514
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.99
+      value: -52.58
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 8a4037c2d0949714b85d547c9d004c4d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth:
-    baseValue: 200
+    baseValue: 9999
     modifiers: []
   currentHealth:
     baseValue: 0
@@ -736,10 +736,10 @@ MonoBehaviour:
     baseValue: 0
     modifiers: []
   armor:
-    baseValue: 0
+    baseValue: 10
     modifiers: []
   walkSpeed:
-    baseValue: 5
+    baseValue: 10
     modifiers: []
   runSpeed:
     baseValue: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65868d84b7a81914e9bdb5ff4a4dacc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 10
+  myStats: {fileID: 0}
 --- !u!114 &9069796121369630892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,11 +778,16 @@ MonoBehaviour:
   playerAnim: {fileID: 5863435902188289822}
   verticalVelocity: 0
   gravity: 5
+  ableToLookAround: 0
   moveForward: 0
   moveBackward: 0
   moveLeft: 0
   moveRight: 0
   idle: 0
+  isMoving: 0
+  canMove: 0
+  canLook: 0
+  canPlayAnim: 0
 --- !u!114 &5863435902188289822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,10 +814,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 0}
+  stats: {fileID: 0}
   isIdle: 0
   isWalking: 0
   isRunning: 0
-  enemy_attackRangeRadius: 7
+  enemy_attackRangeRadius: 12
   enemy_dashRadius: 3
 --- !u!1001 &5542215125103053726
 PrefabInstance:

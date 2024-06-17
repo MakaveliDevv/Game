@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 1587766423076925213}
   - component: {fileID: 1661312702622850304}
   - component: {fileID: 3455871839942659706}
+  - component: {fileID: 3036185563795455681}
   m_Layer: 0
   m_Name: Base HumanRArmPalm
   m_TagString: Untagged
@@ -343,7 +344,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6308744370410101139}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.80823773, y: -0.106722765, z: 0.16673368, w: 0.55458266}
+  m_LocalRotation: {x: 0.808237, y: -0.10672198, z: 0.16673446, w: 0.5545836}
   m_LocalPosition: {x: -0.2730244, y: -0.000000038146972, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
@@ -354,7 +355,7 @@ Transform:
   - {fileID: 2458890558590510488}
   - {fileID: 7791831000902474966}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 111.242004, y: -24.656982, z: -1.9649963}
 --- !u!135 &1661312702622850304
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
+  m_Radius: 0.25
   m_Center: {x: -0.1, y: 0, z: 0}
 --- !u!54 &3455871839942659706
 Rigidbody:
@@ -398,11 +399,24 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &3036185563795455681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6308744370410101139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebc0f37e7a833b47b7f211d7ed293ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combat: {fileID: 8400399593750021428, guid: ac621897dcb95834e85efbfca1adeae9, type: 3}
 --- !u!1 &6343153554852740827
 GameObject:
   m_ObjectHideFlags: 0

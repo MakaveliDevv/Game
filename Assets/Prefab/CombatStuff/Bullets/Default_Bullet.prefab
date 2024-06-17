@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.176, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -146,4 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e3c84a8d37a264797476b027a259d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Weapon: {fileID: 11400000, guid: b4a916b07fc644a4fb9a9f4f1dacaaff, type: 2}
+  _Weapon: {fileID: 11400000, guid: 2c03a9af0b73d8340a6fcba997e02c8c, type: 2}
+  combat: {fileID: 6032482330167635363, guid: e7be359710fd6e148bb6e7a5e97b9ced, type: 3}

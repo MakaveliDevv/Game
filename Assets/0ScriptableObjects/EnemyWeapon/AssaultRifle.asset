@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AssaultRifle
   m_EditorClassIdentifier: 
   wpnObject: {fileID: 653884131810601560, guid: c221b07e38a172d4892734255c1bfd53, type: 3}
-  bullet: {fileID: 9201513334725972210, guid: 2583e67f71f32a6408d1848329af2876, type: 3}
+  bullet: {fileID: 5196767707853514620, guid: 44b9a14d77d1431468e199173599efff, type: 3}
   muzzleFlash: {fileID: 0}
   Name: AssaultRifle
   bulletDamage: 25

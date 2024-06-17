@@ -8,7 +8,6 @@ public class CharacterStats : MonoBehaviour
     public Stat currentHealth;
     public Stat damage;
     public Stat armor;
-    // Shield power? Like larger radius
     public Stat walkSpeed;
     public Stat runSpeed;
     
@@ -20,28 +19,12 @@ public class CharacterStats : MonoBehaviour
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI moveSpeedText;
 
-    // [Header("Modifiers")]
-    // public TextMeshProUGUI maxHp_Mod;
-    // public TextMeshProUGUI Armor_Mod;
-    // public TextMeshProUGUI Dmg_Mod;
-    // public TextMeshProUGUI MoveSp_Mod;
-
-    protected GameManager gameManager_instance;
+    // protected GameManager gameManager_instance;
 
     void Awake() 
     {
-        gameManager_instance = GameManager.instance;
-        currentHealth.SetValue(maxHealth.ReturnBaseValue());
-
-        // UI
-        if(transform.gameObject.CompareTag("Player"))
-        {
-            maxHealthText.text = maxHealth.ReturnBaseValue().ToString();
-            currentHealthText.text = currentHealth.ReturnBaseValue().ToString();
-            damageText.text = damage.ReturnBaseValue().ToString();
-            armorText.text = armor.ReturnBaseValue().ToString();
-            moveSpeedText.text = walkSpeed.ReturnBaseValue().ToString();
-        }
+        // gameManager_instance = GameManager.instance;
+        currentHealth.SetValue(maxHealth.ReturnBaseValue()); 
     }
 
     public void TakeDamage(float incomingDamage)
@@ -57,7 +40,7 @@ public class CharacterStats : MonoBehaviour
         currentHealth.SetValue(currentHealth.GetValue() - finalDamage);
 
         if(transform.gameObject.CompareTag("Player"))
-            currentHealthText.text = currentHealth.ToString(); 
+            currentHealthText.text = currentHealth.GetValue().ToString(); 
         // Debug.Log(transform.name + " takes " + finalDamage + " damage.");
 
         if (currentHealth.GetValue() <= 0f)

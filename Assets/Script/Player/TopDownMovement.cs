@@ -7,8 +7,11 @@ public class TopDownMovement : MonoBehaviour
     private Camera cam;    
     [SerializeField] private float verticalVelocity;
     [SerializeField] private float gravity = 5f;
+    public bool ableToLookAround;
 
     public bool moveForward, moveBackward, moveLeft, moveRight, idle;
+    public bool isMoving;
+    public bool canMove, canLook, canPlayAnim;
 
     void Awake() 
     {
@@ -16,93 +19,120 @@ public class TopDownMovement : MonoBehaviour
         playerAnim = GetComponent<PlayerAnimator>();
         cam = Camera.main;
         idle = true;
+        canMove = true;
+        canLook = true;
+        canPlayAnim = true;
     }
 
-    void Update() 
+    void FixedUpdate()
     {
-        if(controller.velocity.sqrMagnitude < 0.01) 
-        {
-            // Animation
-            playerAnim.Idle(true);
-        }
-
-        HandleMovementInput();
         Vector3 targetVector = GetMovementInput(); 
-
         MoveTowardTarget(targetVector);
         RotateTowardMouseVector();
     }
 
-    private void HandleMovementInput()
+    void Update() 
     {
-        // Move forward
-        if (Input.GetKeyDown(KeyCode.W))
+        if(controller.velocity.sqrMagnitude < 0.01f) 
         {
-            moveForward = true;
-
             // Animation
-            playerAnim.MoveForward(true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.W))
-        { 
-            moveForward = false;
-
-            // Animation
-            playerAnim.MoveForward(false);
-            playerAnim.Idle(true);    
-        }
-        
-        // Move backward
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            moveBackward = true;
-
-            // Animation
-            playerAnim.MoveBackward(true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            moveBackward = false;
-
-            // Animation
-            playerAnim.MoveBackward(false);
             playerAnim.Idle(true);
+            isMoving = false;
+        }
+        else if(controller.velocity.sqrMagnitude > 0.01f)
+        {
+            isMoving = true;
         }
 
-        // Move left
-        if (Input.GetKeyDown(KeyCode.A))
+        if(GameManager.instance.isTimerRunning) 
         {
-            moveLeft = true;
-            playerAnim.MoveBackward(true);
+            canMove = true;
+            canLook = true;
+            canPlayAnim = true;
+        } 
+        else 
+        {
+            canMove = false;
+            canLook = false;
+            canPlayAnim = false;
         }
 
-        if (Input.GetKeyUp(KeyCode.A))
+        MovementAnimation();
+    }
+
+    private void MovementAnimation()
+    {
+        if(canPlayAnim) 
         {
-            moveLeft = false;
+            // Move forward
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                moveForward = true;
 
-            // Animation
-            playerAnim.MoveBackward(false);
-            playerAnim.Idle(true);
-        }
+                // Animation
+                playerAnim.MoveForward(true);
+            }
 
-        // Move right
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            moveRight = true;
+            if (Input.GetKeyUp(KeyCode.W))
+            { 
+                moveForward = false;
 
-            // Animation
-            playerAnim.MoveForward(true);
-        }
+                // Animation
+                playerAnim.MoveForward(false);
+                playerAnim.Idle(true);    
+            }
+            
+            // Move backward
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                moveBackward = true;
 
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            moveRight = false;
+                // Animation
+                playerAnim.MoveBackward(true);
+            }
 
-            // Animation
-            playerAnim.MoveForward(false);
-            playerAnim.Idle(true);
+            if (Input.GetKeyUp(KeyCode.S))
+            {
+                moveBackward = false;
+
+                // Animation
+                playerAnim.MoveBackward(false);
+                playerAnim.Idle(true);
+            }
+
+            // Move left
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                moveLeft = true;
+                playerAnim.MoveBackward(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                moveLeft = false;
+
+                // Animation
+                playerAnim.MoveBackward(false);
+                playerAnim.Idle(true);
+            }
+
+            // Move right
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                moveRight = true;
+
+                // Animation
+                playerAnim.MoveForward(true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                moveRight = false;
+
+                // Animation
+                playerAnim.MoveForward(false);
+                playerAnim.Idle(true);
+            }
         }
     }
 
@@ -138,24 +168,31 @@ public class TopDownMovement : MonoBehaviour
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
-        PlayerStats stat = GetComponent<PlayerStats>();
-        float speed = stat.walkSpeed.GetValue();    
-            
-        targetVector = Quaternion.Euler(0, cam.gameObject.transform.eulerAngles.y, 0) * targetVector;
-        targetVector *= (Mathf.Abs(targetVector.x) == 1 && Mathf.Abs(targetVector.z) == 1) ? .7f : 1; // Prevent quicker movement when moving diagonally
-        Vector3 targetPosition = targetVector * speed;
+        // If something, then move
+        if(canMove)
+        {
+            PlayerStats stat = GetComponent<PlayerStats>();
+            float speed = stat.walkSpeed.GetValue();    
+                
+            targetVector = Quaternion.Euler(0, cam.gameObject.transform.eulerAngles.y, 0) * targetVector;
+            targetVector *= (Mathf.Abs(targetVector.x) == 1 && Mathf.Abs(targetVector.z) == 1) ? .7f : 1; // Prevent quicker movement when moving diagonally
+            Vector3 targetPosition = targetVector * speed;
 
-        Gravity(ref targetPosition);
-        controller.Move(targetPosition * Time.deltaTime);
-        
+            Gravity(ref targetPosition);
+            controller.Move(targetPosition * Time.deltaTime);
+        }
+
         return targetVector;
     }
 
     private void RotateTowardMouseVector()
     {
-        Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
-        mousePosition.y = transform.position.y;
-        transform.LookAt(mousePosition);
+        if(canLook) 
+        {
+            Vector3 mousePosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.y));
+            mousePosition.y = transform.position.y;
+            transform.LookAt(mousePosition);
+        }
     }
 
     private void Gravity(ref Vector3 vector3) 

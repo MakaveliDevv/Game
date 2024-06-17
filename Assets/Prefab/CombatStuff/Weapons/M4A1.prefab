@@ -47,17 +47,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
+      propertyPath: m_TagString
+      value: DefaultWeapon
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.z
@@ -115,7 +119,7 @@ PrefabInstance:
       addedObject: {fileID: 2033682499319884686}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4603325863270042293}
+      addedObject: {fileID: 5390247939057291220}
   m_SourcePrefab: {fileID: 100100000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
 --- !u!1 &2921872271058028578 stripped
 GameObject:
@@ -143,7 +147,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.75, z: 1.75}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4603325863270042293
+--- !u!114 &5390247939057291220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,10 +156,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2921872271058028578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b1acf6e4eeeff4a971ea614fb02f2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 862dab46a026cc04c95ebfb309a7e204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 1c322ab77a9a72c4a9b477da68a5248c, type: 2}
+  weapon: {fileID: 0}
+  cam: {fileID: 0}
+  firePoint: {fileID: 488899915758427279}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  rotationSpeed: 5
+  aimTreshHold: 15
 --- !u!4 &2921872271058260994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}

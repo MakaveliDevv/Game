@@ -23,13 +23,15 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collider) 
     {
-        if(collider.CompareTag(Tags.ENEMY)) 
+        if(collider.CompareTag("Enemy")) 
         {
+            Debug.Log("Enemy hit");
             if(collider.TryGetComponent<CharacterCombat>(out var combat) 
-            && collider.TryGetComponent<EnemyStats>(out var stats)) 
+            && collider.TryGetComponent<EnemyStats>(out var enemyStats)) 
             {
+                Debug.Log("Fetched both scripts");
                 hit = true;
-                combat.Attack(stats);
+                combat.Attack(enemyStats);
                 Destroy(gameObject);
             }
         }

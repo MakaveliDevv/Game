@@ -21,12 +21,17 @@ public class EnemyAnimator : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    public void DisableAttack()
+    {
+        animator.ResetTrigger("Attack");
+    }
+
     public void Shoot() 
     {
         animator.SetTrigger("Shoot");
     }
 
-    public void ResetShoot() 
+    public void DisableShoot() 
     {
         animator.ResetTrigger("Shoot");
     }

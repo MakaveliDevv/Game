@@ -2,13 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameState { MAIN_MENU, GAMEPLAY, PAUSE, GAMEOVER }
     public enum SpawnState { SPAWNING, WAITING, COUNTING }
     
+    public SpawnState spawnState;
+    public GameState gameState;
+
+    [Header("GameObjects & Components")]
+    private Enemy enemyInstance;
+    [SerializeField] private GameObject inGameMenu; 
+    
+
+    #region Lists
+    [Header("List")]
+    [SerializeField] private List<GameObject> enemyTypes = new();
+    [SerializeField] private List<Transform> spawnLocations = new();
+    public List<GameObject> weapons = new();
+    public List<GameObject> powerups = new();
+    #endregion
+
+    #region EnemyStuff
+    [Header("Enemy Stuff")]
+    public List<GameObject> enmiesInGame = new();
+    [SerializeField] private int initialEnemyAmount; // Initial amount for the first wave
+    private int enemyAmount;
+    public int enemyCounter; // To keep track of the enemy
+    public int deadCounter;
+    public float spawnRate;
+    private float searchCountDown = 1f;
+    #endregion
+
+    #region WaveStuff
+    [Header("Wave Stuff")]
+    [SerializeField] private int waveCounter;
+    [SerializeField] private float timeBetweenWaves;
+    private float waveCountDown;
+    [SerializeField] private TextMeshProUGUI waveCounterText;
+    [SerializeField] private TextMeshProUGUI enemyCounterText;
+    #endregion
+
+    #region MainMenuStuff
+    [Header("MainMenu Stuff")]
+    [SerializeField] private GameObject difficultyButton;
+    [SerializeField] private GameObject difficultyPanel;
+    [SerializeField] private string selectedDifficulty;
+
+    // [SerializeField] private TextMeshProUGUI text;
+    #endregion 
+
+    [Header("GameManagementStuff")]
+    public TextMeshProUGUI timerText; 
+    public bool isTimerRunning; 
+    public bool tabPressed;
+    public float elapsedGameplayTime;
+
     #region Singleton
     public static GameManager instance;
+
     void Awake()
     {
         if (instance != null)
@@ -19,41 +75,22 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         // DontDestroyOnLoad(gameObject); // Ensure that this object persists between scenes
+
     }
-    #endregion 
-    
-    public SpawnState state;
 
-    [Header("GameObjects & Components")]
-    private Enemy enemyInstance;
-
-    [Header("List")]
-    [SerializeField] private List<GameObject> enemyTypes = new();
-    [SerializeField] private List<Transform> spawnLocations = new();
-    public List<GameObject> weapons = new();
-    public List<GameObject> powerups = new();
-
-    [Header("Enemy Stuff")]
-    public List<GameObject> enmiesInGame = new();
-    [SerializeField] private int initialEnemyAmount; // Initial amount for the first wave
-    private int enemyAmount;
-    public int enemyCounter; // To keep track of the enemy
-    public int deadCounter;
-    public float spawnRate;
-    private float searchCountDown = 1f;
-
-    [Header("Wave Stuff")]
-    [SerializeField] private int waveCounter;
-    [SerializeField] private float timeBetweenWaves;
-    private float waveCountDown;
-    [SerializeField] private TextMeshProUGUI waveCounterText;
-    [SerializeField] private TextMeshProUGUI enemyCounterText;
-
-
+    #endregion
     void Start()
     {
+        // if(text != null) text = difficultyButton.GetComponentInChildren<TextMeshProUGUI>();
+
+        if(IsSceneActive("GamePlayScene"))
+        {
+            elapsedGameplayTime = 0f;
+            isTimerRunning = true;
+        } 
+
         enemyInstance = Enemy.instance;
-        state = SpawnState.COUNTING;
+        spawnState = SpawnState.COUNTING;
 
         if (spawnLocations.Count == 0)
         {
@@ -69,34 +106,160 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        waveCounterText.text = waveCounter.ToString();
-        enemyCounterText.text = enemyCounter.ToString();
-        
-        if (state == SpawnState.WAITING)
+        UpdateTimer();
+        HandleInput();
+
+        if(IsSceneActive("MainMenu"))
+            gameState = GameState.MAIN_MENU;
+
+        else if(IsSceneActive("GamePlayScene") || IsSceneActive("SampleScene"))
         {
-            if (!EnemyIsAlive())
-                WaveCompleted();
-        
-            else 
-                return;
+            gameState = GameState.GAMEPLAY;
+
+
+            waveCounterText.text = waveCounter.ToString();
+            enemyCounterText.text = enemyCounter.ToString();
+            
+            if (spawnState == SpawnState.WAITING)
+            {
+                if (!EnemyIsAlive())
+                    WaveCompleted();
+            
+                else 
+                    return;
+            }
+
+            if (waveCountDown <= 0)
+            {
+                if (spawnState != SpawnState.SPAWNING)
+                {
+                    // Spawn Wave
+                    StartCoroutine(SpawnEnemy());
+                    waveCountDown = 0;
+                }
+            }
+            else
+                waveCountDown -= Time.deltaTime;
         }
 
-        if (waveCountDown <= 0)
+        if(Input.GetKeyDown(KeyCode.M)) 
         {
-            if (state != SpawnState.SPAWNING)
-            {
-                // Spawn Wave
-                StartCoroutine(SpawnEnemy());
-                waveCountDown = 0;
-            }
+            tabPressed = true;
+            // isInGameMenu = true;
+        }
+
+        if(Input.GetKeyUp(KeyCode.M)) 
+        {
+            tabPressed = false;
+            // isInGameMenu = false;
+        }
+
+        // switch (gameState)
+        // {
+        //     case(GameState.MAIN_MENU):
+        //         Debug.Log("We are in the Main menu scene");
+
+        //     break;
+
+        //     case(GameState.GAMEPLAY):
+        //         // StartTimer();
+        //         // Resume the game timer
+        //         // Activate agent
+
+        //     break;
+
+        //     case(GameState.PAUSE):
+        //         // Stop the game timer
+        //         // Stop the agent
+
+        //     break;
+
+        //     case(GameState.GAMEOVER):
+        //         // Stop the game timer
+        //         // Stop the agent
+        //         // Switch to Main menu scene
+
+        //     break;
+        // }
+    }
+
+    void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            tabPressed = true; // Toggle the menu state
+            SetMenuOpen(tabPressed);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Tab))
+        {
+           tabPressed = false;
+           SetMenuOpen(tabPressed);
+        }
+    }
+
+    void UpdateTimer()
+    {
+        if (isTimerRunning)
+        {
+            elapsedGameplayTime += Time.deltaTime;
+            UpdateTimerText(elapsedGameplayTime);
+        }
+    }
+
+    
+    void SetMenuOpen(bool isOpen)
+    {
+        if (isOpen)
+        {
+            StopTimer();
         }
         else
-            waveCountDown -= Time.deltaTime;
+        {
+            StartTimer();
+        }
+    }
+
+    void StopTimer()
+    {
+        isTimerRunning = false;
+    }
+
+    void StartTimer()
+    {
+        isTimerRunning = true;
+    }
+
+    void UpdateTimerText(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time - minutes * 60);
+        int milliseconds = Mathf.FloorToInt((time * 1000) % 1000);
+        timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
+    }
+
+    // Method to handle in-game menu open/close
+    public void SetMenuOpen()
+    {
+        if (tabPressed)  
+        {
+            StopTimer();
+        }
+        
+        if(!tabPressed)
+        {
+            StartTimer();
+        }
+    }
+
+    private bool IsSceneActive(string scenename) 
+    {
+        return SceneManager.GetActiveScene().name == scenename;
     }
 
     void WaveCompleted()
     {
-        state = SpawnState.COUNTING;
+        spawnState = SpawnState.COUNTING;
         waveCountDown = timeBetweenWaves;
 
         waveCounter++;
@@ -147,7 +310,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        state = SpawnState.SPAWNING;
+        spawnState = SpawnState.SPAWNING;
 
         for (int i = 0; i <= enemyCounter; i++)
         {
@@ -156,7 +319,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f / spawnRate);
         }
 
-        state = SpawnState.WAITING;
+        spawnState = SpawnState.WAITING;
         yield break;
     }
 
@@ -183,6 +346,40 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    public void SwitchScene(string sceneName) 
+    {
+        // PlayerPrefs.SetString("Difficulty", selectedDifficulty);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // public void SwitchToDifficultyPanel() 
+    // {
+    //     if(difficultyButton != null) 
+    //     {
+    //         difficultyButton.GetComponent<Button>().enabled = false;
+    //         difficultyButton.GetComponent<Image>().enabled = false;
+    //         text.gameObject.SetActive(false);
+    //         // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(false);
+
+
+    //         difficultyPanel.SetActive(true);
+    //     }
+    // }
+
+    // public void SelectDifficulty(string difficulty) 
+    // {
+    //     // Store the selected difficulty
+    //     selectedDifficulty = difficulty;
+
+    //     difficultyPanel.SetActive(false);
+
+    //     difficultyButton.SetActive(true);
+    //     difficultyButton.GetComponent<Button>().enabled = true;
+    //     difficultyButton.GetComponent<Image>().enabled = true;
+    //     text.gameObject.SetActive(true);
+    //     // difficultyButton.GetComponentInChildren<TextMeshProUGUI>().gameObject.SetActive(true);
+    // }
 
     // bool ShouldSpawnWeapon()
     // {

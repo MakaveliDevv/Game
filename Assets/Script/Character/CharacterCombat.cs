@@ -4,33 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 public class CharacterCombat : MonoBehaviour
 {
-    private CharacterStats myStats;
-    public float attackSpeed = 1f;
-    // private float attackCooldown = 0f;
+    public CharacterStats myStats;
 
     void Start() 
     {
         myStats = GetComponent<CharacterStats>();
     }
 
-    // void Update() 
-    // {
-    //     attackCooldown -= Time.deltaTime;
-    // }
 
     public void Attack(CharacterStats _targetStats) 
     {
-        // if(attackCooldown <= 0f) 
-        // {
-            _targetStats.TakeDamage(myStats.damage.GetValue());
-            // attackCooldown = 1f / attackSpeed;
-            Debug.Log(_targetStats.currentHealth.GetValue());
-        // }
-    }
-
-    private IEnumerator ModifierCooldown(float _modifierCooldown) 
-    {
-        yield return new WaitForSeconds(_modifierCooldown);
+        _targetStats.TakeDamage(myStats.damage.GetValue());
+        Debug.Log(_targetStats.currentHealth.GetValue());
     }
 }
 

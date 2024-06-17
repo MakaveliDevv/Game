@@ -13,9 +13,9 @@ public class EnemyController : MonoBehaviour
     public enum EnemyType { RANGE, MELEE, DASHER }
     
     [Header("States")]
-    [HideInInspector] public State state;
+    public State state;
     [SerializeField] private EnemyType type;
-    private AttackState attackState;
+    [SerializeField] private AttackState attackState;
 
     // Player stuff
     private Transform target; // Player
@@ -28,8 +28,9 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent agent;
     private CharacterCombat combat;
     private CharacterStats stats;
-    // private Rigidbody rb;
-    // private CapsuleCollider capsColl;
+    private Rigidbody rb;
+    private CapsuleCollider capsColl;
+    public float distance;
 
 
     private SphereCollider leftPalmCol;
@@ -63,14 +64,19 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<EnemyAnimator>();
         attackState = AttackState.IDLE;
 
-        // Left palm
-        leftPalmCol = leftPalm.GetComponent<SphereCollider>();
-        leftPalmRb = leftPalm.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        capsColl = GetComponent<CapsuleCollider>();
 
-        // Right palm
-        rightPalmCol = rightPalm.GetComponent<SphereCollider>();
-        rightPalmRb = rightPalm.GetComponent<Rigidbody>();
+        if(leftPalm != null && rightPalm != null)
+        {
+            // Left palm
+            leftPalmCol = leftPalm.GetComponent<SphereCollider>();
+            leftPalmRb = leftPalm.GetComponent<Rigidbody>();
 
+            // Right palm
+            rightPalmCol = rightPalm.GetComponent<SphereCollider>();
+            rightPalmRb = rightPalm.GetComponent<Rigidbody>();
+        }
     }
 
     void Start() 
@@ -80,16 +86,21 @@ public class EnemyController : MonoBehaviour
         agent.speed = stats.walkSpeed.ReturnBaseValue();
     }
 
-    void FixedUpdate() 
-    {
-        Movement();
-    }
-
     void Update()
     {        
+        Movement();
         FaceTarget(); 
     	DefaultStateSwitch();
         AttackStateSwitch();
+
+        if(GameManager.instance.tabPressed) 
+        {
+            StopAgent();
+        }
+        else 
+        {
+            Chase();
+        }
     }   
 
     private void AttackStateSwitch() 
@@ -98,14 +109,7 @@ public class EnemyController : MonoBehaviour
         {
             case AttackState.CLOSE_COMBAT:
                 // Play attack animation
-                animator.Move(false);
-                animator.Attack();
     	        CloseCombat();
-
-            break;
-
-            case AttackState.DASH_ATTACK:
-                // DashAttack();
 
             break;
 
@@ -129,20 +133,13 @@ public class EnemyController : MonoBehaviour
                 if(type == EnemyType.MELEE) 
                     attackState = AttackState.CLOSE_COMBAT;
                 
-                else if(type == EnemyType.DASHER)
-                    attackState = AttackState.DASH_ATTACK;
+                // else if(type == EnemyType.DASHER)
+                //     attackState = AttackState.DASH_ATTACK;
                 
                 else if(type == EnemyType.RANGE) 
                     attackState = AttackState.RANGE_ATTACK;
                 
-                               
             break;
-
-            case State.KNOCKEDBACK:
-                Debug.Log("Knockback state");
-
-            break;
-            // default: 
         }
     } 
 
@@ -161,20 +158,17 @@ public class EnemyController : MonoBehaviour
         transform.position = new(transform.position.x, 0f, transform.position.z);
         agent.transform.position = new(transform.position.x, transform.position.y, transform.position.z);
 
-        float distance = Vector3.Distance(target.position, transform.position);
+        distance = Vector3.Distance(target.position, transform.position);
 
         if (distance > agent.stoppingDistance && !dashing)
         {
             // Chase
             state = State.CHASE;
-            // Debug.Log("Distance: " + distance + "StoppingDistance: " + agent.stoppingDistance);
-
         }
 
         // Check for close combat
         if (distance <= agent.stoppingDistance && type == EnemyType.MELEE)
         {
-            // Debug.Log("Switch to combat state");
             state = State.COMBAT;
             attackState = AttackState.CLOSE_COMBAT;
         }
@@ -183,6 +177,8 @@ public class EnemyController : MonoBehaviour
             state = State.COMBAT;
             attackState = AttackState.RANGE_ATTACK;
         }
+
+        // THIS IS MEANT FOR DASHING
         // else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && type == EnemyType.DASHER)
         // {
         //     state = State.COMBAT;
@@ -199,58 +195,13 @@ public class EnemyController : MonoBehaviour
 
     } 
 
-    // private void Movement() 
-    // {
-    //     if (agent.pathPending)
-    //         return;
-   
-    //     transform.position = new(transform.position.x, 0f, transform.position.z);
-    //     agent.transform.position = new(transform.position.x, transform.position.y, transform.position.z);
-
-    //     float distance = Vector3.Distance(target.position, transform.position);
-
-    //     if (distance > agent.stoppingDistance && !dashing)
-    //     {
-    //         // Chase
-    //         state = State.CHASE;
-    //         Debug.Log("Distance: " + distance + "StoppingDistance: " + agent.stoppingDistance);
-
-    //         // Check for close combat
-    //         if (agent.remainingDistance <= agent.stoppingDistance && type == EnemyType.MELEE)
-    //         {
-    //             Debug.Log("Switch to combat state");
-    //             state = State.COMBAT;
-    //             attackState = AttackState.CLOSE_COMBAT;
-    //         }
-    //         else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_attackRangeRadius && type == EnemyType.RANGE)
-    //         {
-    //             state = State.COMBAT;
-    //             attackState = AttackState.RANGE_ATTACK;
-    //         }
-    //         else if (distance > agent.stoppingDistance && distance <= playerContr.enemy_dashRadius && type == EnemyType.DASHER)
-    //         {
-    //             state = State.COMBAT;
-    //             attackState = AttackState.DASH_ATTACK;
-    //         }
-    //     }
-
-    //     if(agent.remainingDistance <= agent.stoppingDistance) 
-    //     {
-    //         agent.isStopped = true;
-    //         Debug.Log("Agent has reached the stopping point");
-    //     }
-    //     else
-    //         agent.isStopped = false;
-
-    // } 
-
     private void Chase() 
     {
         attackState = AttackState.IDLE;
         shooting = false;
         
-        // if(rb != null) rb.isKinematic = false;
-        // if (capsColl != null) capsColl.isTrigger = false;
+        if(rb != null) rb.isKinematic = false;
+        if (capsColl != null) capsColl.isTrigger = false;
 
         if(leftPalmRb != null) leftPalmRb.isKinematic = false;
         if(leftPalmCol != null) leftPalmCol.isTrigger = false;
@@ -258,36 +209,49 @@ public class EnemyController : MonoBehaviour
         if(rightPalmRb != null) rightPalmRb.isKinematic = false;
         if(rightPalmCol != null) rightPalmCol.isTrigger = false;
 
-        if(agent.enabled == true)
+        if(agent.enabled == true && target != null)
         {
+            agent.isStopped = false;
+            agent.speed = stats.walkSpeed.GetValue();
             agent.SetDestination(target.position);
 
-            // animator.ResetShoot(); 
-            animator.Move(true);
+            if(animator != null)
+            {
+                animator.Move(true);
+            }
+        }
+    }
+
+    private void StopAgent() 
+    {
+        if (agent != null && agent.enabled)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            agent.ResetPath();
+        }
+
+        if (animator != null)
+        {
+            animator.Move(false);
+            animator.DisableAttack();
         }
     }
 
     private void CloseCombat() 
-    {      
+    {   
+        if(rb != null ) rb.isKinematic = true;
+        if(capsColl != null ) capsColl.isTrigger = true;
+
         leftPalmCol.isTrigger = true;
         leftPalmRb.isKinematic = true;
 
         rightPalmCol.isTrigger = true;
         rightPalmRb.isKinematic = true;
-
-
-        // rb.isKinematic = true;
-        // capsColl.isTrigger = true;
         
-        if(target.TryGetComponent<PlayerStats>(out var targetStats)) 
-        {
-            combat.Attack(targetStats);
-            Debug.Log("Attack method got executed!");
-
-            // // Play attack animation
-            // animator.Move(false);
-            // animator.Attack();
-        }
+        animator.Move(false);
+        animator.Attack();
+        
     }
     
     // Range attack
@@ -295,11 +259,14 @@ public class EnemyController : MonoBehaviour
     {
         agent.velocity = new(0f, 0f, 0f);
 
-        // Play attack animation
-        animator.Move(false);
-        animator.Shoot();
+        if(animator != null) 
+        {
+            // Play attack animation
+            animator.Move(false);
+            animator.Shoot();
 
-        Debug.Log("Player Hitt");
+            Debug.Log("Player Hitt");
+        }
     }
 
     public void Shoot()
@@ -310,20 +277,6 @@ public class EnemyController : MonoBehaviour
         rb.velocity = gun.weapon.bulletVelocity * (target.position - gun.firePoint.position).normalized + new Vector3(0, 1f, 0);        
     }
 
-
-    // Dash
-    // private void DashAttack() 
-    // {
-    //     // Check if not already dashing
-    //     if (!dashing)
-    //     {
-    //         // Set isDashing to true
-    //         dashing = true;
-
-    //         // Start dashing coroutine
-    //         StartCoroutine(DashTowardsPosition());
-    //     }
-    // } 
 
     // private void DashAttack() 
     // {

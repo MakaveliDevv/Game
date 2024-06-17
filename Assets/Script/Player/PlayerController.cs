@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private TopDownMovement movement;
-    private CharacterStats stats;
+    public CharacterStats stats;
     public bool isIdle, isWalking, isRunning;
     public float enemy_attackRangeRadius, enemy_dashRadius;
 

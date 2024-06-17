@@ -6,20 +6,6 @@ using UnityEngine;
 
 public class WeaponInventory : MonoBehaviour
 {
-    #region Singleton
-    public static WeaponInventory instance;
-    void Awake() 
-    {
-        if(instance != null) 
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        // DontDestroyOnLoad(gameObject);
-    }
-    #endregion 
-
     public Weapon defaultWeapon, currentWeapon, previousWeapon;
     public GameObject weaponGameObject;
     public List<Weapon> weapons = new();
@@ -38,26 +24,63 @@ public class WeaponInventory : MonoBehaviour
     public delegate void OnWeaponRemoveUI();
     public OnWeaponRemoveUI weaponRemoveCallBackUI;
     
+    #region Singleton
+    public static WeaponInventory instance;
+
+    void Awake() 
+    {
+        if(instance != null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        // DontDestroyOnLoad(gameObject);
+
+        GameObject defaultWeaponSlotObject = GameObject.FindGameObjectWithTag("DefaultWeaponSlot");
+        if (defaultWeaponSlotObject != null)
+        {
+            defaultWeaponSlot = defaultWeaponSlotObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("DefaultWeaponSlot not found in the scene.");
+            defaultWeaponSlot = null;
+        }
+
+        GameObject weaponSlotObject = GameObject.FindGameObjectWithTag("WeaponSlot");
+        if (weaponSlotObject != null)
+        {
+            weaponSlot = weaponSlotObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("WeaponSlot not found in the scene.");
+            weaponSlot = null;
+        }
+    }
+    #endregion 
+
     void Start()
     {     
-        defaultWeaponSlot = GameObject.FindGameObjectWithTag("DefaultWeaponSlot").transform; // Slot
-        weaponSlot = GameObject.FindGameObjectWithTag("WeaponSlot").transform;
-    
-        GameObject defWeaponObj = Instantiate(defaultWeapon.wpnObject, defaultWeaponSlot.position, defaultWeaponSlot.rotation);
-        defWeaponObj.transform.SetParent(defaultWeaponSlot);
-        defWeaponObj.name = defaultWeapon.Name;
-
-        if (defWeaponObj != null && CanCollectWeapon())
+        if(defaultWeaponSlot != null)
         {
-            currentWeapon = defaultWeapon;
-            AddWeapon(currentWeapon);
-            // weapons.Add(currentWeapon);
+            GameObject defWeaponObj = Instantiate(defaultWeapon.wpnObject, defaultWeaponSlot.position, defaultWeaponSlot.rotation);
+            defWeaponObj.transform.SetParent(defaultWeaponSlot);
+            defWeaponObj.name = defaultWeapon.Name;
 
-            Weapon weapon = weapons[0];
-            if(weapon.defaultWeapon) 
+            if (defWeaponObj != null && CanCollectWeapon())
             {
-                weapon.equipped = true;
-            }  
+                currentWeapon = defaultWeapon;
+                AddWeapon(currentWeapon);
+                // weapons.Add(currentWeapon);
+
+                Weapon weapon = weapons[0];
+                if(weapon.defaultWeapon) 
+                {
+                    weapon.equipped = true;
+                }  
+            }
         }
 
         foreach (GameObject weapon in GameManager.instance.weapons)
@@ -68,6 +91,15 @@ public class WeaponInventory : MonoBehaviour
             }
         }
     }
+
+    void Update() 
+    {
+        if(weapons.Count > 1)
+        {
+            weapons.RemoveAt(1);
+        }
+    }
+
 
     public Weapon ReturnWeapon()
     {
@@ -83,49 +115,6 @@ public class WeaponInventory : MonoBehaviour
     {
         return weapons.Count <= space;
     }
-
-
-    // public bool AddWeapon(Weapon _newWeapon) 
-    // {
-    //     // Check if we can collect a weapon
-    //     if (!CanCollectWeapon())
-    //         return false;
-
-    //     // Store the current weapon as previous if it exists
-    //     // if (currentWeapon != null)
-    //     // {
-    //     Weapon tempWpn = currentWeapon;
-
-    //     currentWeapon = _newWeapon;
-    //     currentWeapon.equipped = true;
-    //     tempWpn.equipped = false;
-
-    //         // previousWeapon = currentWeapon;
-    //         // previousWeapon.equipped = false;
-    //     // }
-
-    //     // Destroy the previous weapon game object if it exists
-    //     if (weaponGameObject != null) 
-    //         Destroy(weaponGameObject);
-
-    //     // Initialize the new weapon as the current one
-    //     // currentWeapon = _newWeapon; // Switch the weapon to the picked-up one
-    //     // currentWeapon.equipped = true;
-
-    //     // Add the weapon to the weapons list if not already added
-    //     if (!weapons.Contains(currentWeapon))
-    //     {
-    //         weapons.Add(currentWeapon);
-    //         previousWeapon = tempWpn;
-    //     }
-
-    //     // Callbacks
-    //     weaponPickupCallBack?.Invoke(currentWeapon);
-    //     weaponPickupCallBack?.Invoke(previousWeapon);
-    //     weaponPickupCallBackUI?.Invoke();
-
-    //     return true;
-    // }
 
     public bool AddWeapon(Weapon _newWeapon) 
     {
